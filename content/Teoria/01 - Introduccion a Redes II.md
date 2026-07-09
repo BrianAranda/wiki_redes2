@@ -1,8 +1,7 @@
 ---
 title: Introducción a Redes II
 ---
-# Introducción a Redes II
-
+# Índice
 - [[#1. Redes I]]
 - [[#2. Puntos de Acceso a Servicios]]
 - [[#3. Encapsulación]]
@@ -16,9 +15,14 @@ En **Redes I** (la materia del cuatrimestre pasado) se trabajaron las dos primer
 1. **Física**
 2. **Enlace de Datos**
 
-![[01-modelos-osi-tcpip-capas.png]]
+Recordando los modelos y sus capas:
 
-Ambos modelos, **[[Modelo OSI]]** y **[[Modelo TCP/IP]]**, tienen esas dos primeras capas con las mismas funciones — se puede decir que son "casi iguales".
+| **Modelo** | Niveles                                                                                                         |
+| ---------- | --------------------------------------------------------------------------------------------------------------- |
+| **TCP/IP** | 5. Aplicación<br>4. Transporte<br>3. Red<br>**2. Enlace<br>1. Físico**                                          |
+| **OSI**    | 7. Aplicación<br>6. Presentación<br>5. Sesión<br>4. Transporte<br>3. Red<br>**2. Enlace de datos<br>1. Físico** |
+
+Ambos modelos, **[[Modelo OSI]]** y **[[Modelo TCP/IP]]**, tienen esas dos primeras capas con las mismas funciones, se puede decir que son "casi iguales".
 
 > [!question] Pregunta de la cátedra
 > ¿Por qué decimos que las capas Física y de Enlace de Datos son "casi iguales" entre OSI y TCP/IP, y no exactamente iguales?
@@ -26,21 +30,43 @@ Ambos modelos, **[[Modelo OSI]]** y **[[Modelo TCP/IP]]**, tienen esas dos prime
 
 En **Redes II** nos concentramos en lo que resta de la suite de protocolos TCP/IP: las capas de **Red**, **Transporte** y **Aplicación**.
 
-![[02-capas-redes1-redes2.png]]
+$$
+\begin{equation*}
+	\Huge\text{TCP/IP} \quad
+	\left\{ \quad
+	\begin{aligned}
+		& \left.
+			\begin{aligned}
+				& \text{5. Aplicación} \\
+				& \text{4. Transporte} \\
+				& \text{3. Red} \\
+			\end{aligned} \quad 
+		\right\} \quad \text{Redes II} \\
+		& \left.
+			\begin{aligned}
+				& \text{2. Enlace}  \\
+				& \text{1. Físico}
+			\end{aligned} \quad 
+		\right\} \quad \text{Redes I} \\
+	\end{aligned}
+	\right.
+\end{equation*}
+$$ 
 
 > [!important] Principio de capas
 > Cada capa **brinda servicio** a las capas superiores y **obtiene servicio** de las capas inferiores. Todas las capas están soportadas por las capas precedentes.
 
-![[03-pila-capas-protocolo-hardware.png]]
-
-| Capa | Protocolo(s) |
-|---|---|
-| Aplicación | Protocolo de aplicación (HTTP, FTP, SMTP, etc.) |
-| Transporte | UDP / TCP |
-| Red | Protocolo Internet (IP) |
-| Interfaz de red | Interfaz de red |
-| Hardware | Red física |
-
+| Capa            | Protocolo(s)                                    |
+| --------------- | ----------------------------------------------- |
+| Aplicación      | Protocolo de aplicación (HTTP, FTP, SMTP, etc.) |
+| Transporte      | UDP / TCP                                       |
+| Red             | Protocolo Internet (IP)                         |
+| Interfaz de red | Interfaz de red                                 |
+| Hardware        | Red física                                      |
+A modo ilustrativo tenemos la figura siguiente:
+* A medida que se **desciende** en cada capa se van **agregando** las cabeceras de cada una.
+* A medida que se **asciende** en cada capa, se van **sacando** las cabeceras de cada una.
+ 
 ![[04-encapsulacion-dos-hosts-ibm.png]]
 
 ## 2. Puntos de Acceso a Servicios
