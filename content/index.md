@@ -1,6 +1,5 @@
 ---
 title: Redes II
-tags: [moc, redes2]
 ---
 # Redes II (IC421) — Índice
 
@@ -8,18 +7,21 @@ tags: [moc, redes2]
 
 ## 1. Teoría
 
-| # | Tema | Nota |
-|---|------|------|
-| 1 | Introducción a Redes II | [[01 - Introducción a Redes II]] |
+| Tema | Nota |
+|------|------|
+| Introducción a Redes II | [[01 - Introduccion a Redes II\|Introducción a Redes II]] |
 
 ## 2. Práctica
 
-| # | Lab | Nota |
-|---|-----|------|
-| 1 |     | [[]] |
+| Lab | Nota |
+|-----|------|
+|     | [[]] |
 
 ## 3. Parciales
 
 | Modelo | Nota |
 |--------|------|
-|        | [[]] |
+| Primer parcial 2025 | [[Primer parcial]] |
+| Segundo Parcial 2025 | [[Segundo parcial]] |
+| Tercer Parcial 2025 | [[Tercer parcial]] |
+| Finales | [[Finales]] |
