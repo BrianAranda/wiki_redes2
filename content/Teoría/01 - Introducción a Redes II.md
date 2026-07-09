@@ -1,18 +1,3 @@
----
-unidad: 1
-materia: "[[Redes II - IC421]]"
-tags:
-  - redes2
-  - teoria
-  - modelo-osi
-  - modelo-tcpip
-  - sap
-  - encapsulacion
-  - sockets
-estado: por-estudiar
-fuente: 1. Introducción a Redes II.pdf
----
-
 # Introducción a Redes II
 
 ## 1. Redes I
@@ -123,27 +108,6 @@ Un socket cliente usa una dirección para llamar, buscar y conectarse a un socke
 > Las computadoras con sockets de **servidor** mantienen abierto un puerto TCP o UDP, listo para llamadas entrantes no programadas. El **cliente** normalmente determina el socket (elige puerto origen y se conecta a IP:puerto del servidor).
 
 ![[sockets-conexion-logica-router.png]]
-
-## Conceptos a desarrollar como nota propia
-- [[Modelo OSI]]
-- [[Modelo TCP/IP]]
-- [[SAP - Punto de Acceso a Servicio]]
-- [[Encapsulación]]
-- [[Sockets]]
-- [[TCP]]
-- [[UDP]]
-- [[IP]]
-- [[HTTP]]
-- [[FTP]]
-- [[SMTP]]
-- [[SSH]]
-- [[SNMP]]
-- [[BGP]]
-- [[ICMP]]
-- [[IGMP]]
-- [[OSPF]]
-- [[RSVP]]
-- [[MIME]]
 
 ## Preguntas de repaso (final teórico)
 1. ¿Por qué decimos que las capas Física y de Enlace de Datos son "casi iguales" entre el modelo OSI y el modelo TCP/IP, pero no exactamente iguales?
