@@ -11,6 +11,8 @@ title: Redes II
 
 ## 1. Teoría
 
+[[Teoria/|Ver todas las notas de Teoría →]]
+
 | Tema                    | Nota                                                      |
 | ----------------------- | --------------------------------------------------------- |
 | Introducción a Redes II | [[01 - Introduccion a Redes II\|Introducción a Redes II]] |
@@ -22,6 +24,8 @@ title: Redes II
 |     | [[]] |
 
 ## 3. Parciales
+
+[[Parciales/|Ver todos los modelos →]]
 
 | Modelo | Nota |
 |--------|------|
