@@ -6,3 +6,10 @@
 .callout[data-callout="important"] .callout-icon {
   display: none;
 }
+
+.callout[data-callout="tip"],
+.callout[data-callout="important"] {
+  --color: var(--dark);
+  --border: var(--lightgray);
+  --bg: var(--lightgray);
+}
