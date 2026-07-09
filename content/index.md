@@ -11,8 +11,8 @@ title: Redes II
 
 ## 1. Teoría
 
-| Tema | Nota |
-|------|------|
+| Tema                    | Nota                                                      |
+| ----------------------- | --------------------------------------------------------- |
 | Introducción a Redes II | [[01 - Introduccion a Redes II\|Introducción a Redes II]] |
 
 ## 2. Práctica
@@ -25,7 +25,14 @@ title: Redes II
 
 | Modelo | Nota |
 |--------|------|
-| Primer parcial 2025 | [[Primer parcial]] |
-| Segundo Parcial 2025 | [[Segundo parcial]] |
-| Tercer Parcial 2025 | [[Tercer parcial]] |
-| Finales | [[Finales]] |
+| Primer Parcial 2025 | [[Primer parcial 2025]] |
+| Primer Parcial 2024 | [[Primer parcial 2024]] |
+| Primer Parcial - Recuperatorio 2024 | [[Primer parcial - Recuperatorio 2024]] |
+| Segundo Parcial 2025 | [[Segundo parcial 2025]] |
+| Segundo Parcial 2024 | [[Segundo parcial 2024]] |
+| Segundo Parcial 2023 | [[Segundo parcial 2023]] |
+| Tercer Parcial 2025 | [[Tercer parcial 2025]] |
+| Tercer Parcial - Recuperatorio 2025 | [[Tercer parcial - Recuperatorio 2025]] |
+| Tercer Parcial 2024 | [[Tercer parcial 2024]] |
+| Final 13/02/2026 (Teoría) | [[Final 13-02-2026 Teoria]] |
+| Final 27/02/2026 (Teoría) | [[Final 27-02-2026 Teoria]] |

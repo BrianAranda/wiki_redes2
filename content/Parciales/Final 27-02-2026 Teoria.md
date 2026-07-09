@@ -1,0 +1,33 @@
+# Final - 27/02/2026 (Teoría)
+
+- Diferencia entre Internet e internet.
+- ¿Considera que RFC pertenece a OSI?
+- ¿Cuáles son las responsabilidades de IPv4?
+- ¿Cuáles son las dos preguntas que se hace un host cuando le llega un datagrama de IPv4?
+- ¿Cómo un dispositivo sabe que el paquete que llegó es IPv4 o IPv6?
+- ¿Qué es el campo de servicio?
+- ¿Cuándo un switch se comporta como hub o repetidor?
+- Ejercicio de subred.
+- ¿Qué es RA?
+- ¿Qué problema surge de que un equipo utilice EUI 64?
+- ¿Cómo funciona la tabla de vecinos?
+- ¿Cómo configuraría una red ad hoc? ¿Hace falta SLAAC?
+- ¿La tabla de vecinos utiliza caché? Justificar.
+- ¿Cómo funciona SLAAC al configurar una interfaz del router?
+- En el laboratorio de ipv6, ¿recuerda qué opción había que tildar?
+- ¿Por qué se dice que SLAAC es sin estado?
+- ¿Por qué no utiliza dual stack en los ISP?
+- Explicar PAT.
+- ¿En qué escenario utilizar port forwarding?
+- Una aplicación tiene 2 conexiones, una con TCP y otra con UDP, ¿cómo es posible que ambas aplicaciones utilicen el mismo puerto?
+- Algo de TCP.
+- ¿Cómo se establece la conexión UDP?
+- ¿Cómo es el control de flujo en TCP?
+- ¿Qué tipo de dirección ipv6 se pretende que sean las DNS y qué ventajas tiene?
+- Dé 3 ejemplos de gTLD.
+- ¿Qué son las ccTLD?
+- Explicar cómo es el intercambio de claves asimétricas en un inicio de sesión SSH.
+- ¿Qué tipo de información es más sensible? PII o SPII.
+- ¿Cuál es la diferencia entre ruteo estático y dinámico?
+- ¿Cuál es la diferencia entre OSPF y RIP?
+- ¿En qué capa funcionan los protocolos de enrutamiento?
