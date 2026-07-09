@@ -198,7 +198,7 @@ plugins:
     options:
       links:
         GitHub: https://github.com/BrianAranda/wiki_redes2
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Contacto: mailto:brian.aranda.e@gmail.com
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
