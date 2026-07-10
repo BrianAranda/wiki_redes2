@@ -8,6 +8,7 @@ title: Redes II
 >
 > La información presente no tiene como objetivo reemplazar los apuntes de cátedra del aula virtual, son de carácter de estudio y puede presentar errores.
 
-- [[Teoria/|Teoría]]
-- [[Practica/|Práctica]]
-- [[Modelos/|Modelos]]
+# Contenido
+## [[Teoria/|Teoría]]
+## [[Practica/|Práctica]]
+## [[Modelos/|Modelos]]
