@@ -2,8 +2,6 @@
 
 Conceptos mencionados en alguna nota de la wiki que todavía no tienen nota propia.
 
-- [[Modelo OSI]]
-- [[Modelo TCP/IP]]
 - [[SAP - Punto de Acceso a Servicio]]
 - [[Encapsulación]]
 - [[Sockets]]

@@ -17,10 +17,11 @@ edito los archivos reales que se publican.
   _Fuentes/       ← PDFs crudos de la cátedra. Se leen UNA vez para extraer. No se editan.
   Teoria/         ← una nota .md por unidad. Acá vive el grueso del contenido teórico.
   Practica/       ← labs y ejercicios con la máquina virtual (capturas + paso a paso).
-  Parciales/      ← banco de preguntas de modelos de finales (teóricos y prácticos) + mis respuestas.
+  Modelos/        ← modelos de examen, en subcarpetas por instancia:
+                    Primer parcial/, Segundo parcial/, Tercer parcial/, Final/
   Conceptos/      ← notas atómicas de conceptos transversales (TCP, UDP, IP, SAP, etc.), a demanda.
   _attachments/   ← imágenes: diagramas extraídos de PDFs y capturas de los labs.
-  index.md        ← MOC (mapa de contenido): links a todas las unidades. Es la home del sitio.
+  index.md        ← home del sitio: árbol de contenido (links a las carpetas Teoria/Practica/Modelos).
   pendientes.md   ← lista única de wikilinks sin resolver de toda la wiki (no vive en el índice).
   .obsidian/      ← config del vault (snippets CSS, plugins). Quartz la ignora al publicar.
 /quartz.config.yaml, /quartz.ts, /quartz/  ← config y motor de Quartz. NO tocar salvo para estética.
@@ -29,6 +30,14 @@ edito los archivos reales que se publican.
 Cada nota se referencia en las rutas de este archivo como `content/<...>` (Claude Code corre desde
 la raíz del repo). Dentro de Obsidian, en cambio, `content/` es la raíz del vault, así que los
 wikilinks `[[...]]` no llevan el prefijo `content/`.
+
+### Índices de carpeta manuales (convención)
+Cada carpeta tiene un `index.md` que funciona como su **índice manual**: lista con wikilinks las
+notas (o subcarpetas) que contiene. El listado automático de folder-page está **desactivado**
+(`showFolderCount: false` en la config + una regla CSS en `custom.scss` que oculta `.page-listing`
+en las páginas de carpeta), justamente para que el index.md sea la única lista y además esos
+wikilinks alimenten el grafo. Al agregar una nota nueva a una carpeta, hay que **sumar su wikilink
+al `index.md` de esa carpeta a mano**. Links a carpetas: `[[Carpeta/|Alias]]` (con barra final).
 
 ## Cómo se publica (flujo, importante)
 Editar una nota en `content/` y hacer `git push` a `main` es todo lo necesario: una GitHub Action
@@ -63,14 +72,17 @@ Al procesar un PDF de `content/_Fuentes/`:
    las URLs `https://aulavirtual.fio.unam.edu.ar/...` y los números de página tipo "2/7".
 2. **Usar la Tabla de Contenidos del PDF como esqueleto**: una nota por unidad, y las secciones
    de esa tabla pasan a ser los encabezados `##` internos.
-3. **Frontmatter mínimo: solo `title`.** Nada de `unidad`, `materia`, `tags`, `estado`, `fuente` —
-   no los uso para estudiar y solo ensucian la nota. El único campo que sí va es `title`, con el
-   nombre limpio de la nota (con tildes, sin el prefijo `NN -`), porque Quartz lo necesita para
-   mostrar bien el nombre en el grafo, la pestaña del navegador y los breadcrumbs — si falta, usa
-   el nombre de archivo tal cual (con el número) como respaldo.
+3. **Frontmatter: `title` + `fuente`.** Nada de `unidad`, `materia`, `tags`, `estado` — no los uso
+   y ensucian la nota. Solo dos campos:
+   - `title`: nombre limpio de la nota (con tildes, sin el prefijo `NN -`). Quartz lo necesita para
+     mostrar bien el nombre en el grafo, la pestaña del navegador y los breadcrumbs — si falta, usa
+     el nombre de archivo (con el número) como respaldo.
+   - `fuente`: wikilink al PDF de `_Fuentes/` del que salió la nota (clickeable en el panel de
+     propiedades de Obsidian). Si una nota se armó de varios PDFs, listar todos.
    ```yaml
    ---
    title: <Título de la unidad, sin el "NN - ">
+   fuente: "[[<nombre del PDF>.pdf]]"
    ---
    ```
 4. **Índice interno al comienzo de la nota.** Justo después del encabezado `# Título` (y antes del
@@ -115,7 +127,8 @@ Al procesar un PDF de `content/_Fuentes/`:
   **sin** respuesta a propósito, es para practicar de memoria (ver "Flujo de simulacro de examen").
 
 ## Flujo de simulacro de examen
-- En `content/Parciales/` guardo modelos de finales. Las preguntas teóricas son **de desarrollo**
+- En `content/Modelos/` guardo modelos de examen, en subcarpetas por instancia (`Primer parcial/`,
+  `Segundo parcial/`, `Tercer parcial/`, `Final/`). Las preguntas teóricas son **de desarrollo**
   (pregunta → respuesta teórica breve), no opción múltiple.
 - Modo práctica: me hacés UNA pregunta, respondo, y corregís **contra mi nota del tema**,
   marcando qué me faltó o qué dije de más. No me des la respuesta antes de que yo intente.

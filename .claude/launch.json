@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "quartz-preview",
-      "runtimeExecutable": "C:\\Users\\Usuario\\Documents\\4to Año\\IC421 - Redes II\\redes2-quartz\\preview.bat",
+      "runtimeExecutable": "C:\\Users\\Usuario\\Documents\\4to Año\\IC421 - Redes II\\Quartz\\preview.bat",
       "runtimeArgs": [],
       "port": 8080
     }

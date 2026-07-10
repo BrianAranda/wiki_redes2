@@ -55,15 +55,17 @@ estudio para el vault de Obsidian.
    - Títulos agrupados junto con otros en una misma nota → cada título es un `##`, sus
      subtítulos bajan a `###`.
 
-6. **Frontmatter mínimo: solo `title`.** Nada de `unidad`, `materia`, `tags`, `estado`, `fuente`.
+6. **Frontmatter: `title` + `fuente`.** Nada de `unidad`, `materia`, `tags`, `estado`.
    ```yaml
    ---
    title: <Título de la unidad, con tildes, sin el prefijo "NN - ">
+   fuente: "[[<nombre del PDF>.pdf]]"
    ---
    ```
-   Es necesario porque si falta, Quartz usa el nombre del archivo como respaldo para todo lugar
-   donde muestra el nombre de la nota (grafo, pestaña del navegador, breadcrumbs) — y ese nombre
-   de archivo lleva el prefijo `NN -` y no tiene tildes.
+   - `title`: si falta, Quartz usa el nombre del archivo como respaldo en todos lados (grafo,
+     pestaña, breadcrumbs) — y ese nombre lleva el prefijo `NN -` y no tiene tildes, así que queda feo.
+   - `fuente`: wikilink al PDF de `content/_Fuentes/` del que salió la nota (queda clickeable en el
+     panel de propiedades de Obsidian). Si la nota se armó de varios PDFs, listarlos todos.
 
 7. **Índice interno al comienzo de la nota.** Justo después del `# Título` y antes del primer
    `##`, una lista con link a cada encabezado `##` de la nota (en orden), con sintaxis de
@@ -137,9 +139,9 @@ estudio para el vault de Obsidian.
 
 ## Al terminar
 - Guardar la nota en `content/Teoria/`.
-- Actualizar la tabla de Teoría en `content/index.md`: agregar una fila `Tema | Nota` (Tema es
-  solo el nombre de la unidad, sin descripción entre paréntesis; sin columna de número ni de
-  estado). En "Nota" usar alias para que se vea el nombre lindo: `[[NN - Titulo|Título lindo]]`.
+- Agregar el wikilink de la nota nueva al **índice manual de su carpeta**, `content/Teoria/index.md`
+  (una línea de lista `- [[NN - Titulo|Título lindo]]`). NO se toca el `content/index.md` (home):
+  la home es un árbol que solo linkea a las carpetas, no a las notas individuales.
 - Agregar los wikilinks que quedaron sin resolver a `content/pendientes.md` (crearlo si no existe),
   sin duplicar entradas que ya estén listadas ahí.
 - No hay paso de copia a otra carpeta: `content/` es a la vez el vault y lo que se publica.

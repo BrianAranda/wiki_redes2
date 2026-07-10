@@ -13,3 +13,10 @@
   --border: var(--lightgray);
   --bg: var(--lightgray);
 }
+
+// En las páginas de carpeta, ocultar el listado automático de folder-page:
+// usamos el index.md de cada carpeta como índice manual. Se excluyen las
+// páginas de tags (que comparten la clase .page-listing) para no vaciarlas.
+body:not([data-slug^="tags/"]) .page-listing {
+  display: none;
+}
