@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "quartz-preview",
+      "runtimeExecutable": "C:\\Users\\Usuario\\Documents\\4to Año\\IC421 - Redes II\\redes2-quartz\\preview.bat",
+      "runtimeArgs": [],
+      "port": 8080
+    }
+  ]
+}

@@ -32,7 +32,7 @@ En **Redes II** nos concentramos en lo que resta de la suite de protocolos TCP/I
 
 $$
 \begin{equation*}
-	\Huge\text{TCP/IP} \quad
+	\text{TCP/IP} \quad
 	\left\{ \quad
 	\begin{aligned}
 		& \left.
@@ -96,12 +96,12 @@ La **[[Encapsulación]]** (y su contraparte, la desencapsulación) es propia del
 
 ![[encapsulacion-pdu-tcpip.png]]
 
-| PDU | Capa | Contenido |
-|---|---|---|
-| Application byte stream | Aplicación | User data |
-| TCP segment | Transporte | Cabecera TCP + User data |
-| IP datagram | Red | Cabecera IP + Cabecera TCP + User data |
-| Network-level packet | Interfaz de red | Cabecera de red + Cabecera IP + Cabecera TCP + User data |
+| PDU                     | Capa            | Contenido                                                |
+| ----------------------- | --------------- | -------------------------------------------------------- |
+| Application byte stream | Aplicación      | User data                                                |
+| TCP segment             | Transporte      | Cabecera TCP + User data                                 |
+| IP datagram             | Red             | Cabecera IP + Cabecera TCP + User data                   |
+| Network-level packet    | Interfaz de red | Cabecera de red + Cabecera IP + Cabecera TCP + User data |
 
 ## 4. Suite de Protocolos TCP/IP
 
