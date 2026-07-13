@@ -15,7 +15,9 @@ edito los archivos reales que se publican.
 ```
 /content/         ← el vault de Obsidian (se abre ESTA carpeta en Obsidian). Todo lo de abajo vive acá:
   _Fuentes/       ← PDFs crudos de la cátedra. Se leen UNA vez para extraer. No se editan.
-  Teoria/         ← una nota .md por unidad. Acá vive el grueso del contenido teórico.
+  Teoria/         ← una subcarpeta por PDF de la cátedra (ej. `01 - Introduccion a Redes II/`),
+                    con una nota por entrada del índice del PDF + un `index.md` de la carpeta.
+                    Acá vive el grueso del contenido teórico.
   Practica/       ← labs y ejercicios con la máquina virtual (capturas + paso a paso).
   Modelos/        ← modelos de examen, en subcarpetas por instancia:
                     Primer parcial/, Segundo parcial/, Tercer parcial/, Final/
@@ -67,59 +69,28 @@ del nombre de la nota, muestra texto corrupto (mojibake). Por eso:
 - Al terminar una unidad, no recargar sus imágenes en sesiones posteriores salvo que se edite esa nota.
 
 ## Cómo extraer una nota desde un PDF (formato obligatorio)
-Al procesar un PDF de `content/_Fuentes/`:
-1. **Descartar los rótulos del aula virtual**: fecha/hora de impresión, "Imprimido por...",
-   las URLs `https://aulavirtual.fio.unam.edu.ar/...` y los números de página tipo "2/7".
-2. **Usar la Tabla de Contenidos del PDF como esqueleto**: una nota por unidad, y las secciones
-   de esa tabla pasan a ser los encabezados `##` internos.
-3. **Frontmatter: `title` + `fuente`.** Nada de `unidad`, `materia`, `tags`, `estado` — no los uso
-   y ensucian la nota. Solo dos campos:
-   - `title`: nombre limpio de la nota (con tildes, sin el prefijo `NN -`). Quartz lo necesita para
-     mostrar bien el nombre en el grafo, la pestaña del navegador y los breadcrumbs — si falta, usa
-     el nombre de archivo (con el número) como respaldo.
-   - `fuente`: de dónde salió la nota. Se muestra en el panel de propiedades tanto en Obsidian
-     como en el sitio publicado (con link real y descargable si es un archivo).
-     - PDF de la cátedra en `_Fuentes/`: wikilink `"[[<nombre del PDF>.pdf]]"`.
-     - Capítulo de libro u otra fuente externa: si tenés el archivo, mismo tratamiento (subirlo a
-       `_Fuentes/` y wikilink); si es solo una referencia bibliográfica sin archivo, texto plano
-       (ej. `"Kurose & Ross - Computer Networking, cap. 4"`).
-     - Si la nota sale de más de una fuente, usar una lista en vez de un solo valor.
-   ```yaml
-   ---
-   title: <Título de la unidad, sin el "NN - ">
-   fuente: "[[<nombre del PDF>.pdf]]"
-   ---
-   ```
-   Con varias fuentes:
-   ```yaml
-   ---
-   title: <Título de la unidad, sin el "NN - ">
-   fuente:
-     - "[[<nombre del PDF>.pdf]]"
-     - "Autor - Libro, cap. N"
-   ---
-   ```
-4. **Índice interno al comienzo de la nota.** Justo después del encabezado `# Título` (y antes del
-   primer `##`), agregar una lista con un link a cada encabezado `##` de la nota, en orden, usando
-   sintaxis de Obsidian `[[#Encabezado]]`. Sirve para saltar rápido dentro de notas largas; es
-   distinto del panel de TOC automático que Quartz muestra a la derecha del sitio publicado.
-5. Sembrar **wikilinks `[[Concepto]]`** cada vez que aparezca un concepto que merezca nota propia
-   (protocolos, modelos, términos clave). Esto teje el grafo. Si la nota destino aún no existe,
-   dejar el link igual (queda "no resuelto" hasta crearla) y sumarlo a `pendientes.md`.
-6. Para las imágenes: NO inventar la imagen. Insertar un placeholder
-   `![[nombre-descriptivo.png]]` seguido de un comentario Obsidian
-   `%% CAPTURAR: <qué figura, qué muestra, qué página del PDF> %%`.
-   Si la skill de extracción de imágenes está disponible, extraer el diagrama real al
-   `content/_attachments/` con ese nombre.
-7. Usar **callouts de Obsidian** para resaltar:
-   - `> [!important]` lo que cae seguro en el final (definiciones clave, listas cerradas).
-   - `> [!question]` preguntas que plantea la cátedra.
-   - `> [!info]-` glosarios largos (colapsables).
-   - `> [!tip]` analogías y reglas mnemotécnicas.
-8. Cerrar cada nota con una sola sección fija:
-   - `## Preguntas de repaso (final teórico)` (preguntas de desarrollo derivadas del tema).
-   No agregar una sección de "conceptos a desarrollar" dentro de la nota — los wikilinks sin
-   resolver van a `pendientes.md`, no repetidos en cada nota.
+El detalle completo está en la skill `extraer-nota-catedra` (`.claude/skills/extraer-nota-catedra/SKILL.md`).
+Resumen de las reglas clave:
+- **Un PDF = una carpeta = una nota por entrada del índice.** Cada PDF de `content/_Fuentes/` va a
+  su propia carpeta `content/Teoria/<NN> - <Título del PDF>/`, y **cada entrada de nivel superior
+  de la Tabla de Contenidos del PDF es su propia nota** dentro de esa carpeta (no se agrupan varias
+  entradas en una sola nota). Los subtítulos de una entrada son `##` dentro de su nota, no notas
+  separadas.
+- **Frontmatter de cada nota: solo `title`.** `fuente` no se repite en cada nota — vive una sola
+  vez en el `index.md` de la carpeta (wikilink al PDF, o texto plano si es una referencia sin
+  archivo como un capítulo de libro; lista si son varias fuentes).
+- **`index.md` de la carpeta**, con `title` + `fuente`, el índice de las notas (wikilinks a cada
+  una) y la sección de cierre `## Preguntas de repaso (final teórico)` — esto ya no va en cada
+  nota individual, se consolida acá.
+- **Índice interno** (`# Índice` + lista `[[#Encabezado]]`) solo en las notas que tienen
+  subtítulos propios; si no tiene, se omite.
+- **Navegación secuencial obligatoria** al final de cada nota: `⬅ **Volver a:** [[...]]` /
+  `➡ **Continuar a:** [[...]]`, conectando cada nota con la siguiente. La primera no lleva
+  "Volver a"; la última, en vez de "Continuar a" hacia una nota, enlaza a las preguntas de repaso
+  del `index.md` de la carpeta. Ojo: un alias de wikilink con `/` se trunca (bug del renderer,
+  ej. "TCP/IP" se ve como "IP") — usar alias sin barra.
+- Wikilinks a conceptos con nota propia, callouts de Obsidian, imágenes extraídas del PDF (no
+  inventadas), sin tildes/eñes en archivos y carpetas — todo esto igual que antes, ver la skill.
 
 ## Flujo de práctica / labs
 - Cada lab es una nota en `content/Practica/`. Pego capturas de la VM en `content/_attachments/`.
@@ -137,8 +108,9 @@ Al procesar un PDF de `content/_Fuentes/`:
 - Si una pregunta no se puede responder solo con lo que hay en el vault (requiere un dato de
   laboratorio, algo externo a la cátedra, etc.), no inventar: marcarla como
   `> **Respuesta:** (requiere información externa, no está en esta nota)` y avisarme cuál quedó así.
-- No confundir con la sección de cierre `## Preguntas de repaso (final teórico)` — esa se deja
-  **sin** respuesta a propósito, es para practicar de memoria (ver "Flujo de simulacro de examen").
+- No confundir con `## Preguntas de repaso (final teórico)` del `index.md` de la carpeta del PDF —
+  esa se deja **sin** respuesta a propósito, es para practicar de memoria (ver "Flujo de simulacro
+  de examen").
 
 ## Flujo de simulacro de examen
 - En `content/Modelos/` guardo modelos de examen, en subcarpetas por instancia (`Primer parcial/`,

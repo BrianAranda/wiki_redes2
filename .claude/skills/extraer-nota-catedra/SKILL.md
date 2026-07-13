@@ -1,6 +1,6 @@
 ---
 name: extraer-nota-catedra
-description: Convierte un PDF de la cátedra en una o varias notas markdown de Obsidian para el vault de estudio (agrupando por cohesión temática si el PDF tiene muchos títulos, no 1 título = 1 nota). Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Frontmatter mínimo (solo title), nombres de archivo/carpeta sin tildes, índice interno de encabezados, wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<nota>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
+description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Frontmatter mínimo (solo title en las notas; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, índice interno de encabezados, wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
 allowed-tools: Read, Write, Glob, Bash, Skill
 ---
 
@@ -20,76 +20,96 @@ estudio para el vault de Obsidian.
    - URLs `https://aulavirtual.fio.unam.edu.ar/...`.
    - Números de página tipo "2/7".
 
-3. **Cuántas notas salen del PDF: agrupar por cohesión temática, no 1 título = 1 nota.**
-   Un PDF chico (pocos títulos cortos y relacionados, como la unidad 1) da **una sola nota**. Un
-   PDF con muchos títulos (10, 20+) hay que partirlo, pero el corte no es título por título:
-   - **Agrupar** en una misma nota los títulos cortos y temáticamente relacionados entre sí (poca
-     profundidad, sin muchos subtítulos propios) — mismo criterio que ya usamos en la unidad 1.
-   - **Nota propia** para un título cuando es sustancioso por sí solo: muchos subtítulos, o
-     contenido suficiente como para ser una sesión de estudio propia (ej. la estructura completa
-     de una cabecera de protocolo, con uno o dos subtítulos por campo).
-   - Si un título "contenedor" no tiene contenido propio y el que le sigue es donde arranca el
-     desarrollo real (ej. TOC: "12. Subredes" seguido de "13. Introducción"), no crear un
-     encabezado redundante para ese segundo título dentro de la nota — sus propios subtítulos
-     pasan a ser directamente los `##` de la nota (llamada, en este ejemplo, "Subredes").
-   - Si el PDF cierra con un título tipo resumen/repaso que sintetiza contenido repartido en
-     varias de las notas resultantes, evaluar si conviene como nota propia corta (a modo de
-     mini-índice con wikilinks hacia esas notas) o como sección de cierre de la última nota — es
-     criterio caso por caso, no una regla fija.
-   - Antes de escribir nada, para un PDF con muchos títulos conviene proponer el agrupamiento
-     (qué títulos entran en cada nota resultante) y confirmarlo, en vez de asumir y procesar
-     directo.
+3. **Un PDF = una carpeta = una nota por entrada del índice.** Cada PDF de la cátedra va a su
+   propia carpeta en `content/Teoria/`, nombrada `<NN> - <Título del PDF, sin tildes>/`. Dentro,
+   **cada entrada de nivel superior de la Tabla de Contenidos del PDF es su propia nota**, sin
+   agrupar varias entradas en una sola nota (regla anterior de "agrupar por cohesión", derogada).
+   - Nombre de archivo de cada nota: `<nn> - <Título de la entrada, sin tildes>.md`, con `nn` de
+     dos dígitos **reiniciado en 1 dentro de cada carpeta** (no sigue la numeración de otras
+     unidades). Ejemplo con un PDF de 5 entradas: `01 - Redes I.md`, `02 - ....md`, ...,
+     `05 - Sockets.md`.
+   - Si una entrada tiene subtítulos propios en la TOC, esos subtítulos son `##` dentro de esa
+     nota (no notas separadas). Ver punto 6 sobre el esqueleto de cada nota.
+   - Si el PDF cierra con un título tipo resumen/repaso, ese contenido no se convierte en nota:
+     va a la sección de "Preguntas de repaso" de la carpeta (ver punto 8) o se descarta si ya
+     está cubierto por otras preguntas.
 
-4. **Nombre de archivo, sin tildes/eñes.** `<NN> - <Título sin tildes>.md` (NN con dos dígitos,
-   ej. `02 - Capa de Red.md`; `04 - Encriptacion.md` en vez de "Encriptación"). La numeración
-   `NN` sigue la secuencia general de `content/Teoria/`, no reinicia por PDF: si la última nota usada
-   fue `01` y este PDF da 7 notas (ver punto 3), van de `02` a `08`.
+4. **Nombre de archivo/carpeta, sin tildes/eñes**, tanto la carpeta del PDF como cada nota adentro
+   (ej. `Encapsulacion.md` en vez de "Encapsulación.md"; si el título tiene `/`, como "TCP/IP",
+   reemplazarlo por `-` en el nombre de archivo: `Suite de Protocolos TCP-IP.md`).
    > Esto es una regla técnica, no de estilo: el sitio publicado con Quartz genera la URL de cada
    > nota a partir del nombre del archivo, y una tilde/eñe ahí produce texto corrupto en el visor
-   > de grafo (bug conocido). El texto correcto en español vive en el `title` del frontmatter
-   > (punto 6) y en los encabezados de la nota, donde no hay ninguna restricción.
+   > de grafo (bug conocido). El texto correcto en español (con tildes, con `/`) vive en el
+   > `title` del frontmatter (punto 5) y en los encabezados de la nota.
 
-5. **Esqueleto desde la Tabla de Contenidos**, según cómo se agrupó en el punto 3:
-   - Título que queda solo en su propia nota → es el `# Título` de la nota, sus subtítulos
-     bajan a `##`.
-   - Títulos agrupados junto con otros en una misma nota → cada título es un `##`, sus
-     subtítulos bajan a `###`.
-
-6. **Frontmatter: `title` + `fuente`.** Nada de `unidad`, `materia`, `tags`, `estado`.
+5. **Frontmatter de cada nota: solo `title`.** Nada de `unidad`, `materia`, `tags`, `estado`,
+   `fuente` (`fuente` va únicamente en el `index.md` de la carpeta, ver punto 8 — no se repite en
+   cada nota porque todas comparten el mismo PDF de origen).
    ```yaml
    ---
-   title: <Título de la unidad, con tildes, sin el prefijo "NN - ">
-   fuente: "[[<nombre del PDF>.pdf]]"
+   title: <Título de la entrada, con tildes/"/" como corresponda, sin el prefijo "nn - ">
    ---
    ```
-   - `title`: si falta, Quartz usa el nombre del archivo como respaldo en todos lados (grafo,
-     pestaña, breadcrumbs) — y ese nombre lleva el prefijo `NN -` y no tiene tildes, así que queda feo.
-   - `fuente`: wikilink al PDF de `content/_Fuentes/` del que salió la nota. Se ve clickeable tanto
-     en Obsidian como en el sitio publicado (link real y descargable al archivo). Si la fuente es
-     un capítulo de libro u otra referencia sin archivo, usar texto plano en vez de wikilink
-     (ej. `"Autor - Libro, cap. N"`). Si la nota sale de varias fuentes, usar una lista.
+   Si falta, Quartz usa el nombre del archivo como respaldo en todos lados (grafo, pestaña,
+   breadcrumbs) — y ese nombre lleva el prefijo `nn -` y no tiene tildes, así que queda feo.
 
-7. **Índice interno al comienzo de la nota.** Justo después del `# Título` y antes del primer
-   `##`, una lista con link a cada encabezado `##` de la nota (en orden), con sintaxis de
-   Obsidian `[[#Encabezado]]`:
+6. **Esqueleto de cada nota:**
+   - Sin `# Título` (el título ya lo muestra Quartz/Obsidian desde el frontmatter, repetirlo es
+     redundante).
+   - Si la entrada tiene subtítulos (van a ser `##` dentro de la nota), agregar justo al
+     principio un **índice interno**: encabezado literal `# Índice` seguido de una lista con
+     link a cada `##`, sintaxis `[[#Encabezado]]`. Si la entrada NO tiene subtítulos, omitir esto
+     por completo y arrancar directo con el contenido.
+     ```markdown
+     ---
+     title: Puntos de Acceso a Servicios
+     ---
+     # Índice
+     - [[#Ejemplo de comunicación]]
+     - [[#Normalización entre capas del modelo OSI]]
+
+     <contenido>
+
+     ## Ejemplo de comunicación
+     ...
+     ```
+
+7. **Navegación secuencial al final de cada nota** (obligatorio), separada del contenido con
+   `---`:
    ```markdown
-   # Título
-
-   - [[#1. Primer encabezado]]
-   - [[#2. Segundo encabezado]]
-   - [[#Preguntas de repaso (final teórico)]]
-
-   ## 1. Primer encabezado
-   ...
+   ---
+   ⬅ **Volver a:** [[<nota anterior>|<Título limpio>]]
+   ➡ **Continuar a:** [[<nota siguiente>|<Título limpio>]]
    ```
-   Es un índice de navegación interna, distinto del panel de TOC automático que Quartz ya
-   muestra a la derecha en el sitio publicado.
+   - La primera nota de la carpeta no lleva "Volver a" (nada antes en la secuencia).
+   - La última nota, en vez de "Continuar a" hacia una nota, enlaza a las preguntas de repaso de
+     la carpeta: `➡ **Continuar a:** [[index#Preguntas de repaso (final teórico)|Preguntas de repaso]]`.
+   - **El alias del wikilink (la parte después de `|`) nunca debe contener `/`** — es un bug
+     conocido del renderer: un alias con `/` se trunca y solo muestra el texto después de la
+     última barra (ej. `Suite de Protocolos TCP/IP` se ve como `IP`). Si el título tiene `/`,
+     usar el alias sin barra (ej. `Suite de Protocolos TCP-IP`) o el nombre de archivo tal cual.
 
-8. **Wikilinks.** Cada concepto con peso propio (protocolos, modelos, términos técnicos eje)
-   se marca `[[Concepto]]`. Usar alias cuando convenga: `[[Modelo TCP-IP|TCP/IP]]`. Los que
-   todavía no tienen nota propia se agregan a `pendientes.md` (ver "Al terminar").
+8. **`index.md` de la carpeta del PDF**, con tres partes fijas:
+   ```yaml
+   ---
+   title: <Título del PDF/unidad, con tildes>
+   fuente: "[[<nombre del PDF>.pdf]]"
+   ---
+   # Índice
+   - [[01 - Primer entrada|Título limpio]]
+   - [[02 - Segunda entrada|Título limpio]]
+   ...
 
-9. **Imágenes — extracción real es obligatoria, el placeholder es el último recurso.**
+   ## Preguntas de repaso (final teórico)
+   1. ... (preguntas de desarrollo derivadas de todo el contenido del PDF)
+   ```
+   `fuente` acepta lista o texto plano si la entrada no es un PDF con archivo — ver CLAUDE.md.
+
+9. **Wikilinks.** Cada concepto con peso propio (protocolos, modelos, términos técnicos eje)
+   se marca `[[Concepto]]`. Usar alias cuando convenga (recordar la limitante de barras del
+   punto 7). Los que todavía no tienen nota propia se agregan a `pendientes.md` (ver "Al terminar").
+
+10. **Imágenes — extracción real es obligatoria, el placeholder es el último recurso.**
    a. Antes de escribir ningún placeholder, intentar extraer las imágenes embebidas en el PDF:
       - Invocar la skill `pdf`, o directamente `pdfimages -list <pdf>` para listar los objetos
         de imagen por página, y `pdfimages -png <pdf> <prefijo>` para extraerlos.
@@ -98,8 +118,8 @@ estudio para el vault de Obsidian.
         detectar duplicados exactos (mismo tamaño en bytes/dimensiones) cuando el PDF reutiliza
         la misma figura en varias páginas — copiar el duplicado una sola vez, aunque se enlace
         desde dos secciones distintas de la nota.
-      - Copiar cada diagrama útil a `content/_attachments/<nombre de la nota, sin extensión>/` con
-        un nombre descriptivo en kebab-case (ver punto 10).
+      - Copiar cada diagrama útil a `content/_attachments/<nombre de la carpeta del PDF>/` con
+        un nombre descriptivo en kebab-case (ver punto 11).
    b. Solo si la extracción falla (imagen no embebida, PDF escaneado sin capa de imagen
       recuperable, etc.) o si la figura no vive dentro del PDF (ej. una captura de pantalla de
       un lab con la VM, que se pega después), insertar el placeholder:
@@ -110,40 +130,35 @@ estudio para el vault de Obsidian.
    c. Ignorar siempre imágenes decorativas (íconos, logos, signos de pregunta animados, etc.),
       se hayan extraído o no.
 
-10. **Organización de `content/_attachments/`.** Cada nota tiene su propia subcarpeta dentro de
-   `content/_attachments/`, con el mismo nombre que el archivo de la nota (sin extensión ni ruta).
-   Ejemplo: `content/Teoria/01 - Introduccion a Redes II.md` guarda sus imágenes en
-   `content/_attachments/01 - Introduccion a Redes II/`. Esto evita que `_attachments/` se vuelva una
-   bolsa plana de archivos a medida que crece el vault. Los wikilinks de imagen
-   (`![[nombre.png]]`) no necesitan la ruta completa — Obsidian resuelve por nombre de archivo
-   único en todo el vault — pero el archivo físico sí debe vivir en la subcarpeta del tema.
+11. **Organización de `content/_attachments/`.** Todas las notas de un mismo PDF comparten una
+   subcarpeta dentro de `content/_attachments/`, con el mismo nombre que la carpeta del PDF (sin
+   ruta). Ejemplo: las notas de `content/Teoria/01 - Introduccion a Redes II/` guardan sus
+   imágenes en `content/_attachments/01 - Introduccion a Redes II/`. Esto evita que
+   `_attachments/` se vuelva una bolsa plana de archivos a medida que crece el vault. Los
+   wikilinks de imagen (`![[nombre.png]]`) no necesitan la ruta completa — Obsidian resuelve por
+   nombre de archivo único en todo el vault — pero el archivo físico sí debe vivir en esa
+   subcarpeta.
 
-11. **Callouts.** Resaltar:
+12. **Callouts.** Resaltar:
    - `> [!important]` → definiciones clave y listas cerradas (lo que cae en el final).
    - `> [!question]` → preguntas que plantea la cátedra en el texto.
    - `> [!info]-` → glosarios de siglas (colapsable).
    - `> [!tip]` → analogías / mnemotecnia.
    - `> [!note]` → principios o aclaraciones conceptuales.
 
-12. **Tablas** para todo lo que sea comparación o estructura (capas vs unidades de datos,
+13. **Tablas** para todo lo que sea comparación o estructura (capas vs unidades de datos,
    protocolos por capa de transporte, etc.).
 
-13. **Sección de cierre obligatoria (una sola):**
-    ```
-    ## Preguntas de repaso (final teórico)
-    1. ... (preguntas de desarrollo derivadas del contenido)
-    ```
-    No agregar una sección de "conceptos a desarrollar" dentro de la nota — ver "Al terminar".
-
 ## Reglas de token
-- El PDF se procesa una vez; el resto del trabajo es sobre el `.md` generado.
+- El PDF se procesa una vez; el resto del trabajo es sobre los `.md` generados.
 - No cargar varios PDFs en la misma sesión.
 
 ## Al terminar
-- Guardar la nota en `content/Teoria/`.
-- Agregar el wikilink de la nota nueva al **índice manual de su carpeta**, `content/Teoria/index.md`
-  (una línea de lista `- [[NN - Titulo|Título lindo]]`). NO se toca el `content/index.md` (home):
-  la home es un árbol que solo linkea a las carpetas, no a las notas individuales.
+- Guardar la carpeta completa (notas + `index.md`) en `content/Teoria/`.
+- Agregar el wikilink de la **carpeta** (no de cada nota) al índice manual `content/Teoria/index.md`
+  — una línea de lista `- [[<NN - Titulo>/|Título lindo]]` (con la barra final, sintaxis de link
+  a carpeta). NO se toca el `content/index.md` (home): la home es un árbol que solo linkea a
+  `Teoria/`, `Practica/`, `Modelos/`, no a unidades individuales.
 - Agregar los wikilinks que quedaron sin resolver a `content/pendientes.md` (crearlo si no existe),
   sin duplicar entradas que ya estén listadas ahí.
 - No hay paso de copia a otra carpeta: `content/` es a la vez el vault y lo que se publica.
