@@ -225,6 +225,7 @@ plugins:
         - description
         - tags
         - aliases
+        - fuente
       excludedProperties: []
       hidePropertiesView: false
       delimiters: ---
