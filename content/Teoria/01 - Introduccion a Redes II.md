@@ -18,12 +18,11 @@ En **Redes I** (la materia del cuatrimestre pasado) se trabajaron las dos primer
 
 Recordando los modelos y sus capas:
 
-| **Modelo** | Niveles                                                                                                         |
-| ---------- | --------------------------------------------------------------------------------------------------------------- |
-| **TCP/IP** | 5. Aplicación<br>4. Transporte<br>3. Red<br>**2. Enlace<br>1. Físico**                                          |
-| **OSI**    | 7. Aplicación<br>6. Presentación<br>5. Sesión<br>4. Transporte<br>3. Red<br>**2. Enlace de datos<br>1. Físico** |
+| **Modelo** | **TCP/IP**                                                             | **OSI**                                                                                                         |
+| ---------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Niveles    | 5. Aplicación<br>4. Transporte<br>3. Red<br>**2. Enlace<br>1. Físico** | 7. Aplicación<br>6. Presentación<br>5. Sesión<br>4. Transporte<br>3. Red<br>**2. Enlace de datos<br>1. Físico** |
 
-Ambos modelos, **[[Modelo OSI]]** y **[[Modelo TCP/IP]]**, tienen esas dos primeras capas con las mismas funciones, se puede decir que son "casi iguales".
+Ambos modelos, **Modelo OSI** y **Modelo TCP/IP**, tienen esas dos primeras capas con las mismas funciones, se puede decir que son "casi iguales".
 
 > [!question] Pregunta de la cátedra
 > ¿Por qué decimos que las capas Física y de Enlace de Datos son "casi iguales" entre OSI y TCP/IP, y no exactamente iguales?
@@ -57,6 +56,8 @@ $$
 > [!important] Principio de capas
 > Cada capa **brinda servicio** a las capas superiores y **obtiene servicio** de las capas inferiores. Todas las capas están soportadas por las capas precedentes.
 
+TCP/IP define cuidadosamente cómo se mueve la información desde el remitente hasta el destinatario:
+
 | Capa            | Protocolo(s)                                    |
 | --------------- | ----------------------------------------------- |
 | Aplicación      | Protocolo de aplicación (HTTP, FTP, SMTP, etc.) |
@@ -64,21 +65,50 @@ $$
 | Red             | Protocolo Internet (IP)                         |
 | Interfaz de red | Interfaz de red                                 |
 | Hardware        | Red física                                      |
-A modo ilustrativo tenemos la figura siguiente:
+
+### **El envió de datos**
+
+En primer lugar, los programas de **aplicación** envían mensajes o flujos de datos a uno de los protocolos de la capa de **transporte** de Internet: UDP o TCP. 
+
+Estos protocolos reciben los datos de la aplicación, los dividen en piezas más pequeñas llamadas paquetes, añaden una dirección de destino y, a continuación, pasan los paquetes a la siguiente capa de protocolo, la capa de **red de Internet**.
+
+La capa de red de Internet encierra el paquete en un datagrama de Internet Protocol (IP), coloca la cabecera y la cola del datagrama, decide dónde enviar el datagrama y lo pasa a la capa de **interfaz de red**.
+
+La capa de interfaz de red acepta datagramas IP y los transmite como tramas a través de un **hardware** de red específico, como por ejemplo redes Ethernet o Red en anillo.
+
+![[capas_envio.png]]
+### **La recepción de datos**
+
+La capa de **interfaz de red** recibe las tramas, le quita la cabecera Ethernet y envía el datagrama hacia arriba hasta la capa de red. En la capa de **red**, Protocolo Internet quita la cabecera IP y envía el paquete hacia arriba hasta la capa de transporte. En la capa de **transporte**, el controlador de transporte ( TCP, en este caso) elimina el encabezado y envía los datos a la capa de **aplicación**.
+
+![[capas_recepcion.png]]
+### **Transmisión completa**
+
+Los sistemas principales de una red envían y reciben información **simultáneamente**
+
+En conclusión:
 * A medida que se **desciende** en cada capa se van **agregando** las cabeceras de cada una.
 * A medida que se **asciende** en cada capa, se van **sacando** las cabeceras de cada una.
- 
-![[04-encapsulacion-dos-hosts-ibm.png]]
 
+![[capas_transmision.png]]
 ## 2. Puntos de Acceso a Servicios
 
-El concepto de **[[SAP - Punto de Acceso a Servicio|SAP]]** (Service Access Point) es el punto de acceso al servicio de una capa. Se implementa también en el Estándar OSI y permite **independencia entre capas**.
+El concepto de **SAP** *(Service Access Point)* es el punto de acceso al servicio de una capa. Se implementa también en el Estándar OSI y permite **independencia entre capas**. En TCP/IP tiene un propósito parecido: la independencia se plantea entre los accesos a los servicios que tienen las aplicaciones **a través de la capa 4 (TCP)**.
 
-En TCP/IP tiene un propósito parecido: la independencia se plantea entre los accesos a los servicios que tienen las aplicaciones **a través de la capa 4 (TCP)**.
+Considerando un modelo simple de tres capas: aplicación, transporte y acceso a la red. Para una comunicación con éxito, cada entidad deberá tener una dirección única. En realidad, se necesitan dos niveles de direccionamiento. 
 
-![[sap-arquitectura-protocolos-redes.png]]
+Cada computador en la red debe tener una dirección de red. Esto permite a la red proporcionar los datos al computador apropiado. A su vez, cada aplicación en el computador debe tener una dirección que sea única dentro del propio computador; esto permitirá a la capa de transporte proporcionar los datos a la aplicación apropiada. 
 
-Los puntos de acceso son como **"agujeros"** por los que se logra un **conducto** (virtual, no físico) entre los extremos — un camino punto a punto para los datos.
+Estas últimas direcciones son denominadas puntos de acceso al servicio (SAP, Service Access Point), o también puertos, evidenciando que cada aplicación accede individualmente a los servicios proporcionados por la capa de transporte.
+
+![[sap_trescapas.png]]
+
+### Ejemplo de comunicación
+
+Los puntos de acceso son como **"agujeros"** por los que se logra un **conducto** (virtual, no físico) entre los extremos, un camino punto a punto para los datos.
+
+Supóngase que una aplicación, asociada al SAP 1 en el computador A quiere transmitir un mensaje a otra aplicación, asociada al SAP 2 del computador B. La aplicación en A pasa el mensaje a la capa de transporte con instrucciones para que lo envíe al SAP 2 de B. A su vez, la capa de transporte pasa el mensaje a la capa de acceso a la red, la cual proporciona las instrucciones necesarias a la red para que envíe el mensaje a B. Debe observarse que la red no necesita conocer la dirección del punto de acceso al servicio en el destino. Todo lo que necesita conocer es que los datos están dirigidos al computador B.
+
 
 ![[sap-flujo-datos-secuencia.png]]
 
@@ -86,7 +116,21 @@ Otra forma de verlo es pasando por un **Router** (capa 3):
 
 ![[sap-tcpip-concepts-router.png]]
 
-![[protocol-architecture-framework.png]]
+### Normalización entre capas del modelo OSI
+
+La principal motivación para el desarrollo del modelo OSI fue proporcionar un modelo de referencia para la normalización. Dentro del modelo, en cada capa se pueden desarrollar uno o más protocolos. El modelo define en términos generales las funciones que se deben realizar en cada capa y simplifica el procedimiento de la normalización.
+
+La función global de comunicación se descompone en 7 capas distintas, haciendo que las interfaces entre módulos sean tan simples como sea posible. Además, se utiliza el **principio de ocultación de la información**: las capas inferiores abordan ciertos detalles de tal manera que las capas superiores sean ajenas a las particularidades de estos detalles. Dentro de cada capa, se suministra el servicio proporcionado a la capa inmediatamente superior, a la vez que se implementa el protocolo con la capa par en el sistema remoto.
+
+![[capas_osi.png]]
+
+Existen tres elementos clave:
+
+1. **Especificación del protocolo:** dos entidades en la misma capa en sistemas diferentes cooperan e interactúan por medio del protocolo. El protocolo se debe especificar con precisión, ya que están implicados dos sistemas abiertos diferentes. Esto incluye el formato de la unidad de datos del protocolo, la semántica de todos los campos, así como la secuencia permitida de PDU.
+2. **Definición del servicio:** además del protocolo o protocolos que operan en una capa dada, se necesitan normalizaciones para los servicios que cada capa ofrece a la capa inmediatamente superior. Normalmente, la definición de los servicios es equivalente a una descripción funcional que definiera los servicios proporcionados, pero sin especificar cómo se están proporcionando.
+3. **Direccionamiento:** cada capa suministra servicios a las entidades de la capa inmediatamente superior. Las entidades se identifican mediante un punto de acceso al servicio (SAP). Así, un punto de acceso al servicio de red (NSAP, Network SAP) identifica a una entidad de transporte usuaria del servicio de red.
+
+![[capas_clave.png]]
 
 ## 3. Encapsulación
 
