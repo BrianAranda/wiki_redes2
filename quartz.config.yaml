@@ -272,7 +272,8 @@ layout:
     folder:
       exclude:
         - reader-mode
-        - graph
+      positions:
+        right: []
     tag:
       exclude:
         - reader-mode
