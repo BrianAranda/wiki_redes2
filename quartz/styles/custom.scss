@@ -20,3 +20,14 @@
 body:not([data-slug^="tags/"]) .page-listing {
   display: none;
 }
+
+// El plugin note-properties no tiene traducción es-ES para el título "Properties"
+// (solo trae en-US) ni una opción de config para renombrarlo. Es un string fijo del
+// plugin (no un dato de la nota), así que ocultar+reemplazar por CSS es seguro.
+.note-properties-title {
+  font-size: 0;
+  &::after {
+    content: "Propiedades";
+    font-size: 0.9rem;
+  }
+}

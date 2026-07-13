@@ -77,12 +77,26 @@ Al procesar un PDF de `content/_Fuentes/`:
    - `title`: nombre limpio de la nota (con tildes, sin el prefijo `NN -`). Quartz lo necesita para
      mostrar bien el nombre en el grafo, la pestaña del navegador y los breadcrumbs — si falta, usa
      el nombre de archivo (con el número) como respaldo.
-   - `fuente`: wikilink al PDF de `_Fuentes/` del que salió la nota (clickeable en el panel de
-     propiedades de Obsidian). Si una nota se armó de varios PDFs, listar todos.
+   - `fuente`: de dónde salió la nota. Se muestra en el panel de propiedades tanto en Obsidian
+     como en el sitio publicado (con link real y descargable si es un archivo).
+     - PDF de la cátedra en `_Fuentes/`: wikilink `"[[<nombre del PDF>.pdf]]"`.
+     - Capítulo de libro u otra fuente externa: si tenés el archivo, mismo tratamiento (subirlo a
+       `_Fuentes/` y wikilink); si es solo una referencia bibliográfica sin archivo, texto plano
+       (ej. `"Kurose & Ross - Computer Networking, cap. 4"`).
+     - Si la nota sale de más de una fuente, usar una lista en vez de un solo valor.
    ```yaml
    ---
    title: <Título de la unidad, sin el "NN - ">
    fuente: "[[<nombre del PDF>.pdf]]"
+   ---
+   ```
+   Con varias fuentes:
+   ```yaml
+   ---
+   title: <Título de la unidad, sin el "NN - ">
+   fuente:
+     - "[[<nombre del PDF>.pdf]]"
+     - "Autor - Libro, cap. N"
    ---
    ```
 4. **Índice interno al comienzo de la nota.** Justo después del encabezado `# Título` (y antes del

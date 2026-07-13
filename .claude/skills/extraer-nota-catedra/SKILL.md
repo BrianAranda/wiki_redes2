@@ -64,8 +64,10 @@ estudio para el vault de Obsidian.
    ```
    - `title`: si falta, Quartz usa el nombre del archivo como respaldo en todos lados (grafo,
      pestaña, breadcrumbs) — y ese nombre lleva el prefijo `NN -` y no tiene tildes, así que queda feo.
-   - `fuente`: wikilink al PDF de `content/_Fuentes/` del que salió la nota (queda clickeable en el
-     panel de propiedades de Obsidian). Si la nota se armó de varios PDFs, listarlos todos.
+   - `fuente`: wikilink al PDF de `content/_Fuentes/` del que salió la nota. Se ve clickeable tanto
+     en Obsidian como en el sitio publicado (link real y descargable al archivo). Si la fuente es
+     un capítulo de libro u otra referencia sin archivo, usar texto plano en vez de wikilink
+     (ej. `"Autor - Libro, cap. N"`). Si la nota sale de varias fuentes, usar una lista.
 
 7. **Índice interno al comienzo de la nota.** Justo después del `# Título` y antes del primer
    `##`, una lista con link a cada encabezado `##` de la nota (en orden), con sintaxis de
