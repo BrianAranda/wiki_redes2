@@ -1,6 +1,6 @@
 ---
 name: extraer-nota-catedra
-description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Frontmatter mínimo (solo title en las notas; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, índice interno de encabezados, wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
+description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Frontmatter mínimo (solo title en las notas, con fuente propia si citan algo aparte; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, index.md con Tabla de contenido como encabezados numerados (sin índice interno por nota, se apoya en el TOC automático de Quartz), wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
 allowed-tools: Read, Write, Glob, Bash, Skill
 ---
 
@@ -42,32 +42,31 @@ estudio para el vault de Obsidian.
    > de grafo (bug conocido). El texto correcto en español (con tildes, con `/`) vive en el
    > `title` del frontmatter (punto 5) y en los encabezados de la nota.
 
-5. **Frontmatter de cada nota: solo `title`.** Nada de `unidad`, `materia`, `tags`, `estado`,
-   `fuente` (`fuente` va únicamente en el `index.md` de la carpeta, ver punto 8 — no se repite en
-   cada nota porque todas comparten el mismo PDF de origen).
+5. **Frontmatter de cada nota: solo `title`, salvo excepción puntual.** Nada de `unidad`,
+   `materia`, `tags`, `estado`. `fuente` va normalmente únicamente en el `index.md` de la carpeta
+   (ver punto 8) — no se repite en cada nota porque todas comparten el/los PDF de origen. Si una
+   nota puntual se apoya además en una fuente propia distinta a la(s) del `index.md` (ej. un
+   artículo o documentación externa citada solo ahí), esa nota suma su propio `fuente` en
+   frontmatter, sin quitar el que ya tiene el `index.md`.
    ```yaml
    ---
    title: <Título de la entrada, con tildes/"/" como corresponda, sin el prefijo "nn - ">
    ---
    ```
-   Si falta, Quartz usa el nombre del archivo como respaldo en todos lados (grafo, pestaña,
-   breadcrumbs) — y ese nombre lleva el prefijo `nn -` y no tiene tildes, así que queda feo.
+   Si falta `title`, Quartz usa el nombre del archivo como respaldo en todos lados (grafo,
+   pestaña, breadcrumbs) — y ese nombre lleva el prefijo `nn -` y no tiene tildes, así que queda feo.
 
 6. **Esqueleto de cada nota:**
    - Sin `# Título` (el título ya lo muestra Quartz/Obsidian desde el frontmatter, repetirlo es
      redundante).
-   - Si la entrada tiene subtítulos (van a ser `##` dentro de la nota), agregar justo al
-     principio un **índice interno**: encabezado literal `# Índice` seguido de una lista con
-     link a cada `##`, sintaxis `[[#Encabezado]]`. Si la entrada NO tiene subtítulos, omitir esto
-     por completo y arrancar directo con el contenido.
+   - **Sin índice interno a mano**, aunque la nota tenga subtítulos `##`/`###` propios: Quartz
+     genera automáticamente un TOC en la barra lateral a partir de los encabezados de la nota, así
+     que agregar un `# Índice` con lista `[[#Encabezado]]` sería redundante. Arrancar directo con
+     el contenido después del frontmatter.
      ```markdown
      ---
      title: Puntos de Acceso a Servicios
      ---
-     # Índice
-     - [[#Ejemplo de comunicación]]
-     - [[#Normalización entre capas del modelo OSI]]
-
      <contenido>
 
      ## Ejemplo de comunicación
@@ -75,15 +74,19 @@ estudio para el vault de Obsidian.
      ```
 
 7. **Navegación secuencial al final de cada nota** (obligatorio), separada del contenido con
-   `---`:
+   `---`, con un renglón en blanco entre "Volver a" y "Continuar a":
    ```markdown
    ---
-   ⬅ **Volver a:** [[<nota anterior>|<Título limpio>]]
-   ➡ **Continuar a:** [[<nota siguiente>|<Título limpio>]]
+   **Volver a:** [[<nota anterior>|<Título limpio>]]
+
+   **Continuar a:** [[<nota siguiente>|<Título limpio>]]
    ```
    - La primera nota de la carpeta no lleva "Volver a" (nada antes en la secuencia).
    - La última nota, en vez de "Continuar a" hacia una nota, enlaza a las preguntas de repaso de
-     la carpeta: `➡ **Continuar a:** [[index#Preguntas de repaso (final teórico)|Preguntas de repaso]]`.
+     la carpeta: `**Continuar a:** [[Teoria/<NN - Titulo carpeta>/index#Preguntas de repaso|Preguntas de repaso]]`.
+     Usar la **ruta completa** de la carpeta, nunca `[[index#...]]` a secas: cada carpeta de
+     `Teoria/` tiene su propio `index.md`, así que un wikilink corto a "index" es ambiguo en todo
+     el vault.
    - **El alias del wikilink (la parte después de `|`) nunca debe contener `/`** — es un bug
      conocido del renderer: un alias con `/` se trunca y solo muestra el texto después de la
      última barra (ej. `Suite de Protocolos TCP/IP` se ve como `IP`). Si el título tiene `/`,
@@ -95,14 +98,16 @@ estudio para el vault de Obsidian.
    title: <Título del PDF/unidad, con tildes>
    fuente: "[[<nombre del PDF>.pdf]]"
    ---
-   # Índice
-   - [[01 - Primer entrada|Título limpio]]
-   - [[02 - Segunda entrada|Título limpio]]
+   # Tabla de contenido
+   ## 1. [[01 - Primer entrada|Título limpio]]
+   ## 2. [[02 - Segunda entrada|Título limpio]]
    ...
 
-   ## Preguntas de repaso (final teórico)
+   # Preguntas de repaso
    1. ... (preguntas de desarrollo derivadas de todo el contenido del PDF)
    ```
+   Las entradas del índice van como encabezados `##` numerados (no una lista simple `-`): así
+   aparecen en el TOC automático de Quartz en la barra lateral, igual que dentro de cualquier nota.
    `fuente` acepta lista o texto plano si la entrada no es un PDF con archivo — ver CLAUDE.md.
 
 9. **Wikilinks.** Cada concepto con peso propio (protocolos, modelos, términos técnicos eje)

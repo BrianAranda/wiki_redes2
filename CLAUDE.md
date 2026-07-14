@@ -76,19 +76,28 @@ Resumen de las reglas clave:
   de la Tabla de Contenidos del PDF es su propia nota** dentro de esa carpeta (no se agrupan varias
   entradas en una sola nota). Los subtítulos de una entrada son `##` dentro de su nota, no notas
   separadas.
-- **Frontmatter de cada nota: solo `title`.** `fuente` no se repite en cada nota — vive una sola
-  vez en el `index.md` de la carpeta (wikilink al PDF, o texto plano si es una referencia sin
-  archivo como un capítulo de libro; lista si son varias fuentes).
-- **`index.md` de la carpeta**, con `title` + `fuente`, el índice de las notas (wikilinks a cada
-  una) y la sección de cierre `## Preguntas de repaso (final teórico)` — esto ya no va en cada
-  nota individual, se consolida acá.
-- **Índice interno** (`# Índice` + lista `[[#Encabezado]]`) solo en las notas que tienen
-  subtítulos propios; si no tiene, se omite.
-- **Navegación secuencial obligatoria** al final de cada nota: `⬅ **Volver a:** [[...]]` /
-  `➡ **Continuar a:** [[...]]`, conectando cada nota con la siguiente. La primera no lleva
-  "Volver a"; la última, en vez de "Continuar a" hacia una nota, enlaza a las preguntas de repaso
-  del `index.md` de la carpeta. Ojo: un alias de wikilink con `/` se trunca (bug del renderer,
-  ej. "TCP/IP" se ve como "IP") — usar alias sin barra.
+- **Frontmatter de cada nota: solo `title`, salvo excepción puntual.** `fuente` va normalmente
+  únicamente en el `index.md` de la carpeta (wikilink al PDF, o texto plano si es una referencia
+  sin archivo como un capítulo de libro; lista si son varias fuentes) — no se repite en cada nota
+  porque todas comparten el mismo origen. Si una nota puntual se apoya además en una fuente propia
+  distinta (ej. un artículo o documentación externa citada solo ahí), esa nota suma su propio
+  `fuente` en frontmatter, sin quitar el del `index.md`.
+- **`index.md` de la carpeta**, con `title` + `fuente`, y el índice de las notas como
+  `# Tabla de contenido` seguido de una entrada por nota en formato `## N. [[nn - Nota|Título]]`
+  (encabezados numerados, no una lista simple `-`, para que el TOC automático de Quartz en la
+  barra lateral los muestre), y la sección de cierre `# Preguntas de repaso` — esto ya no va en
+  cada nota individual, se consolida acá.
+- **Sin índice interno por nota.** Aunque una nota tenga subtítulos (`##`/`###`) propios, no se
+  agrega a mano una lista `# Índice`: Quartz ya genera un TOC automático en la barra lateral a
+  partir de los encabezados de la nota.
+- **Navegación secuencial obligatoria** al final de cada nota: `**Volver a:** [[...]]` /
+  `**Continuar a:** [[...]]` (en líneas separadas por un renglón en blanco), conectando cada nota
+  con la siguiente. La primera no lleva "Volver a"; la última, en vez de "Continuar a" hacia una
+  nota, enlaza a las preguntas de repaso del `index.md` de la carpeta usando la **ruta completa**
+  (ej. `[[Teoria/01 - Introduccion a Redes II/index#Preguntas de repaso|Preguntas de repaso]]`),
+  porque cada carpeta tiene su propio `index.md` y un wikilink corto `[[index#...]]` es ambiguo en
+  todo el vault. Ojo: un alias de wikilink con `/` se trunca (bug del renderer, ej. "TCP/IP" se ve
+  como "IP") — usar alias sin barra.
 - Wikilinks a conceptos con nota propia, callouts de Obsidian, imágenes extraídas del PDF (no
   inventadas), sin tildes/eñes en archivos y carpetas — todo esto igual que antes, ver la skill.
 
@@ -108,7 +117,7 @@ Resumen de las reglas clave:
 - Si una pregunta no se puede responder solo con lo que hay en el vault (requiere un dato de
   laboratorio, algo externo a la cátedra, etc.), no inventar: marcarla como
   `> **Respuesta:** (requiere información externa, no está en esta nota)` y avisarme cuál quedó así.
-- No confundir con `## Preguntas de repaso (final teórico)` del `index.md` de la carpeta del PDF —
+- No confundir con `# Preguntas de repaso` del `index.md` de la carpeta del PDF —
   esa se deja **sin** respuesta a propósito, es para practicar de memoria (ver "Flujo de simulacro
   de examen").
 
@@ -126,5 +135,5 @@ Resumen de las reglas clave:
 - Trabajo iterativo: voy corrigiendo sobre la marcha; esperá mis ajustes antes de procesar en lote.
 
 ## Estado de avance
-- [ ] Unidad 1 — Introducción a Redes II
+- [x] Unidad 1 — Introducción a Redes II
 - [ ] (ir completando a medida que avancemos)
