@@ -146,7 +146,9 @@ estudio para el vault de Obsidian.
 
 12. **Callouts.** Resaltar:
    - `> [!important]` → definiciones clave y listas cerradas (lo que cae en el final).
-   - `> [!question]` → preguntas que plantea la cátedra en el texto.
+   - `> [!question]` → preguntas que plantea la cátedra en el texto (sin el modificador `-` en la
+     extracción: todavía no tiene respuesta. El flujo de repaso, a pedido, le agrega `-` y la
+     respuesta — ver CLAUDE.md → "Flujo de repaso").
    - `> [!info]-` → glosarios de siglas (colapsable).
    - `> [!tip]` → analogías / mnemotecnia.
    - `> [!note]` → principios o aclaraciones conceptuales.
