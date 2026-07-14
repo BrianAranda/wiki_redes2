@@ -1,12 +1,9 @@
 ---
 title: Redes I
+fuente:
+  - https://www.ibm.com/docs/es/aix/7.3.0?topic=protocol-tcpip-protocols
 ---
-# Índice
-- [[#El envió de datos]]
-- [[#La recepción de datos]]
-- [[#Transmisión completa]]
-
-En **Redes I** (la materia del cuatrimestre pasado) se trabajaron las dos primeras capas del modelo de capas de Redes:
+En **Redes I** se trabajaron las dos primeras capas del modelo de capas de Redes:
 1. **Física**
 2. **Enlace de Datos**
 
@@ -45,7 +42,8 @@ $$
 	\end{aligned}
 	\right.
 \end{equation*}
-$$ 
+$$
+# Capas y transmisión de datos
 
 > [!important] Principio de capas
 > Cada capa **brinda servicio** a las capas superiores y **obtiene servicio** de las capas inferiores. Todas las capas están soportadas por las capas precedentes.
@@ -62,14 +60,7 @@ TCP/IP define cuidadosamente cómo se mueve la información desde el remitente h
 
 ## **El envió de datos**
 
-En primer lugar, los programas de **aplicación** envían mensajes o flujos de datos a uno de los protocolos de la capa de **transporte** de Internet: UDP o TCP. 
-
-Estos protocolos reciben los datos de la aplicación, los dividen en piezas más pequeñas llamadas paquetes, añaden una dirección de destino y, a continuación, pasan los paquetes a la siguiente capa de protocolo, la capa de **red de Internet**.
-
-La capa de red de Internet encierra el paquete en un datagrama de Internet Protocol (IP), coloca la cabecera y la cola del datagrama, decide dónde enviar el datagrama y lo pasa a la capa de **interfaz de red**.
-
-La capa de interfaz de red acepta datagramas IP y los transmite como tramas a través de un **hardware** de red específico, como por ejemplo redes Ethernet o Red en anillo.
-
+En primer lugar, los programas de **aplicación** envían mensajes o flujos de datos a uno de los protocolos de la capa de **transporte** de Internet: UDP o TCP. Estos protocolos dividen los datos en piezas más pequeñas llamadas paquetes, añaden una dirección de destino y, a continuación, pasan los paquetes a la siguiente capa de protocolo, la capa de **red de Internet**. Esta capa encierra el paquete en un datagrama de *Internet Protocol* (IP), coloca la cabecera y la cola del datagrama, decide dónde enviar el datagrama y lo pasa a la capa de **interfaz de red**. Finalmente se transmite el datagrama como tramas a través de un **hardware** de red específico, como por ejemplo redes Ethernet o Red en anillo.
 ![[capas_envio.png]]
 ## **La recepción de datos**
 
@@ -87,4 +78,4 @@ En conclusión:
 ![[capas_transmision.png]]
 
 ---
-➡ **Continuar a:** [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]
+**Continuar a:** [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]

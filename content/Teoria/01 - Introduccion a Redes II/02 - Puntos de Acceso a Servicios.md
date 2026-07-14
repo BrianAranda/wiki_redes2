@@ -1,17 +1,13 @@
 ---
 title: Puntos de Acceso a Servicios
 ---
-# Índice
-- [[#Ejemplo de comunicación]]
-- [[#Normalización entre capas del modelo OSI]]
-
-El concepto de **SAP** *(Service Access Point)* es el punto de acceso al servicio de una capa. Se implementa también en el Estándar OSI y permite **independencia entre capas**. En TCP/IP tiene un propósito parecido: la independencia se plantea entre los accesos a los servicios que tienen las aplicaciones **a través de la capa 4 (TCP)**.
+El concepto de **SAP** *(Service Access Point)* es el punto de acceso al servicio de una capa. Se implementa en el Estándar OSI y permite **independencia entre capas**. En TCP/IP tiene un propósito parecido: la independencia se plantea entre los accesos a los servicios que tienen las aplicaciones **a través de la capa 4 (TCP)**.
 
 Considerando un modelo simple de tres capas: aplicación, transporte y acceso a la red. Para una comunicación con éxito, cada entidad deberá tener una dirección única. En realidad, se necesitan dos niveles de direccionamiento. 
 
-Cada computador en la red debe tener una dirección de red. Esto permite a la red proporcionar los datos al computador apropiado. A su vez, cada aplicación en el computador debe tener una dirección que sea única dentro del propio computador; esto permitirá a la capa de transporte proporcionar los datos a la aplicación apropiada. 
+Cada computador en la red debe tener una **dirección de red**. Esto permite a la red proporcionar los datos al computador apropiado. A su vez, cada aplicación en el computador debe tener una dirección que sea única dentro del propio computador; esto permitirá a la capa de transporte proporcionar los datos a la aplicación apropiada. 
 
-Estas últimas direcciones son denominadas puntos de acceso al servicio (SAP, Service Access Point), o también puertos, evidenciando que cada aplicación accede individualmente a los servicios proporcionados por la capa de transporte.
+Estas últimas direcciones son denominadas **puntos de acceso al servicio** (SAP, Service Access Point), o también **puertos**, evidenciando que cada aplicación accede individualmente a los servicios proporcionados por la capa de transporte.
 
 ![[sap_trescapas.png]]
 
@@ -19,14 +15,21 @@ Estas últimas direcciones son denominadas puntos de acceso al servicio (SAP, Se
 
 Los puntos de acceso son como **"agujeros"** por los que se logra un **conducto** (virtual, no físico) entre los extremos, un camino punto a punto para los datos.
 
+### Modelo de tres capas
+
 Supóngase que una aplicación, asociada al SAP 1 en el computador A quiere transmitir un mensaje a otra aplicación, asociada al SAP 2 del computador B. La aplicación en A pasa el mensaje a la capa de transporte con instrucciones para que lo envíe al SAP 2 de B. A su vez, la capa de transporte pasa el mensaje a la capa de acceso a la red, la cual proporciona las instrucciones necesarias a la red para que envíe el mensaje a B. Debe observarse que la red no necesita conocer la dirección del punto de acceso al servicio en el destino. Todo lo que necesita conocer es que los datos están dirigidos al computador B.
 
 
 ![[sap-flujo-datos-secuencia.png]]
 
-Otra forma de verlo es pasando por un **Router** (capa 3):
+### Modelo TCP/IP
 
-![[sap-tcpip-concepts-router.png]]
+Otra forma de verlo es pasando por un **Router** (capa 3). Supóngase que un proceso de la aplicación X, asociado al puerto 1 en la estación A, desea enviar un mensaje a otro proceso X, asociado al puerto 1 de la estación B.
+- La aplicación X en A pasa el mensaje a TCP con la instrucción de enviarlo al puerto 1 SAP de B. 
+- TCP pasa el mensaje a IP con la instrucción de enviarlo de la estación B. Obsérvese que no es necesario comunicarle a IP la identidad del puerto destino. Todo lo que necesita saber es que los datos van dirigidos al computador B. 
+- A continuación, IP pasa el mensaje a la capa de acceso a la red (por ejemplo, a la lógica de Ethernet) con el mandato expreso de enviarlo al dispositivo de encaminamiento J (el primer salto en el camino hacia B).
+
+![[sap_tcpip.png]]
 
 ## Normalización entre capas del modelo OSI
 
@@ -45,5 +48,6 @@ Existen tres elementos clave:
 ![[capas_clave.png]]
 
 ---
-⬅ **Volver a:** [[01 - Redes I|Redes I]]
-➡ **Continuar a:** [[03 - Encapsulacion|Encapsulación]]
+**Volver a:** [[01 - Redes I|Redes I]]
+
+**Continuar a:** [[03 - Encapsulacion|Encapsulación]]

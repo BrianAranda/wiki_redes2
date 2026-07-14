@@ -4,7 +4,7 @@ Conceptos mencionados en alguna nota de la wiki que todavía no tienen nota prop
 
 - [[SAP - Punto de Acceso a Servicio]]
 - [[Encapsulación]]
-- [[Sockets]]
+- [[05 - Sockets]]
 - [[TCP]]
 - [[UDP]]
 - [[IP]]
