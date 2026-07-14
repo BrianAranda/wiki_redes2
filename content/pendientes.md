@@ -16,3 +16,7 @@ Conceptos mencionados en alguna nota de la wiki que todavía no tienen nota prop
 - [[OSPF]]
 - [[RSVP]]
 - [[MIME]]
+- [[DNS]]
+- [[MTU]]
+- [[NAT]]
+- [[PAT]]
