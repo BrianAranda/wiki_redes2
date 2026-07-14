@@ -18,6 +18,9 @@ Ambos modelos, **Modelo OSI** y **Modelo TCP/IP**, tienen esas dos primeras capa
 > [!question] Pregunta de la cátedra
 > ¿Por qué decimos que las capas Física y de Enlace de Datos son "casi iguales" entre OSI y TCP/IP, y no exactamente iguales?
 > Ayuda dada por la cátedra: pensar en las **tramas**.
+>
+> > [!success]- Respuesta
+> > Cumplen la misma función en ambos modelos (transmitir bits sobre el medio y organizarlos en tramas para el acceso a la red), pero no son idénticas porque TCP/IP no define un formato de trama propio: delega esa tarea en la tecnología de red física subyacente (Ethernet, Wi-Fi, PPP, etc.), que es quien fija el formato de la trama y el direccionamiento físico. OSI, en cambio, al ser un modelo de referencia normalizado capa por capa, especifica formalmente esas funciones en su propia capa de Enlace de Datos, independientemente del hardware usado.
 
 En **Redes II** nos concentramos en lo que resta de la suite de protocolos TCP/IP: las capas de **Red**, **Transporte** y **Aplicación**.
 

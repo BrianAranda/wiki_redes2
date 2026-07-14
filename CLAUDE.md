@@ -110,13 +110,25 @@ Resumen de las reglas clave:
 ## Flujo de repaso: responder preguntas de cátedra
 - Se activa **a pedido**, no automáticamente al extraer la nota (para eso ver la skill
   `extraer-nota-catedra`). Normalmente lo pido después de haber revisado/editado la nota a mano.
-- Para cada callout `> [!question]` de la nota indicada, agregar una línea
-  `> **Respuesta:** ...` dentro del mismo callout (después de la pregunta y de la pista de la
+- Para cada callout `> [!question]` de la nota indicada, agregar la respuesta como un **callout
+  anidado y colapsable** dentro del mismo callout (después de la pregunta y de la pista de la
   cátedra si la tiene), respondiendo en base al contenido de esa nota (y de notas enlazadas si
-  hace falta).
+  hace falta):
+  ```markdown
+  > [!question] Pregunta de la cátedra
+  > ¿...?
+  > Ayuda dada por la cátedra: ...
+  >
+  > > [!success]- Respuesta
+  > > ...
+  ```
+  Así la pregunta y la pista quedan siempre visibles, y solo la respuesta se pliega (para poder
+  practicar tapándola). El callout `[!question]` exterior **nunca** lleva el modificador `-`
+  (no se pliega entero); el `-` va únicamente en el `[!success]` interno.
 - Si una pregunta no se puede responder solo con lo que hay en el vault (requiere un dato de
   laboratorio, algo externo a la cátedra, etc.), no inventar: marcarla como
-  `> **Respuesta:** (requiere información externa, no está en esta nota)` y avisarme cuál quedó así.
+  `> > [!success]- Respuesta` con el texto `(requiere información externa, no está en esta nota)`
+  y avisarme cuál quedó así.
 - No confundir con `# Preguntas de repaso` del `index.md` de la carpeta del PDF —
   esa se deja **sin** respuesta a propósito, es para practicar de memoria (ver "Flujo de simulacro
   de examen").
