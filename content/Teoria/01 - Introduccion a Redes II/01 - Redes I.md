@@ -69,7 +69,7 @@ La capa de **interfaz de red** recibe las tramas, le quita la cabecera Ethernet 
 ![[capas_recepcion.png]]
 ## **Transmisión completa**
 
-Los sistemas principales de una red envían y reciben información **simultáneamente**
+Los sistemas principales de una red envían y reciben información **simultáneamente**.
 
 En conclusión:
 * A medida que se **desciende** en cada capa se van **agregando** las cabeceras de cada una.

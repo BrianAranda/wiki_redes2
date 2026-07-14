@@ -2,9 +2,6 @@
 
 Conceptos mencionados en alguna nota de la wiki que todavía no tienen nota propia.
 
-- [[SAP - Punto de Acceso a Servicio]]
-- [[Encapsulación]]
-- [[05 - Sockets]]
 - [[TCP]]
 - [[UDP]]
 - [[IP]]
