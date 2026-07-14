@@ -62,12 +62,12 @@ TCP/IP define cuidadosamente cómo se mueve la información desde el remitente h
 ## **El envió de datos**
 
 En primer lugar, los programas de **aplicación** envían mensajes o flujos de datos a uno de los protocolos de la capa de **transporte** de Internet: UDP o TCP. Estos protocolos dividen los datos en piezas más pequeñas llamadas paquetes, añaden una dirección de destino y, a continuación, pasan los paquetes a la siguiente capa de protocolo, la capa de **red de Internet**. Esta capa encierra el paquete en un datagrama de *Internet Protocol* (IP), coloca la cabecera y la cola del datagrama, decide dónde enviar el datagrama y lo pasa a la capa de **interfaz de red**. Finalmente se transmite el datagrama como tramas a través de un **hardware** de red específico, como por ejemplo redes Ethernet o Red en anillo.
-![[capas_envio.png]]
+![[capas_envio.png|500]]
 ## **La recepción de datos**
 
 La capa de **interfaz de red** recibe las tramas, le quita la cabecera Ethernet y envía el datagrama hacia arriba hasta la capa de red. En la capa de **red**, Protocolo Internet quita la cabecera IP y envía el paquete hacia arriba hasta la capa de transporte. En la capa de **transporte**, el controlador de transporte ( TCP, en este caso) elimina el encabezado y envía los datos a la capa de **aplicación**.
 
-![[capas_recepcion.png]]
+![[capas_recepcion.png|500]]
 ## **Transmisión completa**
 
 Los sistemas principales de una red envían y reciben información **simultáneamente**.
@@ -76,7 +76,7 @@ En conclusión:
 * A medida que se **desciende** en cada capa se van **agregando** las cabeceras de cada una.
 * A medida que se **asciende** en cada capa, se van **sacando** las cabeceras de cada una.
 
-![[capas_transmision.png]]
+![[capas_transmision.png|500]]
 
 ---
 **Continuar a:** [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]

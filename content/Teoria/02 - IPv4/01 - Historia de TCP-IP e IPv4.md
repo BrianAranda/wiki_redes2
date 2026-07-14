@@ -15,8 +15,9 @@ Paralelamente, la empresa Bolt, Beranek & Newman trabajaba en la arquitectura de
 > - [**1989-1990**] Tim Berners-Lee crea HTML y la World Wide Web en el CERN.
 > - [**Actualidad**]  IPv4 sigue siendo la base de Internet; ante el agotamiento de direcciones se desarrolló **IPv6**, que continúa trabajando sobre las mismas ideas de Cerf y Kahn.
 
->[!important] Las cuatro premisas 
->Planteadas en 1973 son los pilares arquitectónicos de Internet tal como existe hoy, es la base conceptual de por qué TCP/IP es como es:
+Planteadas en 1973 **las cuatro premisas** son los pilares arquitectónicos de Internet tal como existe hoy, es la base conceptual de por qué TCP/IP es como es:
+
+>[!important] Las cuatro premisas de TCP/IP
 > 1. **Interconexión de redes vía puertas de enlace**
 > 2. **Descentralización de las redes**
 > 3. **Recuperación de errores**
