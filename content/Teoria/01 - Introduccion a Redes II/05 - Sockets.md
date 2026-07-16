@@ -20,7 +20,7 @@ Un socket cliente usa una dirección para llamar, buscar y conectarse a un socke
 En cualquier instante de tiempo, sólo puede haber **una única conexión** TCP entre un **único par de puertos**. Sin embargo, un puerto dado puede admitir múltiples conexiones, cada una con un puerto diferente.
 
 ---
-**Volver a:** [[04 - Suite de Protocolos TCP-IP|Suite de Protocolos TCP-IP]]
+**Volver a:** [[04 - Suite de Protocolos|Suite de Protocolos TCP-IP]]
 
 **Continuar a:** [[Teoria/01 - Introduccion a Redes II/index#Preguntas de repaso|Preguntas de repaso]]
 

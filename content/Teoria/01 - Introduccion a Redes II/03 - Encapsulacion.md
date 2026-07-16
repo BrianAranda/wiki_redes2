@@ -32,6 +32,6 @@ El nombre genérico del bloque de datos intercambiado en cualquier nivel se deno
 | Interfaz de red | Trama o paquete | Cabecera de red + Cabecera IP + Cabecera TCP + Datos |
 
 ---
-**Volver a:** [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]
+**Volver a:** [[02 - SAP|Puntos de Acceso a Servicios]]
 
-**Continuar a:** [[04 - Suite de Protocolos TCP-IP|Suite de Protocolos TCP-IP]]
+**Continuar a:** [[04 - Suite de Protocolos|Suite de Protocolos TCP-IP]]

@@ -3,11 +3,11 @@ title: IPv4
 fuente: "[[2. IPv4.pdf]]"
 ---
 # Tabla de contenido
-## 1. [[01 - Historia de TCP-IP e IPv4|Historia de TCP-IP e IPv4]]
+## 1. [[01 - Historia de TCP-IP e IPv4|Historia de TCP/IP e IPv4]]
 ## 2. [[02 - Organizacion de Internet|Organización de Internet]]
-## 3. [[03 - Introduccion a IPv4|Introducción al Protocolo IP]]
-## 4. [[04 - Cabecera IPv4|Cabecera IP]]
-## 5. [[06 - Direcciones IPv4|Direcciones IP]]
+## 3. [[03 - Introduccion a IPv4|Introducción a IPv4]]
+## 4. [[04 - Cabecera IPv4|Cabecera IPv4]]
+## 5. [[06 - Direcciones IPv4|Direcciones IPv4]]
 ## 6. [[07 - ARP|ARP]]
 ## 7. [[08 - Subredes|Subredes]]
 ## 8. [[09 - Localhost|Localhost]]

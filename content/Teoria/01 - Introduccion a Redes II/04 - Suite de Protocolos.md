@@ -1,5 +1,5 @@
 ---
-title: Suite de Protocolos TCP/IP
+title: Suite de Protocolos
 ---
 Se han normalizado una serie de aplicaciones para funcionar por encima de TCP. A continuación se mencionan tres de las más importantes:
 

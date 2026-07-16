@@ -80,4 +80,4 @@ En conclusión:
 ![[capas_transmision.png|500]]
 
 ---
-**Continuar a:** [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]
+**Continuar a:** [[02 - SAP|Puntos de Acceso a Servicios]]

@@ -49,7 +49,7 @@ Las clases D y E están reservadas para fines experimentales y de multidifusión
 
 ## Redes privadas
 
-Inicialmente todas las asignaciones de direcciones fueron **públicas** (como un número de teléfono, único en el mundo). Rápidamente surgieron problemas: no todos los equipos se conectan directamente a Internet, no todos se conectan a Internet, y podrían faltar direcciones IPv4. Esto llevó a definir direcciones **privadas**.
+Inicialmente todas las asignaciones de direcciones fueron **públicas** (como un número de teléfono, único en el mundo). Rápidamente surgieron problemas: no todos los equipos se conectan directamente a Internet, no todos se conectan a Internet, y podrían faltar direcciones IPv4. Esto llevó a definir direcciones **privadas** lo que le dio mas tiempo de vida a IPv4.
 
 > [!important] Público vs. Privado
 > - **IP pública:** se asigna a cualquier dispositivo que se conecta **directamente** a Internet (ej. el *router* de casa, un servidor web). Es visible desde Internet.

@@ -22,12 +22,35 @@ article p {
 
 // El contenedor .callout-content es un grid, así que los márgenes de sus
 // párrafos no colapsan (se suman margin-bottom + margin-top entre líneas,
-// quedando el doble de espacio). Se anulan los márgenes propios y se usa
-// gap del grid como única fuente de espaciado entre líneas.
+// quedando el doble de espacio). Se anula el margen individual y se usa un
+// solo margin-top en los hijos siguientes al primero (no "gap" del grid:
+// ese espacio no se reduce a 0 cuando el callout está colapsado, y quedaba
+// espacio fantasma variable según la cantidad de párrafos).
+// padding-bottom le da aire al final del texto (el .callout no tiene padding
+// vertical propio, dependía del margen del último párrafo) — simétrico con
+// el padding: 1rem 0 del título. Se anula en estado colapsado, igual que el
+// resto del espaciado interno.
 .callout-content {
-  gap: 0.5rem;
+  padding-bottom: 1rem;
+
   & > * {
     margin-block: 0;
+  }
+  & > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+// El motor de Quartz define el reset de colapso (margin-top: 0 en los hijos)
+// dentro de @layer quartz-base. Este archivo custom.scss queda fuera de ese
+// layer, y en CSS una regla sin layer siempre le gana a una con layer sin
+// importar la especificidad — así que el margin-top: 0.5rem de arriba
+// pisaba el reset original. Hay que repetirlo acá.
+.callout.is-collapsed .callout-content {
+  padding-bottom: 0;
+
+  & > * {
+    margin-top: 0;
   }
 }
 

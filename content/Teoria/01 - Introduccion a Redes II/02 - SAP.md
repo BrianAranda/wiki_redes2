@@ -1,5 +1,5 @@
 ---
-title: Puntos de Acceso a Servicios
+title: SAP
 ---
 El concepto de **SAP** *(Service Access Point)* es el punto de acceso al servicio de una capa. Se implementa en el Estándar OSI y permite **independencia entre capas**. En TCP/IP tiene un propósito parecido: la independencia se plantea entre los accesos a los servicios que tienen las aplicaciones **a través de la capa 4 (TCP)**.
 

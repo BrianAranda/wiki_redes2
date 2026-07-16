@@ -1,14 +1,14 @@
 ---
-title: Introducción a Redes II
+title: Introducción
 fuente:
   - "[[1. Introducción a Redes II.pdf]]"
   - "[[William Stallings - Capítulo 2.pdf]]"
 ---
 # Tabla de contenido
 ## 1. [[01 - Redes I|Redes I]]
-## 2. [[02 - Puntos de Acceso a Servicios|Puntos de Acceso a Servicios]]
+## 2. [[02 - SAP|Puntos de Acceso a Servicios]]
 ## 3. [[03 - Encapsulacion|Encapsulación]]
-## 4. [[04 - Suite de Protocolos TCP-IP|Suite de Protocolos TCP-IP]]
+## 4. [[04 - Suite de Protocolos|Suite de Protocolos TCP-IP]]
 ## 5. [[05 - Sockets|Sockets]]
 
 # Preguntas de repaso
@@ -21,3 +21,6 @@ fuente:
 6. Nombrar al menos tres protocolos de TCP-IP
 7. Definir qué es un socket y cuáles son los elementos que lo componen.
 8. ¿Qué diferencia hay entre el rol de un socket cliente y un socket servidor al establecer una conexión?
+
+---
+Avanzar a [[Teoria/02 - IPv4/|IPv4]]
