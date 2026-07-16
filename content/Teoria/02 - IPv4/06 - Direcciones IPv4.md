@@ -1,11 +1,25 @@
 ---
 title: Direcciones IPv4
+fuente:
+  - https://www.rfc-es.org/rfc/rfc1918-es.txt
+  - https://www.rfc-editor.org/info/rfc790/
 ---
-Los campos dirección origen y destino de la cabecera IP contienen cada uno una **dirección de Internet global de 32 bits**, que generalmente consta de un identificador de red y un identificador de computador (host).
+	Los campos de dirección origen y destino de la [[04 - Cabecera IPv4#Direcciones de Origen y Destino|Cabecera IPv4]] contienen cada uno una dirección de Internet **global** de 32 bits, que generalmente consta de un identificador de red y un identificador de computador (*host*).
+
+Las direcciones IP se escriben en **notación decimal con punto**, usando un número decimal por cada uno de los 4 octetos (o bytes) de 32 bits. Por ejemplo:
+
+$$
+\underbrace{
+\underbrace{11000000}_{\Large192}
+\quad \underbrace{11100100}_{\Large228} 
+\quad \underbrace{00010001}_{\Large17} 
+\quad \underbrace{00111001}_{\Large57}
+}_{\boxed{\large192.228.17.57}}
+$$
 
 ## Clases de red
 
-La dirección está codificada para permitir una asignación variable de bits entre red y computador — esquema conocido como **Classful**. Existen tres clases principales:
+Si bien **ya no se usan para asignar ni rutear direcciones**, el sistema de clases fue el esquema original de 1981 (RFC 791) y quedó obsoleto en 1993 reemplazado por CIDR (RFC 1519). La dirección está codificada para permitir una asignación variable de bits entre red y computador, esquema conocido como ***Classful***. Existen tres clases principales:
 
 - **Clase A:** pocas redes, cada una con muchos computadores.
 - **Clase B:** un número medio de redes, con un número medio de computadores cada una.
@@ -13,51 +27,56 @@ La dirección está codificada para permitir una asignación variable de bits en
 
 Las clases D y E están reservadas para fines experimentales y de multidifusión, respectivamente.
 
-![[clases-red-a-b-c-d-e-bytes.png]]
+![[clases.png]]
 
-![[figura-18-7-formatos-direccion-ip-bits-clase.png]]
+> [!important] Identificar la clase por el primer octeto
+> La ubicación del **primer bit en cero** determina la clase de red (A, B o C).
+> - **Clase A:** empieza con 0 binario. El primer octeto va de 1 a 126 (0 y 127 están reservados).
+> - **Clase B:** empieza con 10. Primer octeto entre 128 y 191.
+> - **Clase C:** empieza con 110. Primer octeto entre 192 y 223. 
 
-> [!important] Identificación de la clase por los primeros bits
-> - **Clase A:** empieza con `0` binario. El primer octeto va de 1 a 126 (0 y 127 están reservados). $2^{8-1} = 128$ redes, $2^{24}$ hosts.
-> - **Clase B:** empieza con `10`. Primer octeto entre 128 y 191. $2^{16}-2 = 16.384$ redes, $2^{16}$ hosts.
-> - **Clase C:** empieza con `110`. Primer octeto entre 192 y 223. $2^{24-3} = 2.097.152$ redes, $2^8 = 256$ hosts.
->
-> Como regla práctica, la ubicación del **primer bit en cero** determina la clase de red (A, B o C).
-
-![[tabla-rangos-clases-a-b-c-bits-red-host.png]]
-
-Las direcciones IP se escriben en **notación decimal con punto**, usando un número decimal por cada uno de los 4 octetos de 32 bits. Por ejemplo, `11000000 11100100 00010001 00111001` se escribe `192.228.17.57`.
-
-![[ejemplo-conversion-bits-decimal-punteado.png]]
+> [!question] ¿Cuántas redes y host puede tener cada clase?
+> Para la cantidad de redes se toman la cantidad de bits correspondientes de red y se le restan los bits fijos por clase. La cantidad de *host* corresponde a su cantidad de bytes asignados.
+> - **Clase A:** $2^{8-1} = 128$ redes, $2^{24}$ *hosts*.
+> - **Clase B:**  $2^{16-2} = 16.384$ redes, $2^{16}$ *hosts*.
+> - **Clase C:**  $2^{24-3} = 2.097.152$ redes, $2^8 = 256$ *hosts*.
 
 ## Redes privadas
 
 Inicialmente todas las asignaciones de direcciones fueron **públicas** (como un número de teléfono, único en el mundo). Rápidamente surgieron problemas: no todos los equipos se conectan directamente a Internet, no todos se conectan a Internet, y podrían faltar direcciones IPv4. Esto llevó a definir direcciones **privadas**.
 
-> [!important] Público vs. privado
-> - **IP pública:** se asigna a cualquier dispositivo que se conecta directamente a Internet (ej. el router de casa, un servidor web). Es visible desde Internet.
-> - **IP privada:** se asigna a cada dispositivo dentro de una red privada/doméstica (el router/módem la asigna). No es accesible desde Internet y no cambia salvo asignación manual. Varios dispositivos de una red comparten la misma IP pública.
+> [!important] Público vs. Privado
+> - **IP pública:** se asigna a cualquier dispositivo que se conecta **directamente** a Internet (ej. el *router* de casa, un servidor web). Es visible desde Internet.
+> - **IP privada:** se asigna a cada dispositivo dentro de una red privada/doméstica (el *router*/módem la asigna). No es accesible desde Internet y no cambia salvo asignación manual. Varios dispositivos de una red **comparten la misma IP pública**.
 
-![[diagrama-ip-privada-publica-modem.png]]
+![[modem.png|500]]
 
-> [!tip] Analogía
-> Como los números de teléfono internos de una empresa: hay un teléfono con número público al que se puede llamar desde la red telefónica, pero puertas adentro los internos son privados — y hasta pueden repetirse entre distintas empresas.
+> [!tip] Analogía con los teléfonos
+> Como los números de teléfono internos de una empresa: hay un teléfono *con* número público al que se puede llamar desde la red telefónica, pero puertas adentro los internos son privados, y hasta pueden repetirse entre distintas empresas.
 
-![[analogia-central-telefonica-ip-privada-publica.png]]
+![[telefono.png|500]]
 
-Según el **RFC 1918**, se destinaron los siguientes rangos de IPs privadas:
+Dado el **RFC 1918**, la Autoridad de Números Asignados en Internet ([[02 - Organizacion de Internet|IANA]]) reservo los tres siguientes bloques de direcciones IP para el uso en internets privadas:
 
-![[rangos-redes-privadas-rfc1918.png]]
+| Inicio de rango | Fin de rango        | Prefijo    | Bloque de | Clase privada   |
+| --------------- | ------------------- | ---------- | --------- | --------------- |
+| **10**.0.0.0    | **10**.255.255.255  | 10/8       | 24 bits   | Clase A privada |
+| **172**.16.0.0  | **172**.31.255.255  | 172.16/12  | 20 bits   | Clase B privada |
+| **192.168**.0.0 | **192.168**.255.255 | 192.168/16 | 16 bits   | Clase C privada |
 
-> [!warning] Ojo con las máscaras
-> La IP privada de clase B **no es /16**, sino **/12**. La IP privada de clase C **no es /24**, sino **/16**.
+> [!warning] Confusión con las máscaras
+> La IP privada de clase B **no es /16**, sino **/12** y la de clase C **no es /24**, sino **/16**. Esto es así porque una sola red de cada clase resulta en un rango privado pequeño, por lo tanto, se reservaron 16 redes clase B y 256 redes clase C.
+> 
+> El prefijo privado no describe "una red de esa clase", describe **cuántas redes de esa clase entran en el bloque reservado**. Cuanto más chica es la red individual de esa clase (clase C tiene solo 256 hosts), más redes hace falta agrupar para que el bloque privado sea **útil** en la práctica
 
-> [!question] Pregunta de la cátedra
-> ¿Sería usted capaz de decir a qué corresponde este rango de IPs: `169.254.0.0` – `169.254.255.255`? ¿Dónde se podría ver?
+Una organización que decida usar direcciones IPs privadas puede hacerlo sin tener que coordinarse con la IANA o con un registro de Internet. De esta manera el mismo espacio de direcciones puede ser usado por muchas organizaciones y sólo serán únicas dentro de ella.
+
+> [!question] ¿A qué corresponde el rango 169.254.0.0 – 169.254.255.255 y dónde se podría ver?
+>  No es un rango que "usa" nadie a propósito de forma permanente, es la señal de que **el mecanismo normal de asignación de IP ([[10 - DHCP|DHCP]]) no funcionó**, y el sistema operativo activó su plan de emergencia (IPv4LL) para no quedarse sin dirección alguna.
 
 ### Redes privadas para proveedores ISP
 
-Existe un espacio de direcciones compartido para las comunicaciones entre un proveedor de servicios y sus suscriptores, cuando se usa un NAT de nivel de operador: **`100.64.0.0/10`** (de `100.64.0.0` a `100.127.255.255`). Al ser una dirección /10, tiene 22 bits para direcciones IP en cada subred ($2^{10}=1024$ subredes posibles, cada una con $2^{22}=4.194.304$ direcciones).
+Existe un espacio de direcciones compartido para las comunicaciones entre un proveedor de servicios y sus suscriptores, cuando se usa un NAT de nivel de operador: **100.64.0.0/10** (de 100.64.0.0 a 100.127.255.255). Al ser una dirección /10, tiene 22 bits para direcciones IP en cada subred ($2^{10}=1024$ subredes posibles, cada una con $2^{22}=4.194.304$ direcciones).
 
 ## Pros y Contras de Direcciones Privadas
 

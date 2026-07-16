@@ -45,20 +45,31 @@ El **identificador** o **ID** (16 bits) es un número de secuencia que, junto a 
 
 > [!question]- Si envío 4G de datos con datagramas de 1500 bytes, ¿existiría algún problema? 
 > Primero, cuántos datagramas hacen falta (tomando $4G=2^{32}$ bytes): 
+> 
 > $$4 G = 4.294.967.296 \text{ bytes}$$
+> 
 > $$\dfrac{4.294.967.296}{1500} \approx 2.863.312 \text{ datagramas}$$
+> 
 > Comparado con los IDs disponibles:
+> 
 > $$\dfrac{2.863.312}{65.536} \approx 43,7$$
+> 
 > **Sí hay un problema**: el espacio de IDs es muchísimo más chico que la cantidad de datagramas a enviar, así que el contador de ID **se agota y vuelve a repetir valores casi 44 veces** durante toda la transferencia. Repetir un ID no es grave, pero el problema aparece si un datagrama se **fragmenta**: la [[05 - Fragmentacion#Reensamblado|reconstrucción]] en el destino agrupa fragmentos usando la tupla que contiene el ID. Si ese valor  se reutiliza mientras todavía hay fragmentos "viejos" dando vueltas por la red sin haberse reensamblado o descartado, el receptor puede **mezclar fragmentos de dos datagramas distintos** en uno solo.
 
 > [!question]- ¿Qué pasa si se envían los 4G en 30 segundos? 
+> 
 > $$\text{Datagramas/segundo}=\dfrac{2.863.312}{30}​\approx95.444 \text{ datagramas/s}$$
+> 
 > $$\text{Tiempo para agotar los IDs }=\dfrac{65.536}{95.444}​≈0,687 \text{ segundos}$$
+> 
 > El contador de ID **da toda la vuelta en menos de 0,7 s**. Si algún fragmento de un datagrama anterior sigue "vivo" en la red (retrasado, reordenado, esperando reensamblarse) más de ese lapso puede colisionar con un datagrama nuevo que reutilizó el mismo ID.
 
 > [!question]- ¿Qué pasa si se envían los 4G en 2 minutos?
+> 
 > $$\text{Datagramas/segundo}=\dfrac{2.863.312}{120}​\approx23.861 \text{ datagramas/s}$$
+> 
 > $$\text{Tiempo para agotar los IDs }=\dfrac{65.536}{23.861}​≈2,75 \text{ segundos}$$
+> 
 > Sigue siendo rápido (menos de 3 segundos por vuelta completa), pero **4 veces más lento** que el caso anterior. El riesgo de colisión baja porque hay más margen para que los fragmentos viejos se reensamblen o se descarten por *timeout* antes de que su ID se repita.
 
 > [!info]- RFC 4963
