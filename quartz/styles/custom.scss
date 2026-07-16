@@ -20,6 +20,17 @@ article p {
   hyphens: auto;
 }
 
+// El contenedor .callout-content es un grid, así que los márgenes de sus
+// párrafos no colapsan (se suman margin-bottom + margin-top entre líneas,
+// quedando el doble de espacio). Se anulan los márgenes propios y se usa
+// gap del grid como única fuente de espaciado entre líneas.
+.callout-content {
+  gap: 0.5rem;
+  & > * {
+    margin-block: 0;
+  }
+}
+
 .callout[data-callout="tip"] .callout-icon,
 .callout[data-callout="important"] .callout-icon {
   display: none;

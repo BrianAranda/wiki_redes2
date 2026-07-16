@@ -19,7 +19,13 @@ $$
 
 ## Clases de red
 
-Si bien **ya no se usan para asignar ni rutear direcciones**, el sistema de clases fue el esquema original de 1981 (RFC 791) y quedó obsoleto en 1993 reemplazado por CIDR (RFC 1519). La dirección está codificada para permitir una asignación variable de bits entre red y computador, esquema conocido como ***Classful***. Existen tres clases principales:
+Si bien **ya no se usan para asignar ni rutear direcciones**, el sistema de clases fue el esquema original de 1981 (RFC 791) y quedó obsoleto en 1993 reemplazado por CIDR (RFC 1519). La dirección está codificada para permitir una asignación variable de bits entre red y computador, esquema conocido como ***Classful***. 
+
+> [!important] Los problemas de *Classful*
+> 1.  **Falta de direcciones IP:** al principio unos pocos pidieron muchas IPs.
+> 2.  **Crecimiento de las tablas de ruteo:** el router tenía una lista cada vez más grande para saber a qué red mandar un paquete. 
+
+Existen tres clases principales:
 
 - **Clase A:** pocas redes, cada una con muchos computadores.
 - **Clase B:** un número medio de redes, con un número medio de computadores cada una.
