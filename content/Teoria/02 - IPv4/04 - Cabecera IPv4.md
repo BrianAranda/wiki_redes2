@@ -1,13 +1,13 @@
 ---
-title: Cabecera IP
+title: Cabecera IPv4
 fuente:
   - https://www.rfc-es.org/rfc/rfc0791-es.txt
 ---
-El protocolo entre entidades IP se describe mejor mediante el formato del **datagrama IP**. El header o encabezado de un datagrama (la PDU de IP) tiene **20 bytes** u octetos:
+El protocolo entre entidades IP se describe mejor mediante el formato del **datagrama IP**. El *header* o encabezado de un datagrama (la PDU de IP) tiene **20 bytes** u octetos:
 
 ![[cabecera_ip.png]]
 
-## Descripción de los campos de un Datagrama
+## Campos de un Datagrama
 ### Versión
 
 La **versión** (4 bits) indica el número de versionado del protocolo, permitiendo interpretar los campos subsiguientes. Por ejemplo para IPv4 el valor es 4.
@@ -61,7 +61,7 @@ El **desplazamiento del fragmento** (13 bits) indica el lugar donde se sitúa el
 
 El **tiempo de vida** o **TTL (*Time To Live*)** (8 bits) especifica cuántos segundos se le permite a un datagrama permanecer en la red. Con 8 bits, el máximo es **255**. Cada dispositivo de encaminamiento (*router*) que procesa el datagrama debe **decrementar este campo al menos en una unidad**, en la práctica funciona como un contador de saltos (en IPv6 se llama ***Hop Limit***), no de tiempo real.
 
-> [!important] TTL en la práctica
+> [!info]- TTL en la práctica
 > Un valor inicial recomendado es **64**. El remitente lo establece y cada *router* en la ruta lo reduce. Si llega a cero antes de alcanzar el destino, el datagrama se descarta y se envía un mensaje de error ICMP (RFC792, "Tiempo excedido") al remitente. El propósito es evitar que un datagrama no entregable circule indefinidamente por la red.
 #### Demostración de TTL
 
@@ -110,88 +110,27 @@ En cuanto al *traceroute* si limitamos la cantidad de saltos solo afectamos hast
 
 El **protocolo** (8 bits) identifica el protocolo de la capa de red inmediatamente superior que va a recibir el campo de datos **en el destino** (por ejemplo, TCP, UDP o ICMP).
 
-## CRC de Cabecera
+### CRC de Cabecera
 
-**Suma de comprobación de la cabecera (16 bits):** código de detección de errores aplicado solo a la cabecera. Como algunos campos cambian en el camino (ej. TTL), este valor se **recalcula en cada router**. Es el complemento a uno de la suma de todas las palabras de 16 bits de la cabecera; para calcularlo, el campo se inicializa a cero y luego se reemplaza por el valor obtenido.
+La **suma de comprobación de la cabecera** (16 bits) es el código de detección de errores aplicado **solo a la cabecera**. Como algunos campos cambian en el camino (ej. TTL), este valor se recalcula en cada router. Es el complemento a uno de la suma de todas las palabras de 16 bits de la cabecera; para calcularlo, el campo se inicializa a cero y luego se reemplaza por el valor obtenido.
 
-## Dirección de Origen
+Proporciona una verificación de que la información utilizada al procesar el datagrama ha sido transmitida correctamente. Los datos pueden contener errores. Si la suma de control de cabecera falla, el datagrama es **descartado** inmediatamente por la entidad que detecta el error.
 
-**Dirección de origen (32 bits):** codificada para permitir una asignación variable de bits que especifique la red y el sistema final conectado a ella.
+### Direcciones de Origen y Destino
 
-## Dirección de Destino
+Tanto la **dirección de origen** como la **dirección destino** (32 bits c/u) describen la dirección de capa 3 (IP) del host de destino. Están codificadas para permitir una asignación variable de bits que especifique la red y el sistema final conectado a ella (Tratado luego en [[06 - Direcciones IPv4|Direcciones IP]] y [[08 - Subredes|Subredes]]).
 
-**Dirección destino (32 bits):** igual que el campo anterior, describe la dirección de capa 3 (IP) del host de destino.
+### Opciones y Relleno
 
-![[datagrama-ip-header-direcciones-resaltadas.png]]
+Las **opciones** (bits variables) contienen las opciones solicitadas por el usuario que envía los datos y rara vez se utiliza. Son opcionales en cada datagrama, pero obligatorias en las implementaciones. Es decir, la presencia o ausencia de una opción es elección del remitente, pero cada módulo debe ser capaz de analizar cualquier opción. Puede haber varias opciones presentes en el campo opción (Están todas definidas en el RFC791 adjunto, abarca las páginas 15 a 23). 
 
-## Opciones
+Mientras que, el **relleno** (variable también) asegura que la cabecera tenga una longitud múltiplo de 32 bits y solo se usa si existen campos opcionales. Dado que las **opciones** pueden no ocupar exactamente un espacio múltiplo de 32 bits, la cabecera debe ser completada con octetos de ceros. El primero de estos será interpretado como la opción fin-de-opciones.
 
-**Opciones (variable):** contiene las opciones solicitadas por el usuario que envía los datos. Rara vez se utiliza.
+### Datos
 
-## Relleno
-
-**Relleno (variable):** asegura que la cabecera tenga una longitud múltiplo de 32 bits. Solo se usa si existen campos opcionales.
-
-## Datos
-
-**Datos (variable):** debe tener una longitud múltiplo de 8 bits. La longitud máxima de un datagrama (datos + cabecera) es de **65.535 octetos**.
-
-## Fragmentación y reensamblado
-
-En IPv4, la fragmentación y el reensamblado permiten dividir un paquete IP grande en fragmentos más pequeños cuando debe atravesar redes con distinto [[MTU]] (Maximum Transmission Unit).
-
-### Motivo de la fragmentación
-
-Cada enlace físico tiene un tamaño máximo de paquete que puede transportar:
-
-| Enlace | MTU típica |
-| --- | --- |
-| Ethernet | 1500 bytes |
-| PPPoE | 1492 bytes |
-| Wi-Fi | 2304 bytes |
-
-Si un paquete IP es más grande que el MTU del siguiente enlace, debe fragmentarse.
-
-### Dónde ocurre
-
-En algún punto del camino (en capa 3), donde el router determina que el MTU de la interfaz de salida es menor que el de la interfaz de entrada. Para lograrlo se **modifican** los campos Flags, Offset y FCS del datagrama original.
-
-### Campos del encabezado implicados
-
-- **Identification (16 bits):** identifica a qué datagrama original pertenece el fragmento — todos los fragmentos del mismo paquete tienen el mismo valor.
-- **Flags (3 bits):** bit 0 reservado (0); bit 1 **DF** (Don't Fragment); bit 2 **MF** (More Fragments: 1 si hay más fragmentos después, 0 en el último).
-- **Fragment Offset (13 bits):** posición del fragmento dentro del datagrama original, en unidades de 8 bytes.
-
-### Ejemplo
-
-Un datagrama IP con 4000 bytes de carga útil debe atravesar una red con MTU 1500. Cada fragmento debe ser ≤ 1500 bytes incluyendo el encabezado IP (20 bytes), es decir, máximo **1480 bytes de datos** por fragmento, en múltiplos de 8 (por el offset).
-
-| Fragmento | Datos | Offset | bit MF |
-| --- | --- | --- | --- |
-| 1 | 1480 bytes | 0 | 1 |
-| 2 | 1480 bytes | 185 (1480/8) | 1 |
-| 3 | 1040 bytes | 370 (2960/8) | 0 |
-
-Cada fragmento lleva su propio encabezado IP con el mismo Identification, y se debe **recalcular el CRC** de cada uno luego de fragmentar.
-
-### Reensamblado
-
-El **receptor final** (nunca los routers intermedios) hace el trabajo:
-1. Recibe los fragmentos.
-2. Los ordena según el offset.
-3. Reconoce el último porque su MF = 0.
-4. Reconstruye el datagrama original concatenando los datos.
-
-Si falta algún fragmento o no llega a tiempo, se **descarta todo el datagrama**.
-
-> [!warning] Problemas comunes de la fragmentación
-> - **Retransmisión costosa:** si se pierde un fragmento, hay que reenviar todo el datagrama.
-> - **Ataques de fragmentación:** pueden usarse para evadir cortafuegos o IDS.
-> - **Mayor carga de procesamiento** en el receptor y en cada router.
->
-> Por eso hoy se prefiere evitarla usando **Path MTU Discovery** (en IPv6), donde el emisor detecta el MTU más bajo del camino y ajusta el tamaño de los paquetes.
+Por último, los **datos** (cantidad variable) que deben tener una longitud múltiplo de 8 bits.
 
 ---
-**Volver a:** [[03 - Introduccion al Protocolo IP|Introducción al Protocolo IP]]
+**Volver a:** [[03 - Introduccion a IPv4|Introducción al Protocolo IP]]
 
-**Continuar a:** [[05 - Direcciones IP|Direcciones IP]]
+**Continuar a:** [[05 - Fragmentación|Fragmentación y reensamblado]]

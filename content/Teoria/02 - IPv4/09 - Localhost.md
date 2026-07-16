@@ -14,6 +14,6 @@ Esta IP **no cambia**, por lo que siempre se puede hacer referencia a ella.
 ![[ifconfig-localhost-loopback-anotado.png]]
 
 ---
-**Volver a:** [[07 - Subredes|Subredes]]
+**Volver a:** [[08 - Subredes|Subredes]]
 
-**Continuar a:** [[09 - DHCP|DHCP]]
+**Continuar a:** [[10 - DHCP|DHCP]]

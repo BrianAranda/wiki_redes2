@@ -5,14 +5,14 @@ fuente: "[[2. IPv4.pdf]]"
 # Tabla de contenido
 ## 1. [[01 - Historia de TCP-IP e IPv4|Historia de TCP-IP e IPv4]]
 ## 2. [[02 - Organizacion de Internet|Organización de Internet]]
-## 3. [[03 - Introduccion al Protocolo IP|Introducción al Protocolo IP]]
-## 4. [[04 - Cabecera IP|Cabecera IP]]
-## 5. [[05 - Direcciones IP|Direcciones IP]]
-## 6. [[06 - ARP|ARP]]
-## 7. [[07 - Subredes|Subredes]]
-## 8. [[08 - Localhost|Localhost]]
-## 9. [[09 - DHCP|DHCP]]
-## 10. [[10 - Diagnostico de Red - Ping ICMP y Traceroute|Diagnóstico de Red: Ping, ICMP y Traceroute]]
+## 3. [[03 - Introduccion a IPv4|Introducción al Protocolo IP]]
+## 4. [[04 - Cabecera IPv4|Cabecera IP]]
+## 5. [[06 - Direcciones IPv4|Direcciones IP]]
+## 6. [[07 - ARP|ARP]]
+## 7. [[08 - Subredes|Subredes]]
+## 8. [[09 - Localhost|Localhost]]
+## 9. [[10 - DHCP|DHCP]]
+## 10. [[11 - Diagnostico de Red|Diagnóstico de Red: Ping, ICMP y Traceroute]]
 
 # Preguntas de repaso
 

@@ -24,7 +24,7 @@ Si se ejecuta `ping -c 3 <host>`, el argumento `-c 3` indica que se emitan 3 Ech
 > [!important] Antes de poder hacer ping
 > Para hacer ping a un nombre (ej. `www.google.com`) se realizan primero dos acciones:
 > 1. **DNS:** se resuelve la IP correspondiente al nombre.
-> 2. Se determina la **MAC del Gateway** para los paquetes que salen de la red local — usando alguno o todos estos métodos: [[06 - ARP|ARP]], [[09 - DHCP|DHCP]], subnetting (ver [[07 - Subredes|Subredes]]).
+> 2. Se determina la **MAC del Gateway** para los paquetes que salen de la red local — usando alguno o todos estos métodos: [[07 - ARP|ARP]], [[10 - DHCP|DHCP]], subnetting (ver [[08 - Subredes|Subredes]]).
 >
 > Los mensajes de error de ICMP pueden a su vez contener errores: si hay un error en un datagrama que transporta un mensaje ICMP, **no se envía otro mensaje de error** por ese datagrama, para evitar un efecto "bola de nieve" en la red.
 
@@ -134,6 +134,6 @@ El campo **Type** identifica el tipo de mensaje ICMP (Echo Request/Reply, Time E
 > Ver manual completo con `man traceroute`. Existen métodos alternativos (`-I` ICMP, `-T` TCP, `-U` UDP con puerto fijo) pensados para atravesar firewalls que filtran los puertos UDP "improbables" que usa el método tradicional.
 
 ---
-**Volver a:** [[09 - DHCP|DHCP]]
+**Volver a:** [[10 - DHCP|DHCP]]
 
 **Continuar a:** [[Teoria/02 - IPv4/index#Preguntas de repaso|Preguntas de repaso]]

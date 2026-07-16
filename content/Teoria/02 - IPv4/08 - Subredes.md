@@ -1,7 +1,7 @@
 ---
 title: Subredes
 ---
-En el direccionamiento con clase, los primeros bits de una dirección IP definían la red de la que formaba parte un host (ver [[05 - Direcciones IP|Direcciones IP]]). A medida que Internet creció, esta forma de asignar direcciones se volvió ineficiente: las direcciones se otorgaban según lo solicitado, no según la necesidad real, lo que llevó a un agotamiento prematuro del espacio de direcciones.
+En el direccionamiento con clase, los primeros bits de una dirección IP definían la red de la que formaba parte un host (ver [[06 - Direcciones IPv4|Direcciones IP]]). A medida que Internet creció, esta forma de asignar direcciones se volvió ineficiente: las direcciones se otorgaban según lo solicitado, no según la necesidad real, lo que llevó a un agotamiento prematuro del espacio de direcciones.
 
 > [!note] El problema de fondo
 > Un `/24` admite 254 hosts (demasiado poco); un `/16` admite 65.534 hosts (demasiado). Asignar una única `/16` a una organización con unos pocos cientos de hosts agotaba prematuramente ese espacio, y a la vez la cantidad de entradas en las tablas de ruteo de los routers crecía sin control a medida que aumentaba la cantidad de redes.
@@ -121,6 +121,6 @@ b) Indicar qué máscaras son válidas y cuáles no, y por qué: `255.255.0.0`, 
 **Ejercicio 7:** la empresa NATURALIVE es propietaria de `172.50.10.07/16`. Se plantearon inicialmente 25 subredes, con un mínimo de 900 hosts por subred, y se proyecta un crecimiento a 55 subredes en los próximos años. Determinar qué máscara de subred se debería utilizar.
 
 ---
-**Volver a:** [[06 - ARP|ARP]]
+**Volver a:** [[07 - ARP|ARP]]
 
-**Continuar a:** [[08 - Localhost|Localhost]]
+**Continuar a:** [[09 - Localhost|Localhost]]

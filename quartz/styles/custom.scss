@@ -8,6 +8,18 @@ img {
   margin: 1rem auto;
 }
 
+// Centrar todas las tablas (mismo motivo: el margin por defecto no es "auto").
+.table-container > table {
+  margin: 1rem auto;
+}
+
+// Justificar el texto de los párrafos. hyphens: auto evita huecos grandes
+// entre palabras largas al justificar en columnas angostas.
+article p {
+  text-align: justify;
+  hyphens: auto;
+}
+
 .callout[data-callout="tip"] .callout-icon,
 .callout[data-callout="important"] .callout-icon {
   display: none;

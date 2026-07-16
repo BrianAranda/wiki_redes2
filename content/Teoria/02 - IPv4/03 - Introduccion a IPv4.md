@@ -1,5 +1,5 @@
 ---
-title: Introducción al Protocolo IP
+title: Introducción al Protocolo IPv4
 fuente:
   - https://www.rfc-es.org/rfc/rfc0791-es.txt
 ---
@@ -36,22 +36,9 @@ El protocolo internet utiliza cuatro mecanismos clave para prestar su servicio: 
 ### Responsabilidades de IP
 
 - Usar un esquema de direcciones para rutear los datagramas hasta el destino.
-- Usar un protocolo complementario para reportar problemas ([[10 - Diagnostico de Red - Ping ICMP y Traceroute|ICMP]]).
+- Usar un protocolo complementario para reportar problemas ([[11 - Diagnostico de Red|ICMP]]).
 - Fragmentar y reensamblar paquetes para adaptarlos al enlace.
 - Rutear paquetes desde el origen al destino.
-
-### Elementos que usa IP para brindar el servicio
-
-- **Dirección origen:** dirección global de red de la entidad IP que envía la unidad de datos.
-- **Dirección destino:** dirección global de red de la entidad IP de destino.
-- **Protocolo:** entidad de protocolo receptor (un usuario IP, como TCP).
-- **Indicadores del tipo de servicio:** especifican el tratamiento de la unidad de datos en su transmisión a través de la red.
-- **Identificador:** combinado con las direcciones origen/destino y el protocolo usuario, identifica de forma única a la unidad de datos (necesario para reensamblar e informar errores).
-- **Indicador de no fragmentación:** indica si IP puede fragmentar los datos.
-- **Tiempo de vida:** medido en segundos.
-- **Longitud de los datos** transmitidos.
-- **Datos de opción** solicitados por el usuario IP.
-- **Datos** de usuario a transmitir.
 
 ## ¿Cómo funciona?
 
@@ -67,8 +54,8 @@ Este diagrama muestra cómo interactúan la **capa de Red (IP)** y la **capa 
 ![[procesamiento_ip.png]]
 
 > [!note] A tener en cuenta
-> - **Loopback:** interfaz virtual que permite que un *host* se comunique consigo mismo (ver [[08 - Localhost|Localhost]]).
-> - **Driver:** el *software* que maneja la interfaz de red física (por ejemplo, *Ethernet*) y decide, entre otras cosas, cuándo resolver una dirección con [[06 - ARP|ARP]].
+> - **Loopback:** interfaz virtual que permite que un *host* se comunique consigo mismo (ver [[09 - Localhost|Localhost]]).
+> - **Driver:** el *software* que maneja la interfaz de red física (por ejemplo, *Ethernet*) y decide, entre otras cosas, cuándo resolver una dirección con [[07 - ARP|ARP]].
 
 **Capa de Red (IP):** en la parte superior están los dos puntos de entrada/salida de la capa IP.
 - Salida de datagrama IP: recibe un datagrama que viene de capas superiores o de una decisión de ruteo, listo para transmitirse. (Bloque superior izquierdo con flecha viniendo de abajo)
@@ -85,8 +72,10 @@ Todo lo que ocurre por debajo de estos dos puntos pertenece a la capa de **Inter
 
 >[!important]- Camino de entrada
 >Una trama que llega por el medio físico ***Ethernet*** (capa Física/Enlace) es recibida por el **Ethernet Driver**, que la pasa a Demultiplexado *Ethernet*. Este módulo mira el tipo de trama: 
->- Si es una trama **ARP** (un *Request* o *Reply*), la deriva al mismo módulo **ARP** que usa la salida para resolver direcciones, es decir, ARP cumple un doble rol, tanto lo consulta la salida de IP como recibe tramas ARP entrantes de la red. 
->- Si en cambio es una trama que transporta un datagrama IP, se envía a la **Cola de entrada de IP** (la cola del *Ethernet Driver*, distinta de la del *loopback*) y de ahí sube a **Entrada de datagrama IP**, en la capa de Red.
+>
+> Si es una trama **ARP** (un *Request* o *Reply*), la deriva al mismo módulo **ARP** que usa la salida para resolver direcciones, es decir, ARP cumple un doble rol, tanto lo consulta la salida de IP como recibe tramas ARP entrantes de la red. 
+>
+> Si en cambio es una trama que transporta un datagrama IP, se envía a la **Cola de entrada de IP** (la cola del *Ethernet Driver*, distinta de la del *loopback*) y de ahí sube a **Entrada de datagrama IP**, en la capa de Red.
 >
 
 > [!important]- *Loopback* entre salida y entrada 
@@ -97,4 +86,4 @@ Todo lo que ocurre por debajo de estos dos puntos pertenece a la capa de **Inter
 ---
 **Volver a:** [[02 - Organizacion de Internet|Organización de Internet]]
 
-**Continuar a:** [[04 - Cabecera IP|Cabecera IP]]
+**Continuar a:** [[04 - Cabecera IPv4|Cabecera IPv4]]

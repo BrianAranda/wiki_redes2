@@ -55,4 +55,4 @@ Los ISP se designan mediante una jerarquía basada en su nivel de conectividad a
 ---
 **Volver a:** [[01 - Historia de TCP-IP e IPv4|Historia de TCP-IP e IPv4]]
 
-**Continuar a:** [[03 - Introduccion al Protocolo IP|Introducción al Protocolo IP]]
+**Continuar a:** [[03 - Introduccion a IPv4|Introducción al Protocolo IP]]

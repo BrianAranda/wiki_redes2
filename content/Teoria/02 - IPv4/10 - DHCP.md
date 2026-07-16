@@ -137,6 +137,6 @@ Características de Bonjour:
 > Bonjour solo funciona dentro de una **subred única**, sin necesidad de configuración especial de DNS.
 
 ---
-**Volver a:** [[08 - Localhost|Localhost]]
+**Volver a:** [[09 - Localhost|Localhost]]
 
-**Continuar a:** [[10 - Diagnostico de Red - Ping ICMP y Traceroute|Diagnóstico de Red: Ping, ICMP y Traceroute]]
+**Continuar a:** [[11 - Diagnostico de Red|Diagnóstico de Red: Ping, ICMP y Traceroute]]

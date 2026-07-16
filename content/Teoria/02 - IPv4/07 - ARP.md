@@ -97,6 +97,6 @@ En **Proxy ARP**, un router tiene la capacidad de responder a solicitudes ARP en
 4. Ver la tabla de ARP, hacer ping a `1.1.1.1` y verificar si aparece la MAC de ese DNS en la tabla — justificar la respuesta.
 
 ---
-**Volver a:** [[05 - Direcciones IP|Direcciones IP]]
+**Volver a:** [[06 - Direcciones IPv4|Direcciones IP]]
 
-**Continuar a:** [[07 - Subredes|Subredes]]
+**Continuar a:** [[08 - Subredes|Subredes]]

@@ -1,5 +1,5 @@
 ---
-title: Direcciones IP
+title: Direcciones IPv4
 ---
 Los campos dirección origen y destino de la cabecera IP contienen cada uno una **dirección de Internet global de 32 bits**, que generalmente consta de un identificador de red y un identificador de computador (host).
 
@@ -68,9 +68,9 @@ Existe un espacio de direcciones compartido para las comunicaciones entre un pro
 - Es una opción segura para empresas que aún no se conectaron a Internet y usaron IPs sin asignación de IANA, evitando choques al conectarse después.
 
 **Desventajas:**
-- Puede reducir la flexibilidad de una empresa para acceder a Internet, requiriendo mecanismos adicionales: [[09 - DHCP|DHCP]], mapeo de puertos, [[NAT]], [[PAT]], Port Forwarding, etc.
+- Puede reducir la flexibilidad de una empresa para acceder a Internet, requiriendo mecanismos adicionales: [[10 - DHCP|DHCP]], mapeo de puertos, [[NAT]], [[PAT]], Port Forwarding, etc.
 
 ---
-**Volver a:** [[04 - Cabecera IP|Cabecera IP]]
+**Volver a:** [[05 - Fragmentación|Fragmentación y reensamblado]]
 
-**Continuar a:** [[06 - ARP|ARP]]
+**Continuar a:** [[07 - ARP|ARP]]
