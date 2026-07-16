@@ -1,5 +1,5 @@
 ---
-title: "Diagnóstico de Red: Ping, ICMP y Traceroute"
+title: Diagnóstico de Red
 ---
 ## Ping
 

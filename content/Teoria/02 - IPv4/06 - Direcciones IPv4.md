@@ -71,6 +71,6 @@ Existe un espacio de direcciones compartido para las comunicaciones entre un pro
 - Puede reducir la flexibilidad de una empresa para acceder a Internet, requiriendo mecanismos adicionales: [[10 - DHCP|DHCP]], mapeo de puertos, [[NAT]], [[PAT]], Port Forwarding, etc.
 
 ---
-**Volver a:** [[05 - Fragmentación|Fragmentación y reensamblado]]
+**Volver a:** [[05 - Fragmentacion|Fragmentación y reensamblado]]
 
 **Continuar a:** [[07 - ARP|ARP]]

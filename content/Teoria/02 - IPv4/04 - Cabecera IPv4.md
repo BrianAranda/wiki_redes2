@@ -2,6 +2,7 @@
 title: Cabecera IPv4
 fuente:
   - https://www.rfc-es.org/rfc/rfc0791-es.txt
+  - https://www.rfc-editor.org/info/rfc4963/
 ---
 El protocolo entre entidades IP se describe mejor mediante el formato del **datagrama IP**. El *header* o encabezado de un datagrama (la PDU de IP) tiene **20 bytes** u octetos:
 
@@ -19,6 +20,11 @@ La **longitud de la cabecera Internet** o **IHL** **(*Internet Header Length*)**
 >[!question]- ¿Por qué se dice que el IHL apunta al comienzo de los datos?
 >Como la cabecera IP tiene longitud variable (por el campo Opciones, que es opcional y de tamaño variable), el receptor **no puede asumir que los datos empiezan siempre en el mismo byte**. IHL funciona como un offset: multiplicando IHL × 4 (para pasar de palabras de 32 bits a bytes) se obtiene exactamente cuántos bytes ocupa la cabecera, y por lo tanto en qué byte exacto arrancan los datos (el *payload*). Sin este campo, sería imposible separar cabecera de datos cuando hay Opciones presentes.
 
+> [!question]- ¿Cuál es el máximo de tamaño de cabecera que puedo tener?
+> El máximo es **60 bytes (60 octetos)**, puesto que IHL son 4 bits el valor más grande que se puede representar es $2^4 - 1 = 15$ (en binario 1111). Como cada unidad de IHL representa una **palabra de 32 bits** (4 bytes), el cálculo es: 15×32 bits=480 bits=60 bytes
+> 
+> Estos 60 bytes se reparten entre los **20 primeros obligatorios/fijos**, correspondientes desde la versión hasta la dirección de destino; y los otros **40 en los variables** entre opciones y relleno.
+
 ### Tipo de Servicio o TOS
 
 El **tipo de servicio** o **TOS (*Type Of Service*)** (8 bits) especifica parámetros de fiabilidad, prioridad, retardo y rendimiento. Este campo **no se utiliza** globalmente en Internet (solo en entornos privados/locales). Los primeros 6 bits se denominan campo de **servicios diferenciados (DS)**, mientras que los 2 bits restantes están reservados para **notificación explícita de congestión (ECN)**.
@@ -34,9 +40,29 @@ La **longitud total** (16 bits) es la total del datagrama, incluyendo la cabecer
 
 El **identificador** o **ID** (16 bits) es un número de secuencia que, junto a la dirección origen, destino y el protocolo usuario, identifica de forma única un datagrama durante el tiempo que permanece en la red. Es necesario para reensamblar fragmentos e informar errores.
 
-> [!question]- Pregunta de la cátedra
-> ¿Cuántos IDs distintos puedo tener? Suponiendo que envío 4G de datos con datagramas de 1500 bytes, ¿existiría algún problema? ¿Qué pasa si se envían los 4G en 30 segundos? ¿Qué pasa si se envían los 4G en 2 minutos? Ayuda dada por la cátedra: RFC4963.
+> [!question]- ¿Cuántos IDs distintos puedo tener? 
+> El campo ID tiene 16 bits entonces $2^{16} = 65.536$ valores distintos (de 0 a 65.535).
 
+> [!question]- Si envío 4G de datos con datagramas de 1500 bytes, ¿existiría algún problema? 
+> Primero, cuántos datagramas hacen falta (tomando $4G=2^{32}$ bytes): 
+> $$4 G = 4.294.967.296 \text{ bytes}$$
+> $$\dfrac{4.294.967.296}{1500} \approx 2.863.312 \text{ datagramas}$$
+> Comparado con los IDs disponibles:
+> $$\dfrac{2.863.312}{65.536} \approx 43,7$$
+> **Sí hay un problema**: el espacio de IDs es muchísimo más chico que la cantidad de datagramas a enviar, así que el contador de ID **se agota y vuelve a repetir valores casi 44 veces** durante toda la transferencia. Repetir un ID no es grave, pero el problema aparece si un datagrama se **fragmenta**: la [[05 - Fragmentacion#Reensamblado|reconstrucción]] en el destino agrupa fragmentos usando la tupla que contiene el ID. Si ese valor  se reutiliza mientras todavía hay fragmentos "viejos" dando vueltas por la red sin haberse reensamblado o descartado, el receptor puede **mezclar fragmentos de dos datagramas distintos** en uno solo.
+
+> [!question]- ¿Qué pasa si se envían los 4G en 30 segundos? 
+> $$\text{Datagramas/segundo}=\dfrac{2.863.312}{30}​\approx95.444 \text{ datagramas/s}$$
+> $$\text{Tiempo para agotar los IDs }=\dfrac{65.536}{95.444}​≈0,687 \text{ segundos}$$
+> El contador de ID **da toda la vuelta en menos de 0,7 s**. Si algún fragmento de un datagrama anterior sigue "vivo" en la red (retrasado, reordenado, esperando reensamblarse) más de ese lapso puede colisionar con un datagrama nuevo que reutilizó el mismo ID.
+
+> [!question]- ¿Qué pasa si se envían los 4G en 2 minutos?
+> $$\text{Datagramas/segundo}=\dfrac{2.863.312}{120}​\approx23.861 \text{ datagramas/s}$$
+> $$\text{Tiempo para agotar los IDs }=\dfrac{65.536}{23.861}​≈2,75 \text{ segundos}$$
+> Sigue siendo rápido (menos de 3 segundos por vuelta completa), pero **4 veces más lento** que el caso anterior. El riesgo de colisión baja porque hay más margen para que los fragmentos viejos se reensamblen o se descarten por *timeout* antes de que su ID se repita.
+
+> [!info]- RFC 4963
+> El problema no es "quedarse sin IDs" (eso siempre va a pasar en transferencias grandes, 65.536 es poco). El problema es la **velocidad** a la que se repiten: cuanto más alta la tasa de datagramas por segundo, más rápido se agota el espacio de 16 bits, y más probable es que un ID se reutilice mientras fragmentos de un datagrama anterior con el mismo ID todavía no terminaron de reensamblarse. Es un problema real a velocidades altas (enlaces Gigabit o más), y es una de las razones por las que en IPv6 el campo *Identification* de fragmentación se amplió a **32 bits** para que el ciclo de repetición tarde muchísimo más en darse.
 ### *Flags* o Identificadores
 
 De los **indicadores** (3 bits) solo dos de los tres bits están definidos actualmente.
@@ -55,7 +81,7 @@ El bit MF se usa para la fragmentación y el reensamblado, mientras que, el bit 
 El **desplazamiento del fragmento** (13 bits) indica el lugar donde se sitúa el fragmento dentro del datagrama original, medido en unidades de **64 bits**. Todos los fragmentos, salvo el último, contienen un campo de datos múltiplo de 64 bits.
 
 > [!example]- Ejemplo de fragmentación por MTU
-> Si el [[MTU]] de Ethernet es 1500 bytes, y se descuenta el header IP (20 bytes), quedan 1480 bytes para transportar. Para enviar 4252 bytes (no múltiplo de 64) se generan 3 fragmentos: dos de 1480 bytes (2960 bytes) y un último fragmento con los octetos restantes. **Todos los ID del datagrama son iguales**, ya que es el mismo datagrama fragmentado que luego debe reensamblarse.
+> Si el MTU de Ethernet es 1500 bytes, y se descuenta el header IP (20 bytes), quedan 1480 bytes para transportar. Para enviar 4252 bytes (no múltiplo de 64) se generan 3 fragmentos: dos de 1480 bytes (2960 bytes) y un último fragmento con los octetos restantes. **Todos los ID del datagrama son iguales**, ya que es el mismo datagrama fragmentado que luego debe reensamblarse.
 
 ### Tiempo de Vida o TTL
 
@@ -133,4 +159,4 @@ Por último, los **datos** (cantidad variable) que deben tener una longitud múl
 ---
 **Volver a:** [[03 - Introduccion a IPv4|Introducción al Protocolo IP]]
 
-**Continuar a:** [[05 - Fragmentación|Fragmentación y reensamblado]]
+**Continuar a:** [[05 - Fragmentacion|Fragmentación y reensamblado]]

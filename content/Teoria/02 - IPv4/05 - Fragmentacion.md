@@ -1,5 +1,5 @@
 ---
-title: Fragmentación y reensamblado
+title: Fragmentación
 fuente:
   - https://www.rfc-es.org/rfc/rfc0791-es.txt
 ---
@@ -43,11 +43,11 @@ Tener en cuenta que cada fragmento lleva su propio encabezado con el mismo ID y 
 > [!example] Ejemplo numérico de fragmentación
 > Un datagrama IP con 4000 bytes de carga útil debe atravesar una red con MTU 1500. Cada fragmento debe ser ≤ 1500 bytes incluyendo el encabezado IP (20 bytes), es decir, máximo **1480 bytes de datos** por fragmento, en múltiplos de 8 (por el offset).
 > 
-| Fragmento | Datos      | Offset       | MF |
-| --------- | ---------- | ------------ | ------ |
-| 1         | 1480 bytes | 0            | 1      |
-| 2         | 1480 bytes | 185 (1480/8) | 1      |
-| 3         | 1040 bytes | 370 (2960/8) | 0      |
+> | Fragmento | Datos      | Offset       | MF |
+> | --------- | ---------- | ------------ | ------ |
+> | 1         | 1480 bytes | 0            | 1      |
+> | 2         | 1480 bytes | 185 (1480/8) | 1      |
+> | 3         | 1040 bytes | 370 (2960/8) | 0      |
 
 ### Reensamblado
 

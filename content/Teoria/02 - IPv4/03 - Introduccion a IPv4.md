@@ -1,5 +1,5 @@
 ---
-title: Introducción al Protocolo IPv4
+title: Introducción a IPv4
 fuente:
   - https://www.rfc-es.org/rfc/rfc0791-es.txt
 ---
