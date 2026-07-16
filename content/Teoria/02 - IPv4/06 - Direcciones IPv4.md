@@ -4,7 +4,7 @@ fuente:
   - https://www.rfc-es.org/rfc/rfc1918-es.txt
   - https://www.rfc-editor.org/info/rfc790/
 ---
-	Los campos de dirección origen y destino de la [[04 - Cabecera IPv4#Direcciones de Origen y Destino|Cabecera IPv4]] contienen cada uno una dirección de Internet **global** de 32 bits, que generalmente consta de un identificador de red y un identificador de computador (*host*).
+Los campos de dirección origen y destino de la [[04 - Cabecera IPv4#Direcciones de Origen y Destino|Cabecera IPv4]] contienen cada uno una dirección de Internet **global** de 32 bits, que generalmente consta de un identificador de red y un identificador de computador (*host*).
 
 Las direcciones IP se escriben en **notación decimal con punto**, usando un número decimal por cada uno de los 4 octetos (o bytes) de 32 bits. Por ejemplo:
 
