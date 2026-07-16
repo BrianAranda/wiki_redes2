@@ -28,6 +28,11 @@ La arquitectura de TCP/IP **no exige que se haga uso de todas las capas**, es po
 > - **[[UDP]]** = User Datagram Protocol
 
 No se pretende profundidad en todos estos protocolos, pero sí conocer la **utilidad y propósito** de cada uno.
+## Vista de Pila de protocolos TCP/IP
+
+> Nota: la imagen siguiente se encuentra originalmente en la Introducción al protocolo IP. Pero sin contexto o conexión con lo tratado antes y despues. Me parecio mas adecuado agregarla acá como un vistazo de lo que se verá luego.
+
+![[pila_protocolos.png]]
 
 ---
 **Volver a:** [[03 - Encapsulacion|Encapsulación]]
