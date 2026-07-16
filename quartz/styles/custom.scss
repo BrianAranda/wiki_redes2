@@ -39,19 +39,63 @@ article p {
   & > * + * {
     margin-top: 0.5rem;
   }
+
+  // katex.min.css (KaTeX se carga desde un CDN externo, fuera de cualquier
+  // @layer) trae su propio ".katex-display { margin: 1em 0; }" con la misma
+  // especificidad (una clase) que las reglas de arriba, y gana el empate por
+  // cargarse después en el <head> — el margen de las fórmulas de bloque no
+  // quedaba resetado. Se repite acá con un selector de más clases para
+  // ganarle por especificidad en vez de depender del orden de carga.
+  & > .katex-display {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+  & > :first-child.katex-display {
+    margin-top: 0;
+  }
 }
 
-// El motor de Quartz define el reset de colapso (margin-top: 0 en los hijos)
+// El motor de Quartz define el reset de colapso (margin: 0 en los hijos)
 // dentro de @layer quartz-base. Este archivo custom.scss queda fuera de ese
 // layer, y en CSS una regla sin layer siempre le gana a una con layer sin
-// importar la especificidad — así que el margin-top: 0.5rem de arriba
-// pisaba el reset original. Hay que repetirlo acá.
+// importar la especificidad — así que el margin de arriba pisaba el reset
+// original. Hay que repetirlo acá (y de nuevo el caso puntual de
+// .katex-display contra katex.min.css, ver arriba).
 .callout.is-collapsed .callout-content {
   padding-bottom: 0;
 
   & > * {
     margin-top: 0;
   }
+  & > .katex-display {
+    margin-bottom: 0;
+  }
+}
+
+// Links a otras notas (wikilinks) en el violeta característico de Obsidian
+// (mismo tono en modo claro/oscuro), sin el resaltado de fondo gris. Los
+// links externos no se tocan (siguen con --secondary): no se pidió cambiarlos
+// y --secondary se usa en muchos otros lugares del sitio (TOC, checkboxes,
+// barra de progreso) que tampoco se tocan. Las notas al pie (referencia y
+// vuelta) ya heredan este mismo violeta: Quartz les pone la misma clase
+// "internal internal-link" que a los wikilinks.
+a.internal {
+  color: #8b5cf6;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+
+  &.broken {
+    color: #8b5cf6;
+  }
+}
+
+// Callout de cita [!quote]: usa --secondary para el color del ícono/título
+// y un fondo celeste fijo (heredado del fallback genérico de callouts). Se
+// cambia a violeta, mismo tono y misma opacidad de fondo (10 en hex ~ 6%).
+.callout[data-callout="quote"] {
+  --color: #8b5cf6;
+  --bg: #8b5cf610;
 }
 
 .callout[data-callout="tip"] .callout-icon,
