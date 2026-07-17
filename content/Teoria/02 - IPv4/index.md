@@ -3,7 +3,7 @@ title: IPv4
 fuente: "[[2. IPv4.pdf]]"
 ---
 # Tabla de contenido
-## [[01 - Historia de TCP-IP e IPv4|Historia de TCP/IP e IPv4]]
+## [[01 - Historia de TCP-IP e IPv4|Historia de TCP-IP e IPv4]]
 ## [[02 - Organizacion de Internet|Organización de Internet]]
 ## [[03 - Introduccion a IPv4|Introducción a IPv4]]
 ## [[04 - Cabecera IPv4|Cabecera IPv4]]

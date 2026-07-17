@@ -2,11 +2,10 @@
 
 // put your custom CSS here!
 
-// Violeta característico de Obsidian, reemplaza el azul (--secondary) en la
-// mayoría de los usos del sitio. No se pisa la variable --secondary en sí
-// porque también la usan los links externos (sin pedir cambio) y quedaría
-// afectando esos casos de rebote.
-$obsidian-violet: #8b5cf6;
+// Color de acento para links/UI (antes se probó un violeta fijo, se volvió
+// al azul original --secondary, que ya cambia solo entre modo claro/oscuro).
+// Queda como variable porque se usa en muchos lugares del archivo.
+$accent-color: var(--secondary);
 
 // Las barras laterales (.sidebar, izq/der) usan $topSpacing (6rem) de padding
 // arriba contra 2rem abajo/costados — mucho más aire arriba que abajo. Se
@@ -77,6 +76,27 @@ article p {
   }
 }
 
+// .katex-display trae overflow:hidden de fábrica (base.scss) para poder
+// scrollear fórmulas más anchas que la columna. El problema: KaTeX arma
+// fracciones (\dfrac, etc.) con técnicas de posicionamiento relativo que no
+// cuentan para el cálculo de altura "auto" del contenedor — la caja queda
+// más baja que el contenido real, y overflow:hidden recorta la parte de
+// arriba de la fracción. Puede pasar en cualquier .katex-display (no solo
+// en callouts), así que se saca el recorte en general. Nota: esto también
+// quita el scroll horizontal para fórmulas más anchas que la columna, pero
+// ninguna fórmula actual del sitio lo necesita.
+article .katex-display {
+  overflow: visible;
+}
+
+// Dentro de un callout, el "visible" de arriba solo aplica si está
+// expandido: cuando está colapsado, el mecanismo de colapso de Quartz
+// depende de que el overflow siga oculto para no dejar la fórmula asomada
+// fuera de la caja (altura 0) mientras colapsa.
+.callout.is-collapsed .callout-content > .katex-display {
+  overflow: hidden;
+}
+
 // El motor de Quartz define el reset de colapso (margin: 0 en los hijos)
 // dentro de @layer quartz-base. Este archivo custom.scss queda fuera de ese
 // layer, y en CSS una regla sin layer siempre le gana a una con layer sin
@@ -94,35 +114,35 @@ article p {
   }
 }
 
-// Links a otras notas (wikilinks) en el violeta característico de Obsidian
-// (mismo tono en modo claro/oscuro), sin el resaltado de fondo gris. Los
-// links externos no se tocan (siguen con --secondary): no se pidió cambiarlos.
-// Las notas al pie (referencia y vuelta) ya heredan este mismo violeta:
-// Quartz les pone la misma clase "internal internal-link" que a los wikilinks.
+// Links a otras notas (wikilinks): sin el resaltado de fondo gris que traen
+// por defecto (solo el color). Los links externos no se tocan (siguen con
+// --secondary sin cambios): no se pidió tocarlos. Las notas al pie
+// (referencia y vuelta) ya heredan este mismo estilo: Quartz les pone la
+// misma clase "internal internal-link" que a los wikilinks.
 a.internal {
-  color: $obsidian-violet;
+  color: $accent-color;
   background-color: transparent;
   padding: 0;
   border-radius: 0;
 
   &.broken {
-    color: $obsidian-violet;
+    color: $accent-color;
   }
 }
 
-// Callout de cita [!quote]: usa --secondary para el color del ícono/título
-// y un fondo celeste fijo (heredado del fallback genérico de callouts). Se
-// cambia a violeta, mismo tono y misma opacidad de fondo (10 en hex ~ 6%).
+// Callout de cita [!quote]: por defecto hereda un fondo celeste fijo del
+// fallback genérico de callouts (--bg: #448aff10). Se saca ese resaltado de
+// fondo, mismo criterio que los links: solo el color del ícono/título.
 .callout[data-callout="quote"] {
-  --color: $obsidian-violet;
-  --bg: #{$obsidian-violet}10;
+  --color: #{$accent-color};
+  --bg: transparent;
 }
 
 // Título del sitio ("Redes II") y migas de pan ("Inicio > ..."): ambos son
 // <a> simples sin clase propia, heredan el --secondary base de todo <a>.
 .page-title a,
 .breadcrumb-element a {
-  color: $obsidian-violet;
+  color: $accent-color;
 }
 
 // Explorador (barra izquierda): nombre e ícono de las carpetas. Los archivos
@@ -130,59 +150,63 @@ a.internal {
 .folder-container div > a,
 .folder-container div > button span,
 .folder-icon {
-  color: $obsidian-violet;
+  color: $accent-color;
 }
 
-// Resto de usos sueltos de --secondary en el sitio: casillas de tareas
-// marcadas, blockquotes simples de markdown (no confundir con los callouts,
-// que tienen su propio manejo de color), línea resaltada en bloques de
-// código, barra de progreso de scroll, borde al pasar el mouse sobre el
-// botón de copiar código y el de zoom de diagramas Mermaid, resultados y
-// sugerencias de tag activas del buscador, y el chip de "fuente" del panel
-// de Propiedades.
+// Resto de usos de --secondary en el sitio, reafirmados acá vía $accent-color
+// por las mismas razones de capas/especificidad explicadas arriba: casillas
+// de tareas marcadas, blockquotes simples de markdown (no confundir con los
+// callouts, que tienen su propio manejo de color), línea resaltada en
+// bloques de código, barra de progreso de scroll, borde al pasar el mouse
+// sobre el botón de copiar código y el de zoom de diagramas Mermaid,
+// resultados y sugerencias de tag activas del buscador, y el chip de
+// "fuente" del panel de Propiedades.
 input[type="checkbox"] {
-  color: $obsidian-violet;
+  color: $accent-color;
 
   &:checked {
-    border-color: $obsidian-violet;
-    background-color: $obsidian-violet;
+    border-color: $accent-color;
+    background-color: $accent-color;
   }
 }
 
-blockquote {
-  border-left-color: $obsidian-violet;
+// :not(.callout) porque los callouts de Obsidian ([!nota], [!tip], etc.)
+// también son <blockquote> — sin esto, esta regla les pisaba el borde
+// izquierdo propio de cada tipo de callout.
+blockquote:not(.callout) {
+  border-left-color: $accent-color;
 }
 
 [data-highlighted-line] {
-  border-left-color: $obsidian-violet;
+  border-left-color: $accent-color;
 }
 
 .navigation-progress {
-  background-color: $obsidian-violet;
+  background-color: $accent-color;
 }
 
 .clipboard-button:hover,
 .expand-button:hover {
-  border-color: $obsidian-violet;
+  border-color: $accent-color;
 }
 
 .result-card > h3,
 .tag-suggestion-item.active {
-  color: $obsidian-violet;
+  color: $accent-color;
 }
 
 .note-properties-link,
 .note-properties-tags .tag-link {
-  color: $obsidian-violet;
+  color: $accent-color;
 
   &:hover {
-    background: $obsidian-violet;
+    background: $accent-color;
   }
 }
 
 .bases-view-tabs button.is-active {
-  background: $obsidian-violet;
-  border-color: $obsidian-violet;
+  background: $accent-color;
+  border-color: $accent-color;
 }
 
 .callout[data-callout="tip"] .callout-icon,
