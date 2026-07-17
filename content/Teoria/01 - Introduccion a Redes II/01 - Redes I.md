@@ -1,7 +1,7 @@
 ---
 title: Redes I
 fuente:
-  - https://www.ibm.com/docs/es/aix/7.3.0?topic=protocol-tcpip-protocols
+  - "[Documentación IBM Protocolo TCP/IP](https://www.ibm.com/docs/es/aix/7.3.0?topic=protocol-tcpip-protocols)"
 ---
 En **Redes I** se trabajaron las dos primeras capas del modelo de capas de Redes:
 1. **Física**

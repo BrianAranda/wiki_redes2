@@ -204,6 +204,20 @@ blockquote:not(.callout) {
   }
 }
 
+// Cuando una propiedad (ej. "fuente") tiene varios valores, el plugin los
+// pone todos en línea separados por ", " (.note-properties-list es inline).
+// Se apilan uno debajo del otro en vez de en línea, y se oculta el separador
+// (una línea nueva por ítem ya los separa, la coma sobra).
+.note-properties-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .note-properties-separator {
+    display: none;
+  }
+}
+
 .bases-view-tabs button.is-active {
   background: $accent-color;
   border-color: $accent-color;

@@ -1,7 +1,7 @@
 ---
 title: Organización de Internet
 fuente:
-  - https://www.iana.org/numbers
+  - "[IANA](https://www.iana.org/numbers)"
 ---
 De manera simplificada, así se organiza Internet a nivel institucional:
 

@@ -1,8 +1,8 @@
 ---
 title: Cabecera IPv4
 fuente:
-  - https://www.rfc-es.org/rfc/rfc0791-es.txt
-  - https://www.rfc-editor.org/info/rfc4963/
+  - "[RFC 791](https://www.rfc-es.org/rfc/rfc0791-es.txt)"
+  - "[RFC 4963](https://www.rfc-editor.org/info/rfc4963/)"
 ---
 El protocolo entre entidades IP se describe mejor mediante el formato del **datagrama IP**. El *header* o encabezado de un datagrama (la PDU de IP) tiene **20 bytes** u octetos:
 

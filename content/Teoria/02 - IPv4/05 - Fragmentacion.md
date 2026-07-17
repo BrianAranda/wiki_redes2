@@ -1,7 +1,7 @@
 ---
 title: Fragmentación
 fuente:
-  - https://www.rfc-es.org/rfc/rfc0791-es.txt
+  - "[RFC 791](https://www.rfc-es.org/rfc/rfc0791-es.txt)"
 ---
 En IPv4, la fragmentación y el reensamblado permiten dividir un paquete IP grande en fragmentos más pequeños cuando debe atravesar redes con distinto MTU (*Maximum Transmission Unit*).
 

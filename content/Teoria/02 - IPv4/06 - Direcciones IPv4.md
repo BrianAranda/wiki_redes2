@@ -1,8 +1,8 @@
 ---
 title: Direcciones IPv4
 fuente:
-  - https://www.rfc-es.org/rfc/rfc1918-es.txt
-  - https://www.rfc-editor.org/info/rfc790/
+  - "[RFC 790](https://www.rfc-editor.org/info/rfc790/)"
+  - "[RFC 1918](https://www.rfc-es.org/rfc/rfc1918-es.txt)"
 ---
 Los campos de dirección origen y destino de la [[04 - Cabecera IPv4#Direcciones de Origen y Destino|Cabecera IPv4]] contienen cada uno una dirección de Internet **global** de 32 bits, que generalmente consta de un identificador de red y un identificador de computador (*host*).
 
