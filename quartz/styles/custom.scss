@@ -8,6 +8,22 @@
 // afectando esos casos de rebote.
 $obsidian-violet: #8b5cf6;
 
+// Las barras laterales (.sidebar, izq/der) usan $topSpacing (6rem) de padding
+// arriba contra 2rem abajo/costados — mucho más aire arriba que abajo. Se
+// iguala a 2rem. .page-header (el bloque de breadcrumb/título del centro)
+// usa el mismo $topSpacing para quedar alineado con la barra lateral, así
+// que se ajusta junto para no desalinear el título central respecto de las
+// barras. Solo tablet/desktop: en mobile ambos ya usan otros valores propios
+// (2rem y 0 respectivamente) que no se tocan.
+@media all and not ($mobile) {
+  .sidebar {
+    padding-top: 2rem;
+  }
+  .page-header {
+    margin-top: 2rem;
+  }
+}
+
 // Centrar todas las imágenes (por defecto quedan alineadas a la izquierda).
 img {
   display: block;
