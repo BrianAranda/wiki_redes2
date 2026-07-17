@@ -1,0 +1,43 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="Página-1" id="Rn5khwKz7L_N2MSIcSdO">
+    <mxGraphModel dx="596" dy="356" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-1" value="&lt;i&gt;HOST&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-3" value="&lt;i&gt;HOST&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-4" value="SUBRED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-5" value="RED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="240" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-6" value="RED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="320" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="X6nQmmpAjImDg-6nh8TD-1" target="X6nQmmpAjImDg-6nh8TD-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="300" as="sourcePoint" />
+            <mxPoint x="400" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-8" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="X6nQmmpAjImDg-6nh8TD-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="280" as="sourcePoint" />
+            <mxPoint x="370" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-9" value="Jerarquía &lt;i&gt;Classful&lt;/i&gt;&lt;div&gt;Nivel dos&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X6nQmmpAjImDg-6nh8TD-10" value="Jerarquía Subnet&lt;div&gt;Nivel Tres&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

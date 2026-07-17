@@ -7,7 +7,7 @@ socialImage: social-network-icon.png
 >
 > Tener en cuenta que ciertas secciones presentan modificaciones respecto al AVM. Toda fuente consultada está anexada al principio de cada nota. Esta hecho para leerse en **modo oscuro**.
 >
-> La información presente no tiene como objetivo reemplazar los apuntes de cátedra del aula virtual, son de carácter de estudio y **puede presentar errores**.
+> La información presente no tiene como objetivo reemplazar los apuntes de cátedra del aula virtual, son de carácter de estudio y **puede presentar errores**. Hay notas que son **desplegables**.
 
 # [[Teoria/|Teoría]]
 # [[Practica/|Práctica]]

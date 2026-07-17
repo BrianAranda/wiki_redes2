@@ -1,5 +1,7 @@
 ---
 title: ARP
+fuente:
+  - "[RFC 826](https://www.rfc-es.org/rfc/rfc0826-es.txt)"
 ---
 El **ARP** **(*Address Resolution Protocol*)** o **Protocolo de Resolución de Direcciones** construye una tabla de dos columnas que vincula direcciones IP (Capa 3) con direcciones físicas MAC (Capa 1/2). Relaciona direcciones físicas con lógicas, sirve para resolver direcciones IPv4 a MAC.
 
@@ -10,6 +12,8 @@ Si un host de origen X con IPx quiere contactar a un host de destino Y con IPy, 
 
 ARP es el protocolo que **establece la asociación entre IPs y MACs** de los equipos, guardándola en una **tabla de caché ARP**. Es una caché porque debe **renovarse**, si fuera eterna, y un equipo cambiara de placa de red (y por lo tanto de MAC), la tabla quedaría desactualizada.
 
+> [!question] ¿En qué capa funciona ARP?
+> ARP funciona entre capa 2 y capa 3, por ello viola el principio de diferencia entre capas y el modelo TCP/IP no tiene independencia entre capas. Funciona para relacionar ambas capas, está colocado en la capa fisica pero tiene información de capa 3.
 ## Funcionamiento de ARP
 
 1. El protocolo envía un mensaje de **broadcast** a la red, preguntando por la MAC del host con IPy.
@@ -36,6 +40,9 @@ ARP se utiliza en cuatro casos referentes a la comunicación entre dos hosts:
 ![[casos_arp.png|600]]
 ## Ataques ARP
 
+> [!quote] RFC 826
+> "El mundo es una jungla en general, y al juego de trabajo en red contribuyen muchos animales"
+
 > [!warning] ARP *Spoofing* (suplantación de identidad)
 > Consiste en enviar mensajes ARP falsos, asociando la MAC de un atacante con una IP ajena. De esta forma el atacante puede recopilar información que se envía a esa dirección IP y controlar el tráfico. Se puede prevenir con **tablas ARP estáticas** (evita la caché dinámica, aunque no siempre es viable). Herramientas típicas: Arpoison, Netcut, Ettercap.
 
@@ -48,6 +55,11 @@ Ataques relacionados:
 > El ataque de saturación de la tabla de un switch (que asocia puertos del switch a direcciones MAC) **no tiene nada que ver con ARP**.
 
 ## Comandos para ARP
+
+> [!warning] No confundir "el protocolo ARP" con "ARP como aplicación"
+> Son dos cosas distintas que comparten nombre:
+> - **El protocolo ARP** (capas 2 y 3): el mecanismo real de resolución IP→MAC, el intercambio de tramas *Request*/*Reply* que viaja como *broadcast* *Ethernet*. Vive en la frontera entre Enlace y Red.
+> - **ARP como aplicación** (capas 3 y 5): el comando `arp` que se ejecuta en una terminal, un programa de espacio de usuario, como cualquier otra herramienta de Aplicación, que consulta o edita la tabla de datos de capa 3 (IP↔MAC).
 
 En Linux, el comando `arp` manipula o muestra la caché ARP del kernel (`/proc/net/arp`):
 
@@ -64,6 +76,7 @@ En Linux, el comando `arp` manipula o muestra la caché ARP del kernel (`/proc/n
 
 > [!note] ARP en Windows
 > Los comandos son practicamente idénticos. Consultar mediante `arp -help`
+
 ## Proxy ARP
 
 En **Proxy ARP**, un router tiene la capacidad de responder a solicitudes ARP en nombre de otros hosts (retransmite). Así es posible establecer comunicación entre dos hosts de subredes diferentes sin modificar los ajustes de red de los dispositivos.

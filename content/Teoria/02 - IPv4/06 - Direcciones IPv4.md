@@ -10,14 +10,14 @@ Las direcciones IP se escriben en **notación decimal con punto**, usando un nú
 
 $$
 \underbrace{
-\underbrace{11000000}_{\Large192}
-\quad \underbrace{11100100}_{\Large228} 
-\quad \underbrace{00010001}_{\Large17} 
-\quad \underbrace{00111001}_{\Large57}
-}_{\boxed{\large192.228.17.57}}
+\underbrace{11000000}_{\large192}
+\quad \underbrace{11100100}_{\large228} 
+\quad \underbrace{00010001}_{\large17} 
+\quad \underbrace{00111001}_{\large57}
+}_{\boxed{\Large192.228.17.57}}
 $$
 
-## Clases de red
+## Redes con Clases
 
 Si bien **ya no se usan para asignar ni rutear direcciones**, el sistema de clases fue el esquema original de 1981 (RFC 791) y quedó obsoleto en 1993 reemplazado por CIDR (RFC 1519). La dirección está codificada para permitir una asignación variable de bits entre red y computador, esquema conocido como ***Classful***. 
 

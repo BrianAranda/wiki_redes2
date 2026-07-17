@@ -1,52 +1,89 @@
 ---
 title: Subredes
+fuente:
+  - "[RFC 950](https://www.rfc-es.org/rfc/rfc0950-es.txt)"
 ---
-En el direccionamiento con clase, los primeros bits de una dirección IP definían la red de la que formaba parte un host (ver [[06 - Direcciones IPv4|Direcciones IP]]). A medida que Internet creció, esta forma de asignar direcciones se volvió ineficiente: las direcciones se otorgaban según lo solicitado, no según la necesidad real, lo que llevó a un agotamiento prematuro del espacio de direcciones.
+En el [[06 - Direcciones IPv4#Redes con Clases|direccionamiento con clase]], los primeros bits de una dirección IP definían la red de la que formaba parte un host. A medida que Internet creció, esta forma de asignar direcciones se volvió ineficiente: las direcciones se otorgaban según lo solicitado, no según la necesidad real, lo que llevó a un agotamiento prematuro del espacio de direcciones.
 
-> [!note] El problema de fondo
+> [!warning] El problema de distribución 
 > Un `/24` admite 254 hosts (demasiado poco); un `/16` admite 65.534 hosts (demasiado). Asignar una única `/16` a una organización con unos pocos cientos de hosts agotaba prematuramente ese espacio, y a la vez la cantidad de entradas en las tablas de ruteo de los routers crecía sin control a medida que aumentaba la cantidad de redes.
 
-## Subredes y máscaras de subred
-
-El concepto de subred se introdujo para permitir una complejidad arbitraria de LANs interconectadas dentro de una organización, sin exponer esa complejidad al resto de Internet.
+El concepto de **subred** se introdujo para permitir una complejidad arbitraria de LANs interconectadas dentro de una organización, sin exponer esa complejidad al resto de Internet.
 
 > [!important] Un solo número de red hacia afuera
-> Si se asigna un único número de red a todas las LAN de un sitio, desde el resto de Internet **solo hay una red visible**, lo que simplifica el direccionamiento y el enrutamiento externo. Puertas adentro, cada LAN recibe un número de subred, y los routers locales deben conocer las subredes a las que están conectados.
+> Si se asigna un único número de red a todas las LAN de un sitio, desde el resto de Internet **solo hay una red visible**, lo que simplifica el direccionamiento y el enrutamiento externo. Puertas adentro, cada LAN recibe un número de subred, y los *routers* locales deben conocer las subredes a las que están conectados.
 
-![[router-subredes-privadas-vista-externa.png]]
+![[subred_privada.png|500]]
 
-La parte de host de la dirección IP se divide entonces en un número de subred y un número de host. La **máscara de dirección** indica qué posiciones de bit contienen este número de red extendida, y le permite al host determinar si un datagrama saliente va a un host de la misma LAN (envío directo) o a otra LAN (envío al router).
+## *Subnetting*
 
-![[jerarquia-subred-clasica-vs-tres-niveles.png]]
+En 1985, el [RFC 950](https://www.rfc-es.org/rfc/rfc0950-es.txt) definió el procedimiento estándar para subdividir una red Clase A, B o C en partes más pequeñas, introduciendo una nueva jerarquía de direccionamiento:
 
-## Subnetting
+![[subnet_jerarquia.png|600]]
 
-En 1985, el **RFC 950** definió el procedimiento estándar para subdividir una red Clase A, B o C en partes más pequeñas, introduciendo una nueva jerarquía de direccionamiento: el campo de host se subdivide en subred + host.
+La parte de *host* de la dirección IP se divide entonces en un **número de subred** y un **número de *host***. La **máscara de dirección** indica qué posiciones de bit contienen este número de red extendida, y le permite al *host* determinar si un datagrama saliente va a un *host* de la misma LAN (envío directo) o a otra LAN (envío al *router*).
 
-> [!important] Qué problemas resuelve el subnetting
-> 1. Achica las entradas de la tabla de ruteo (esto se suele olvidar).
+> [!important] Qué problemas resuelve el *subnetting*
+> 1. Achica las entradas de la tabla de ruteo.
 > 2. Optimiza el uso de direcciones IP.
+> 3. Reduce el dominio de broadcast
 
-Todas las subredes de un mismo número de red usan el mismo prefijo de red pero distinto número de subred, y son invisibles desde afuera: los routers de Internet ven una sola entrada en su tabla de ruteo por toda la organización, sin importar cuántas subredes tenga puertas adentro.
+Todas las subredes de un mismo número de red usan el **mismo prefijo de red pero distinto número de subred**, y son invisibles desde afuera: los *routers* de Internet ven una sola entrada en su tabla de ruteo por toda la organización, sin importar cuántas subredes tenga puertas adentro.
 
-### CRID y Subnetting
+Además, una trama de broadcast (como un [[07 - ARP#Funcionamiento de ARP|ARP Request]]) la recibe y procesa cada host del segmento, aunque solo uno responda. En una red grande sin segmentar, esto puede consumir una fracción enorme del tráfico total (ej. en la red de la CELO el 60% de los paquetes enviados eran de broadcast). Al dividir en subredes más chicas, cada broadcast queda contenido dentro de su propia subred en vez de inundar toda la red.
 
-> [!info] Relación entre CRID y CIDR
-> - **CRID** (Classless Routing Identifier) hace referencia a la identificación de rutas sin clases, relacionado con los esquemas de enrutamiento sin clase. Se utiliza en protocolos como **CIDR** (Classless Inter-Domain Routing), donde las direcciones IP se asignan con prefijos de longitud variable en vez de bloques fijos por clase.
-> - Ambos trabajan con direccionamiento **sin clases** (classless) y evitan el desperdicio de direcciones.
-> - El subnetting utiliza CRID para crear redes más pequeñas, dividiendo direcciones IP en bloques de tamaño variable.
+### Prefijo extendido de Red
 
-## Prefijo extendido de Red
+Los *routers* de Internet usan solo el prefijo de red de la dirección destino para rutear tráfico hacia un entorno dividido en subredes; los *routers* dentro de ese entorno usan el prefijo de red para rutear entre las subredes individuales.
 
-Los routers de Internet usan solo el **prefijo de red** de la dirección destino para rutear tráfico hacia un entorno dividido en subredes; los routers dentro de ese entorno usan el prefijo de red para rutear entre las subredes individuales.
+El **prefijo de red extendido** es el resultado de sumar el prefijo de red **por clase** (8, 16 o 24 bits, según A/B/C) más la cantidad de bits que se piden prestados al campo de host para crear las subredes. Es otra forma de nombrar la **máscara de subred**: los bits de la máscara y los de la dirección de Internet tienen una relación uno a uno, y juntos permiten determinar si una IP pertenece o no a una subred dada.
 
-El prefijo de red se compone del campo de red con clase más el número de subred, y se representa con una barra al final de la notación decimal (ej. `/27`). El **prefijo de red extendido** es otra forma de referirse a la **máscara de subred**: los bits de la máscara y los de la dirección de Internet tienen una relación uno a uno, y juntos permiten determinar si una IP pertenece o no a una subred dada.
+> [!example] Ejemplo de prefijo extendido
+> Tenemos la dirección `193.1.1.0/24` y queremos divididirla en 8 subredes:
+> $$
+> \text{Prefijo extendido} = 24\text{ bits de red, clase C} + 3\text{ bits pedidos prestados} = 27 \Rightarrow \boxed{/27}
+> $$
+> La **máscara** es `/27` o `255.255.255.224`, el mismo concepto en dos notaciones distintas.
 
-![[mascara-subred-prefijo-extendido-ejemplo.png]]
+> [!example] Conversión de formato barra a punto decimal
+> Para pasar de un formato al otro se toma el `/n` y se colocan `n bits 1`, agrupados en byes u octetos según el [[06 - Direcciones IPv4|formato punto decimal]]. De aquí que muchas mascaras posean 255.
+> $$
+> /8 \longrightarrow 1111 \: 1111 \longrightarrow 255 \longrightarrow 255.0.0.0
+> $$
+> $$
+> /11 \longrightarrow 1111 \: 1111 \: 1110 \: 0000 \longrightarrow 255 \: 224 \longrightarrow 255.224.0.0
+> $$
+> Cualquier calculadora que convierta de binario a decimal sirve para conversiones rápidas.
 
-![[calculadora-subred-10-0-0-0-8.png]]
+> [!question]- ¿Cómo puedo con la máscara saber si un paquete es para mi red o no?
+> Aplicando la operación lógica **AND bit a bit** entre la IP y la máscara, aplicada dos veces (a la propia IP y a la IP destino). Siempre se usa la máscara propia, nunca la del destino, si dan la misma red, están en el mismo segmento.
+>- Si **coinciden** → el destino está en **mi misma subred** → lo puedo entregar **directo**
+>- Si **no coinciden** → el destino está en **otra subred** → tengo que mandarlo a mi ***gateway***
 
-## Diseño
+## CIDR
+
+**CIDR** (*Classless Inter-Domain Routing*) es el esquema de direccionamiento que reemplazó a las clases fijas (A, B, C) desde 1993. En vez de que la cantidad de bits de red esté determinada por la clase de la dirección, CIDR permite usar **prefijos de longitud variable** (`/n`, de `/1` a `/32`) para describir cualquier tamaño de red, sin importar en qué clase hubiera caído esa dirección originalmente.
+
+> [!important] ¿Para qué sirve CIDR?
+> Permite **agrupar (resumir)** varias redes contiguas en una sola entrada de la tabla de ruteo, lo que se conoce como *route aggregation* o *supernetting*. Por ejemplo, un ISP dueño de 8 redes `/24` consecutivas puede anunciarlas hacia el resto de Internet como una única red `/21`, en vez de 8 entradas separadas. Esto es justamente lo que evitó el colapso de las tablas de ruteo globales a medida que crecía Internet.
+
+CIDR también es lo que permite asignar bloques de **cualquier tamaño** a una organización (no solo /8, /16 o /24 como con clases), ajustando la cantidad de direcciones a la necesidad real en vez de sobreasignar.
+
+### CIDR vs. *Subnetting*
+
+CIDR y *Subnetting* usan exactamente el mismo mecanismo, un prefijo de **longitud variable** en vez de una clase fija, pero aplicado en dos escalas distintas:
+
+|                                     | **CIDR**                                                                                                                               | **Subnetting**                                                                                                                   |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Dónde se aplica**                 | Hacia **afuera**: en el ruteo global de Internet, entre organizaciones/ISPs.                                                           | Hacia **adentro**: dentro de una sola organización, sobre el bloque que ya le fue asignado.                                      |
+| **Qué resuelve**                    | Evita que las tablas de ruteo de Internet exploten de tamaño, agrupando varias redes chicas en una sola entrada (*route aggregation*). | Permite dividir el bloque propio en redes más chicas para organizar las LANs internas (una subred por sede, departamento, etc.). |
+| **Dirección del cambio de prefijo** | **Agranda** el bloque lógicamente: varias redes `/24` se anuncian juntas como una sola `/21`.                                          | **Achica** el bloque: una red `/24` se parte en varias `/27`.                                                                    |
+| **Quién lo usa**                    | ISPs, RIRs, routers troncales de Internet.                                                                                             | El administrador de red de una organización, puertas adentro.                                                                    |
+
+> [!note] Relación entre ambos
+> El *subnetting* es una **aplicación** de la idea de CIDR: ambos abandonan las clases fijas a favor de un prefijo `/n` configurable. La diferencia es solo la escala en la que se usa esa misma herramienta, CIDR mirando hacia el resto de Internet y *subnetting* mirando hacia adentro de la propia red.
+
+## Diseño de subredes
 
 El despliegue de un plan de direccionamiento requiere responder cuatro preguntas clave:
 
@@ -55,70 +92,71 @@ El despliegue de un plan de direccionamiento requiere responder cuatro preguntas
 3. ¿Cuántos hosts hay actualmente en la **subred más grande** de la organización?
 4. ¿Cuántos hosts habrá en la subred más grande de la organización **en el futuro**?
 
-## Ejemplo de diseño de subredes
+> [!important] Dirección de subred y dirección de broadcast
+> En cualquier subred, dos direcciones quedan siempre reservadas y nunca se asignan a un *host*:
+> - **Dirección de subred**: todos los bits de *host* en **0**. Identifica a la subred como un todo (se usa en tablas de ruteo, configuración de *routers*), no a ningún dispositivo.
+> - **Dirección de broadcast**: todos los bits de *host* en **1**. Sirve para mandar un paquete a **todos** los hosts de esa subred a la vez en una sola transmisión (ej. el `DHCPDISCOVER` de un cliente que todavía no tiene IP).
+>
+> Por eso de $2^n$ direcciones posibles siempre se restan 2 utilizables: las dos "puntas" del rango (todo ceros y todo unos) quedan reservadas.
+
+> [!cite] RFC 950
+> En ciertos contextos, es útil tener direcciones fijas con significado funcional, más que como identificadores de máquinas específicas. Cuando se reclame esta utilización, la dirección cero será interpretada con el significado de "éste", como en "ésta red". La dirección con todo unos será interpretada con el significado de "todos", como en "todos las máquinas"
+
+### Ejemplo de diseño
 
 Una organización tiene asignada la dirección `193.1.1.0/24`. Internamente necesita definir **6 subredes**, sin superar los **25 hosts por subred**.
 
-1. **Bits para la máscara:** con 2 bits se obtienen $2^2=4$ subredes (insuficiente); con 3 bits, $2^3=8$ subredes. Se adoptan **3 bits**, con máscara `255.255.255.224` (`/27`).
-2. **Cantidad de hosts:** quedan $8-3=5$ bits de host, es decir $2^5=32$ direcciones. Descontando las 2 reservadas (red y broadcast), quedan **30 hosts** posibles por subred — alcanza para los 25 requeridos, con 5 de margen.
-3. **Direcciones de las subredes:** con los 3 bits definidos se obtienen 8 subredes en total (2 más de las 6 requeridas).
+1. **Determinar la máscara:** 
+	- Con 2 bits obtenemos $2^2=4$ subredes que es insuficiente.
+	- Con 3 bits obtenemos $2^3=8$ subredes que cumple los 6 requeridos con 2 de margen. 
+	- Tomando 3 bits junto al `/24` original tenemos `/27` de máscara (`255.255.255.224`).
+2. **Determinar la cantidad de *hosts*:** 
+	- Teníamos originalmente $32-24=8$ bits disponibles para *host*. 
+	- Tomando tres bits para subred quedan $8-3=5$ bits de *host*.
+	- Con 5 bits tenemos $2^5=32$ direcciones posibles. 
+	- Descontando las 2 reservadas (red y broadcast), quedan 30 *hosts* posibles por subred. Por lo que alcanza para los 25 requeridos, con 5 de margen.
 
-![[diseno-subred-193-1-1-0-24-prefijo-27.png]]
+Por lo que con 3 bits dedicados al subneteo tenemos 8 subredes con 30 *hosts* cada una:
 
-![[tabla-8-subredes-193-1-1-0-27.png]]
+| Subred    | Dirección binaria completa               | Dirección resultante |
+| --------- | ---------------------------------------- | -------------------- |
+| Red base  | 11000001.00000001.00000001.00000000      | 193.1.1.0/24         |
+| Subred #0 | 11000001.00000001.00000001.**000** 00000 | 193.1.1.0/27         |
+| Subred #1 | 11000001.00000001.00000001.**001** 00000 | 193.1.1.32/27        |
+| Subred #2 | 11000001.00000001.00000001.**010** 00000 | 193.1.1.64/27        |
+| Subred #3 | 11000001.00000001.00000001.**011** 00000 | 193.1.1.96/27        |
+| Subred #4 | 11000001.00000001.00000001.**100** 00000 | 193.1.1.128/27       |
+| Subred #5 | 11000001.00000001.00000001.**101** 00000 | 193.1.1.160/27       |
+| Subred #6 | 11000001.00000001.00000001.**110** 00000 | 193.1.1.192/27       |
+| Subred #7 | 11000001.00000001.00000001.**111** 00000 | 193.1.1.224/27       |
 
-4. **Direcciones de host** dentro de cada subred (ejemplo con la subred N.º 6, con sus 30 hosts posibles):
+Por ejemplo para la subred número seis tendríamos los siguientes *host*:
 
-![[tabla-hosts-subred-6-193-1-1-192-27.png]]
+| Host | Dirección binaria completa | Dirección resultante |
+| --- | --- | --- |
+| Subred #6 (base) | 11000001.00000001.00000001.**110**00000 | 193.1.1.192/27 |
+| Host #1 | 11000001.00000001.00000001.**110**00001 | 193.1.1.193/27 |
+| Host #2 | 11000001.00000001.00000001.**110**00010 | 193.1.1.194/27 |
+| ... | ... | ... |
+| Host #29 | 11000001.00000001.00000001.**110**11101 | 193.1.1.221/27 |
+| Host #30 | 11000001.00000001.00000001.**110**11110 | 193.1.1.222/27 |
 
-5. **Dirección de broadcast** de cada subred: se obtiene rellenando los bits de host con todos `1`.
+Tambien podemos definir la primer y última red así como la dirección de *broadcast*:
 
-![[tabla-resumen-subredes-primera-ultima-broadcast.png]]
+| Nro | Subred         | 1era IP     | Última IP   | Broadcast   |
+| --- | -------------- | ----------- | ----------- | ----------- |
+| 0   | 193.1.1.0/27   | 193.1.1.1   | 193.1.1.30  | 193.1.1.31  |
+| 1   | 193.1.1.32/27  | 193.1.1.33  | 193.1.1.62  | 193.1.1.63  |
+| 2   | 193.1.1.64/27  | 193.1.1.65  | 193.1.1.94  | 193.1.1.95  |
+| 3   | 193.1.1.96/27  | 193.1.1.97  | 193.1.1.126 | 193.1.1.127 |
+| 4   | 193.1.1.128/27 | 193.1.1.129 | 193.1.1.158 | 193.1.1.159 |
+| 5   | 193.1.1.160/27 | 193.1.1.161 | 193.1.1.190 | 193.1.1.191 |
+| 6   | 193.1.1.192/27 | 193.1.1.193 | 193.1.1.222 | 193.1.1.223 |
+| 7   | 193.1.1.224/27 | 193.1.1.225 | 193.1.1.254 | 193.1.1.255 |
 
-> [!tip] Dato útil
+> [!note] Dato útil
 > La dirección de broadcast de una subred es exactamente 1 bit menos que la dirección base de la subred siguiente.
 
-## Ejercicios de subredes
-
-Para cada dirección, determinar la máscara de subred, la dirección de gateway (GW), y la primera y última dirección utilizable de esa subred:
-
-1. `172.16.18.10/18`
-2. `172.28.26.12/13`
-3. `192.168.200.100/27`
-4. `10.10.229.130/21`
-5. `10.113.30.38/22`
-
-## Ejercicios IP: teoría y práctica
-
-### Sección teoría
-
-1. Describa los objetivos principales de la red primitiva ARPANET.
-2. Dada una cantidad X de paquetes que "viajan" por internet, ¿usan la misma ruta para llegar?
-3. ¿Qué diferencia existe entre una dirección física y una lógica?
-4. ¿Qué función cumple el protocolo IP?
-5. Describa brevemente el proceso de envío, transmisión y llegada de paquetes en una red de conmutación de paquetes.
-6. ¿Cuántos tipos de clases IP existen y en qué se diferencia cada una?
-7. ¿Por qué es necesario realizar una división de redes o subnetting? ¿Qué ventajas se obtienen?
-8. ¿Cuál es la función de la IP `127.0.0.1`?
-9. En un datagrama IP, ¿qué función cumple el campo TTL?
-
-### Sección práctica
-
-**Ejercicio 1:**
-a) Analizar las siguientes direcciones IPv4 y determinar si son válidas, a qué clase pertenecen y si son públicas o privadas (si no es válida, explicar por qué): `192.168.1.5`, `192.256.5.10`, `240.1.10.10`, `100.100.15.15`.
-b) Indicar qué máscaras son válidas y cuáles no, y por qué: `255.255.0.0`, `255.256.255.0`, `254.255.255.0`, `255.255.0.255`.
-
-**Ejercicio 2:** dada la red `149.250.0.0` con máscara `255.255.255.0`: ¿cuántas redes disponibles hay? Indicar la primera y la última red disponible, y las direcciones de broadcast de la primera y la última.
-
-**Ejercicio 3:** dada la dirección `220.120.120.10/27`, ¿a qué subred pertenece? Dada `192.255.15.75/28`, ¿cuántas IP para host y cuántas subredes como máximo son posibles?
-
-**Ejercicio 4:** sea la subred `150.214.141.0` con máscara `255.255.255.0`. Comprobar cuáles de estas direcciones **no** pertenecen a dicha red: `150.214.141.128`, `150.214.141.138`, `150.214.142.23`.
-
-**Ejercicio 5:** dada la IP `172.16.45.14/30`, ¿cuál es la dirección de la subred a la que pertenece ese nodo?
-
-**Ejercicio 6:** una organización posee la IP `172.12.0.0`. Se necesita dividir en subredes que soporten un máximo de 459 hosts por subred, procurando mantener al máximo el número de subredes disponibles. Determinar la máscara a utilizar.
-
-**Ejercicio 7:** la empresa NATURALIVE es propietaria de `172.50.10.07/16`. Se plantearon inicialmente 25 subredes, con un mínimo de 900 hosts por subred, y se proyecta un crecimiento a 55 subredes en los próximos años. Determinar qué máscara de subred se debería utilizar.
 
 ---
 **Volver a:** [[07 - ARP|ARP]]

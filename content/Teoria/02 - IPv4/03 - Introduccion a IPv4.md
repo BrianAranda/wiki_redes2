@@ -48,7 +48,7 @@ La pila de protocolos TCP/IP es un software en ejecución (un proceso). El algor
 
 ## Procesamiento de un datagrama IP con *Loopback* y ARP
 
-> **Nota:** El diagrama a continuación no tiene mucho contexto ni explicación en el aula virtual, adelanta el tema de ARP e incluye cosas que no vemos en la materia, pero voy a tratar de darle una explicación. No tomar lo siguiente como verdad absoluta, mejor consultarle a los docentes.
+> **Nota:** El diagrama a continuación no tiene mucho contexto ni explicación en el aula virtual, adelanta el tema de [[07 - ARP|ARP]] e incluye cosas que no vemos en la materia, pero voy a tratar de darle una explicación. No tomar lo siguiente como verdad absoluta, mejor consultarle a los docentes.
 
 Este diagrama muestra cómo interactúan la **capa de Red (IP)** y la **capa de Interfaz de Red** al procesar un datagrama, tanto de salida como de entrada, integrando las decisiones de entrega local (loopback) y resolución de direcciones (ARP).
 ![[procesamiento_ip.png]]
