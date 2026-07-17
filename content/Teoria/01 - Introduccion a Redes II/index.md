@@ -5,11 +5,12 @@ fuente:
   - "[[William Stallings - Capítulo 2.pdf]]"
 ---
 # Tabla de contenido
-## 1. [[01 - Redes I|Redes I]]
-## 2. [[02 - SAP|Puntos de Acceso a Servicios]]
-## 3. [[03 - Encapsulacion|Encapsulación]]
-## 4. [[04 - Suite de Protocolos|Suite de Protocolos TCP-IP]]
-## 5. [[05 - Sockets|Sockets]]
+
+## [[01 - Redes I|Redes I]]
+## [[02 - SAP|Service Access Point (SAP)]]
+## [[03 - Encapsulacion|Encapsulación]]
+## [[04 - Suite de Protocolos|Suite de Protocolos TCP-IP]]
+## [[05 - Sockets|Sockets]]
 
 # Preguntas de repaso
 

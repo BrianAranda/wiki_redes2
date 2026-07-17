@@ -3,16 +3,18 @@ title: IPv4
 fuente: "[[2. IPv4.pdf]]"
 ---
 # Tabla de contenido
-## 1. [[01 - Historia de TCP-IP e IPv4|Historia de TCP/IP e IPv4]]
-## 2. [[02 - Organizacion de Internet|Organización de Internet]]
-## 3. [[03 - Introduccion a IPv4|Introducción a IPv4]]
-## 4. [[04 - Cabecera IPv4|Cabecera IPv4]]
-## 5. [[06 - Direcciones IPv4|Direcciones IPv4]]
-## 6. [[07 - ARP|ARP]]
-## 7. [[08 - Subredes|Subredes]]
-## 8. [[09 - Localhost|Localhost]]
-## 9. [[10 - DHCP|DHCP]]
-## 10. [[11 - Diagnostico de Red|Diagnóstico de Red: Ping, ICMP y Traceroute]]
+## [[01 - Historia de TCP-IP e IPv4|Historia de TCP/IP e IPv4]]
+## [[02 - Organizacion de Internet|Organización de Internet]]
+## [[03 - Introduccion a IPv4|Introducción a IPv4]]
+## [[04 - Cabecera IPv4|Cabecera IPv4]]
+
+## [[05 - Fragmentacion|Fragmentación]]
+## [[06 - Direcciones IPv4|Direcciones IPv4]]
+## [[07 - ARP|ARP]]
+## [[08 - Subredes|Subredes]]
+## [[09 - Localhost|Localhost]]
+## [[10 - DHCP|DHCP]]
+## [[11 - Diagnostico de Red|Diagnóstico de Red: Ping, ICMP y Traceroute]]
 
 # Preguntas de repaso
 

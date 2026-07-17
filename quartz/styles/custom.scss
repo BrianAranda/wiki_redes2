@@ -2,6 +2,12 @@
 
 // put your custom CSS here!
 
+// Violeta característico de Obsidian, reemplaza el azul (--secondary) en la
+// mayoría de los usos del sitio. No se pisa la variable --secondary en sí
+// porque también la usan los links externos (sin pedir cambio) y quedaría
+// afectando esos casos de rebote.
+$obsidian-violet: #8b5cf6;
+
 // Centrar todas las imágenes (por defecto quedan alineadas a la izquierda).
 img {
   display: block;
@@ -74,19 +80,17 @@ article p {
 
 // Links a otras notas (wikilinks) en el violeta característico de Obsidian
 // (mismo tono en modo claro/oscuro), sin el resaltado de fondo gris. Los
-// links externos no se tocan (siguen con --secondary): no se pidió cambiarlos
-// y --secondary se usa en muchos otros lugares del sitio (TOC, checkboxes,
-// barra de progreso) que tampoco se tocan. Las notas al pie (referencia y
-// vuelta) ya heredan este mismo violeta: Quartz les pone la misma clase
-// "internal internal-link" que a los wikilinks.
+// links externos no se tocan (siguen con --secondary): no se pidió cambiarlos.
+// Las notas al pie (referencia y vuelta) ya heredan este mismo violeta:
+// Quartz les pone la misma clase "internal internal-link" que a los wikilinks.
 a.internal {
-  color: #8b5cf6;
+  color: $obsidian-violet;
   background-color: transparent;
   padding: 0;
   border-radius: 0;
 
   &.broken {
-    color: #8b5cf6;
+    color: $obsidian-violet;
   }
 }
 
@@ -94,8 +98,75 @@ a.internal {
 // y un fondo celeste fijo (heredado del fallback genérico de callouts). Se
 // cambia a violeta, mismo tono y misma opacidad de fondo (10 en hex ~ 6%).
 .callout[data-callout="quote"] {
-  --color: #8b5cf6;
-  --bg: #8b5cf610;
+  --color: $obsidian-violet;
+  --bg: #{$obsidian-violet}10;
+}
+
+// Título del sitio ("Redes II") y migas de pan ("Inicio > ..."): ambos son
+// <a> simples sin clase propia, heredan el --secondary base de todo <a>.
+.page-title a,
+.breadcrumb-element a {
+  color: $obsidian-violet;
+}
+
+// Explorador (barra izquierda): nombre e ícono de las carpetas. Los archivos
+// no son azules (usan --dark con opacidad), así que no hace falta tocarlos.
+.folder-container div > a,
+.folder-container div > button span,
+.folder-icon {
+  color: $obsidian-violet;
+}
+
+// Resto de usos sueltos de --secondary en el sitio: casillas de tareas
+// marcadas, blockquotes simples de markdown (no confundir con los callouts,
+// que tienen su propio manejo de color), línea resaltada en bloques de
+// código, barra de progreso de scroll, borde al pasar el mouse sobre el
+// botón de copiar código y el de zoom de diagramas Mermaid, resultados y
+// sugerencias de tag activas del buscador, y el chip de "fuente" del panel
+// de Propiedades.
+input[type="checkbox"] {
+  color: $obsidian-violet;
+
+  &:checked {
+    border-color: $obsidian-violet;
+    background-color: $obsidian-violet;
+  }
+}
+
+blockquote {
+  border-left-color: $obsidian-violet;
+}
+
+[data-highlighted-line] {
+  border-left-color: $obsidian-violet;
+}
+
+.navigation-progress {
+  background-color: $obsidian-violet;
+}
+
+.clipboard-button:hover,
+.expand-button:hover {
+  border-color: $obsidian-violet;
+}
+
+.result-card > h3,
+.tag-suggestion-item.active {
+  color: $obsidian-violet;
+}
+
+.note-properties-link,
+.note-properties-tags .tag-link {
+  color: $obsidian-violet;
+
+  &:hover {
+    background: $obsidian-violet;
+  }
+}
+
+.bases-view-tabs button.is-active {
+  background: $obsidian-violet;
+  border-color: $obsidian-violet;
 }
 
 .callout[data-callout="tip"] .callout-icon,
