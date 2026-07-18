@@ -14,7 +14,9 @@ fuente: "[[2. IPv4.pdf]]"
 ## [[08 - Subredes|Subredes]]
 ## [[09 - Localhost|Localhost]]
 ## [[10 - DHCP|DHCP]]
-## [[11 - Diagnostico de Red|Diagnóstico de Red: Ping, ICMP y Traceroute]]
+
+## [[11 - Zeroconf|Zeroconf]]
+## [[12 - Diagnostico de Red|Ping, ICMP y Traceroute]]
 
 # Preguntas de repaso
 

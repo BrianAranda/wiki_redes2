@@ -1,0 +1,85 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="Página-1" id="4Zbme6YgWMHh-dPbhQUA">
+    <mxGraphModel dx="733" dy="443" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-1" value="Código OP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-2" value="&lt;div&gt;&lt;i&gt;Hardware&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-3" value="Longitud" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-4" value="Saltos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="440" y="280" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-5" value="Identificador de transacción" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="320" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-6" value="Segundos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-7" value="Indicadores" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="360" y="360" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-8" value="Dirección IP del cliente" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="400" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-9" value="Su dirección IP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-10" value="Dirección IP del servidor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-11" value="Dirección IP del &lt;i&gt;gateway&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="520" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-12" value="Dirección de &lt;i&gt;hardware &lt;/i&gt;del cliente" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-13" value="Nombre del servidor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-14" value="Nombre del archivo de arranque" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="640" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-15" value="Opciones de DHCP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-16" value="0" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="260" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-17" value="8" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="260" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-18" value="16" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="260" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-19" value="24" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="260" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-20" value="31" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="260" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-21" value="Variable" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="680" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-22" value="128 bytes" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="640" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-23" value="64 bytes" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="600" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-24" value="16 bytes" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="560" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uONJ5FBQi1SGOEQDdvOX-25" value="bits" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="250" width="60" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

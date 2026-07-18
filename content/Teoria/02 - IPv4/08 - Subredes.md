@@ -41,7 +41,7 @@ El **prefijo de red extendido** es el resultado de sumar el prefijo de red **por
 > [!example] Ejemplo de prefijo extendido
 > Tenemos la dirección `193.1.1.0/24` y queremos divididirla en 8 subredes:
 > $$
-> \text{Prefijo extendido} = 24\text{ bits de red, clase C} + 3\text{ bits pedidos prestados} = 27 \Rightarrow \boxed{/27}
+> \text{Prefijo extendido} = 24\text{ Red Clase C} + 3\text{ bits prestados} = 27 \Rightarrow \boxed{/27}
 > $$
 > La **máscara** es `/27` o `255.255.255.224`, el mismo concepto en dos notaciones distintas.
 
@@ -92,10 +92,10 @@ El despliegue de un plan de direccionamiento requiere responder cuatro preguntas
 3. ¿Cuántos hosts hay actualmente en la **subred más grande** de la organización?
 4. ¿Cuántos hosts habrá en la subred más grande de la organización **en el futuro**?
 
-> [!important] Dirección de subred y dirección de broadcast
+> [!important] Dirección de subred y dirección de *broadcast*
 > En cualquier subred, dos direcciones quedan siempre reservadas y nunca se asignan a un *host*:
 > - **Dirección de subred**: todos los bits de *host* en **0**. Identifica a la subred como un todo (se usa en tablas de ruteo, configuración de *routers*), no a ningún dispositivo.
-> - **Dirección de broadcast**: todos los bits de *host* en **1**. Sirve para mandar un paquete a **todos** los hosts de esa subred a la vez en una sola transmisión (ej. el `DHCPDISCOVER` de un cliente que todavía no tiene IP).
+> - **Dirección de *broadcast***: todos los bits de *host* en **1**. Sirve para mandar un paquete a **todos** los hosts de esa subred a la vez en una sola transmisión (ej. el `DHCPDISCOVER` de un cliente que todavía no tiene IP).
 >
 > Por eso de $2^n$ direcciones posibles siempre se restan 2 utilizables: las dos "puntas" del rango (todo ceros y todo unos) quedan reservadas.
 
@@ -143,7 +143,7 @@ Por ejemplo para la subred número seis tendríamos los siguientes *host*:
 
 Tambien podemos definir la primer y última red así como la dirección de *broadcast*:
 
-| Nro | Subred         | 1era IP     | Última IP   | Broadcast   |
+| Nro | Subred         | Primer IP   | Última IP   | Broadcast   |
 | --- | -------------- | ----------- | ----------- | ----------- |
 | 0   | 193.1.1.0/27   | 193.1.1.1   | 193.1.1.30  | 193.1.1.31  |
 | 1   | 193.1.1.32/27  | 193.1.1.33  | 193.1.1.62  | 193.1.1.63  |

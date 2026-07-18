@@ -36,7 +36,7 @@ El protocolo internet utiliza cuatro mecanismos clave para prestar su servicio: 
 ### Responsabilidades de IP
 
 - Usar un esquema de direcciones para rutear los datagramas hasta el destino.
-- Usar un protocolo complementario para reportar problemas ([[11 - Diagnostico de Red|ICMP]]).
+- Usar un protocolo complementario para reportar problemas ([[12 - Diagnostico de Red|ICMP]]).
 - Fragmentar y reensamblar paquetes para adaptarlos al enlace.
 - Rutear paquetes desde el origen al destino.
 

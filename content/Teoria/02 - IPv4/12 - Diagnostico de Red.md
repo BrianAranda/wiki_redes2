@@ -134,6 +134,6 @@ El campo **Type** identifica el tipo de mensaje ICMP (Echo Request/Reply, Time E
 > Ver manual completo con `man traceroute`. Existen métodos alternativos (`-I` ICMP, `-T` TCP, `-U` UDP con puerto fijo) pensados para atravesar firewalls que filtran los puertos UDP "improbables" que usa el método tradicional.
 
 ---
-**Volver a:** [[10 - DHCP|DHCP]]
+**Volver a:** [[11 - Zeroconf|Zeroconf]]
 
 **Continuar a:** [[Teoria/02 - IPv4/index#Preguntas de repaso|Preguntas de repaso]]
