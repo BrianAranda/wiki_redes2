@@ -36,9 +36,16 @@ img {
 
 // Justificar el texto de los párrafos. hyphens: auto evita huecos grandes
 // entre palabras largas al justificar en columnas angostas.
+// overflow-wrap: normal es aparte: el motor de Quartz pone overflow-wrap:
+// break-word en todo el texto (p, li, etc.), que actúa como "corte de
+// emergencia" y le gana la carrera a hyphens:auto — corta la palabra en
+// cualquier punto en vez de buscar un punto de sílaba válido (se nota más en
+// negrita, que al ser más ancha llega más seguido al borde de la columna).
+// Se vuelve a "normal" para que el guionado real tenga prioridad.
 article p {
   text-align: justify;
   hyphens: auto;
+  overflow-wrap: normal;
 }
 
 // El contenedor .callout-content es un grid, así que los márgenes de sus

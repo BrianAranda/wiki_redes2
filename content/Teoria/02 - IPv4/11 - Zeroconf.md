@@ -12,7 +12,7 @@ fuente:
 >- Asignación automática de direcciones de multidifusión para conexiones multipunto.
 >- Mismo nivel de seguridad que las redes sin Zeroconf.
 
-## Problemas de Zeroconf
+## Soluciones de Zeroconf
 
 Zeroconf no es un protocolo, es un **objetivo**: que una red funcione sin que nadie tenga que configurar nada a mano ni tener un servidor. Para lograr eso hacen falta **tres soluciones independientes**, una por cada problema que normalmente resuelve un servidor:
 
