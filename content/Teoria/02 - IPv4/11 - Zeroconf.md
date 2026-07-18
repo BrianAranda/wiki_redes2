@@ -14,7 +14,7 @@ fuente:
 
 ## Soluciones de Zeroconf
 
-Zeroconf no es un protocolo, es un **objetivo**: que una red funcione sin que nadie tenga que configurar nada a mano ni tener un servidor. Para lograr eso hacen falta **tres soluciones independientes**, una por cada problema que normalmente resuelve un servidor:
+Zeroconf no es un protocolo, es un **objetivo**: que una red funcione sin que nadie tenga que configurar nada a mano ni tener un servidor. Para lograr eso hace falta solucionar tres problemas:
 
 1. ¿Cómo consigo una IP sin servidor DHCP?
 2. ¿Cómo utilizo nombres sin servidor DNS?

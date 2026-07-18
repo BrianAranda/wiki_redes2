@@ -16,7 +16,7 @@ fuente: "[[2. IPv4.pdf]]"
 ## [[10 - DHCP|DHCP]]
 
 ## [[11 - Zeroconf|Zeroconf]]
-## [[12 - Diagnostico de Red|Ping, ICMP y Traceroute]]
+## [[12 - Diagnostico de Red|Diagnostico de Red]]
 
 # Preguntas de repaso
 

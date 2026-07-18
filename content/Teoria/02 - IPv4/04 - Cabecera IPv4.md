@@ -113,49 +113,8 @@ El **desplazamiento del fragmento** (13 bits) indica el lugar donde se sitúa el
 El **tiempo de vida** o **TTL (*Time To Live*)** (8 bits) especifica cuántos segundos se le permite a un datagrama permanecer en la red. Con 8 bits, el máximo es **255**. Cada dispositivo de encaminamiento (*router*) que procesa el datagrama debe **decrementar este campo al menos en una unidad**, en la práctica funciona como un contador de saltos (en IPv6 se llama ***Hop Limit***), no de tiempo real.
 
 > [!info]- TTL en la práctica
-> Un valor inicial recomendado es **64**. El remitente lo establece y cada *router* en la ruta lo reduce. Si llega a cero antes de alcanzar el destino, el datagrama se descarta y se envía un mensaje de error ICMP (RFC792, "Tiempo excedido") al remitente. El propósito es evitar que un datagrama no entregable circule indefinidamente por la red.
-#### Demostración de TTL
+> Un valor inicial recomendado es **64**. El remitente lo establece y cada *router* en la ruta lo reduce. Si llega a cero antes de alcanzar el destino, el datagrama se descarta y se envía un mensaje de error [[12 - Diagnostico de Red#ICMPv4|ICMP]] ("Tiempo excedido") al remitente. El propósito es evitar que un datagrama no entregable circule indefinidamente por la red.
 
-> **Nota:** La cátedra hace la demostración de que TTL cuenta saltos y no tiempo en Linux, como no lo tengo instalado ni a mano lo hago desde Windows, cambian los comandos.
-
-Obteniendo los valores default a un *ping* y *tracerout* (*tracert* en en Windows) tenemos que:
-
-![[ping_bien.png]]
-
-![[traceroute_bien.png]]
-
-De lo anterior podemos ver que el *tracert* muestra que la **ida** (→ 1.1.1.1) tarda **12 saltos**. Pero el ping te devuelve TTL=56 en la respuesta, este es el que puso **1.1.1.1** al generar su respuesta, ya decrementado por cada *router* de la **vuelta**. Como los sistemas tipo Unix/Linux (*Cloudflare* corre sobre eso) suelen arrancar con TTL por defecto = 64, la cuenta es: 64−56=8 saltos de vuelta.
-
-Es decir, el camino que toma el paquete para llegar no es el mismo que toma la respuesta para volver. Esto es totalmente normal puesto que cada *router* decide el "mejor camino" de forma independiente, y no hay garantía de simetría.
-
-En el *tracert* entre los saltos 3 y 6 está el mensaje de "Tiempo de espera agotado ..." que significa que ese *router* específico **no contesta** el ICMP Tiempo Excedido (muchos ISPs configuran esto a propósito, por seguridad o para no gastar recursos respondiendo tráfico de diagnóstico)
-
-Si ahora limitamos el ping a un TTL menor que 11 este no funcionará:
-
-![[ping_11saltos.png]]
-
-En cambio si usamos un TTL de 12 o mayor, el ping si funciona:
-
-![[ping_12saltos.png]]
-
-En cuanto al *traceroute* si limitamos la cantidad de saltos solo afectamos hasta donde llega, pero no su respuesta. Lo anterior refiriéndome a que no expira el TTL, pero tampoco alcanza el destino 1.1.1.1 (dirección final a la derecha). Por ejemplo para un máximo de dos y ocho saltos tenemos:
-
-![[traceroute_2saltos.png]]
-
-![[traceroute_8saltos.png]]
-
-> [!question]- ¿Por qué modificar el TTL a un valor bajo no impide que traceroute llegue al destino, pero sí impide que ping llegue?
->
-> **Respuesta:** ambos usan el mismo mecanismo de fondo (ICMP Tiempo Excedido al agotarse el TTL), pero lo aprovechan de forma distinta.
->
-> ***Traceroute*** no manda un único paquete con un TTL fijo: manda una secuencia con TTL creciente (1, 2, 3...) hasta llegar al destino o agotar el máximo de saltos configurado. Cada "muerte" de un paquete en un salto intermedio es exactamente el dato que traceroute busca. El programa sigue subiendo el TTL automáticamente hasta obtener una respuesta real del destino. Por eso, fijar manualmente un límite sí lo corta, pero es un techo impuesto a propósito, el mecanismo de "TTL bajo" en sí mismo no le impide llegar, es su método de trabajo.
->
-> **Ping**, en cambio, manda paquetes con un TTL fijo elegido de antemano, sin ninguna lógica de reintento con un valor mayor. Si ese TTL es menor a la cantidad real de saltos hasta el destino, el paquete muere en un router intermedio y ping nunca llega — solo reporta el Tiempo Excedido de ese salto y ahí termina.
->
-> En resumen: para *traceroute*, que el TTL se agote rápido es el objetivo de cada sonda individual; para ping, es simplemente un impedimento sin forma de recuperarse.
-
-> [!tip] Latencia de red
-> La latencia es el retraso en la comunicación de la red: el tiempo que tardan los datos en transferirse a través de ella.
 
 ### Protocolo
 
