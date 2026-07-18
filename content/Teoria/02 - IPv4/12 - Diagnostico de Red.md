@@ -11,7 +11,7 @@ fuente:
 **ICMP** (*Internet Control Message Protocol*) o Protocolo de Mensajes de Control de Internet se utiliza para detectar y registrar condiciones de error en la red. Está definido en el RFC 792 y 777.
 
 > [!quote] Definición de ICMP
-> Ocasionalmente, una *gateway* o un *host* de destino se comunicará con un *host* de origen para, por ejemplo, informar de un error en el procesamiento de datagramas. El Protocolo de Mensajes de Control Internet (ICMP) se usa para este propósito.
+> Ocasionalmente, un *gateway* o un *host* de destino se comunicará con un *host* de origen para, por ejemplo, informar de un error en el procesamiento de datagramas. El Protocolo de Mensajes de Control Internet (ICMP) se usa para este propósito.
 
 > [!warning] No confundir con IGMP
 > **[[IGMP]]** (*Internet Group Management Protocol*) es un protocolo distinto: permite que varios dispositivos compartan una dirección IP usando direcciones *multicast*, para que todos reciban los mismos datos, y que los dispositivos se unan a un grupo de multidifusión.
@@ -100,7 +100,7 @@ Para hacer ping a un nombre (ej. `www.google.com`) se realizan primero dos accio
 
 ## Comando Traceroute
 
-Otro tipo de prueba de conectividad  es el`traceroute`  el cual imprime la ruta que tarda un paquete en llegar a un *host*, es útil para conocer la ruta y todos los saltos que atraviesa un paquete. Imprime los datos de:
+Otro tipo de prueba de conectividad  es el `traceroute`  el cual imprime la ruta que tarda un paquete en llegar a un *host*, es útil para conocer la ruta y todos los saltos que atraviesa un paquete. Imprime los datos de:
 - La **número de salto** (*hop*).
 - La **dirección** de ese salto.
 - El **tiempo por paquete** en milisegundos por salto.

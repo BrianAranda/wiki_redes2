@@ -2,18 +2,28 @@
 title: Ejercicio de Subredes
 ---
 > Para el desarrollo de esta practica leer: [[08 - Subredes#Diseño de subredes|Diseño de subredes]] 
-> 
+
 > Además queda como herramienta propuesta por la cátedra: [Calculadora de redes](https://www.calculadora-redes.com/)
 
 ## Ejercicio 1
 
-Para cada dirección, determinar la máscara de subred, la dirección de gateway (GW), y la primera y última dirección utilizable de esa subred:
+Para cada dirección, determinar la máscara de subred, la dirección de *gateway*, y la primera y última dirección utilizable de esa subred:
 
 1. `172.16.18.10/18`
 2. `172.28.26.12/13`
 3. `192.168.200.100/27`
 4. `10.10.229.130/21`
 5. `10.113.30.38/22`
+
+> [!example] Máscara de subred
+> Para cada `\n` tenemos `n` bits en 1:
+> 1. $/18 \longrightarrow 1111\:1111\quad1111\:1111\quad1100\:0000\quad0000\:0000\longrightarrow255.255.192.0$
+> 2. $/13 \longrightarrow 1111\:1111\quad1111\:1000\quad0000\:0000\quad0000\:0000\longrightarrow255.248.0.0$
+> 3. $/27 \longrightarrow 1111\:1111\quad1111\:1111\quad1111\:1111\quad1110\:0000\longrightarrow255.255.255.224$
+> 4. $/21 \longrightarrow 1111\:1111\quad1111\:1111\quad1111\:1000\quad0000\:0000\longrightarrow255.255.248.0$
+> 5. $/22 \longrightarrow 1111\:1111\quad1111\:1111\quad1111\:1100\quad0000\:0000\longrightarrow255.255.249.0$
+
+
 
 ## Ejercicio 2
 
