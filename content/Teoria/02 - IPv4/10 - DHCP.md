@@ -92,6 +92,7 @@ Los mensajes DHCPv4 están en la capa de **Aplicación** (capa 5) y se envían s
 | **Nombre del servidor**               | Opcional, apodo o nombre DNS del servidor que envía un Offer o Ack.                                    |
 | **Nombre del archivo de arranque**    | Opcional, usado en procesos de arranque por red.                                                       |
 | **Opciones de DHCP**                  | Longitud variable; parámetros adicionales requeridos para el funcionamiento básico.                    |
+
 Cómo ejemplo de envió de mensajes DHCP tenemos la siguiente imagen con *Discover* y *Offer*:
 
 ![[dhcp_envios.png]]

@@ -2,6 +2,7 @@
 title: Ejercicio de Subredes
 ---
 > Para el desarrollo de esta practica leer: [[08 - Subredes#Diseño de subredes|Diseño de subredes]] 
+> 
 > Además queda como herramienta propuesta por la cátedra: [Calculadora de redes](https://www.calculadora-redes.com/)
 
 ## Ejercicio 1
