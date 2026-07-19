@@ -23,63 +23,6 @@ $accent-color: var(--secondary);
   }
 }
 
-// Home: los 3 títulos "# [[Teoria/|Teoría]]" / Práctica / Modelos pasan de
-// lista vertical a 3 tarjetas clickeables en paralelo (mismo estilo que la
-// sección "Extend Obsidian" de obsidian.md/help). Escapado a la home
-// (body[data-slug="index"]) para no afectar títulos H1 de otras notas.
-// Se usa float (no flex/grid en el contenedor padre) porque ese contenedor
-// también tiene las citas de introducción arriba, y flex/grid ahí las
-// afectaría también — float solo toca los propios <h1>, no el padre.
-// display: flow-root en el padre es solo para que contenga los floats (si
-// no, el artículo no "sabe" la altura real y corta antes de tiempo).
-body[data-slug="index"] .markdown-preview-view {
-  display: flow-root;
-}
-
-body[data-slug="index"] article h1 {
-  float: left;
-  width: calc(33.333% - 0.667rem);
-  margin: 0 1rem 1rem 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 1px solid var(--lightgray);
-  border-radius: 8px;
-  transition: border-color 0.2s ease;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover {
-    border-color: $accent-color;
-  }
-
-  // En mobile, 3 columnas quedan demasiado angostas para el texto — se
-  // apilan a ancho completo, una debajo de otra.
-  @media all and ($mobile) {
-    float: none;
-    width: 100%;
-    margin: 0 0 1rem 0;
-  }
-
-  // Quartz agrega un segundo <a> automático dentro de cada encabezado (el
-  // ícono de anchor/permalink que aparece al pasar el mouse, con
-  // role="anchor"). Se oculta acá: no tiene sentido dentro de una tarjeta,
-  // y si no se excluye, el selector "a" de abajo también le da padding a
-  // ese ícono, duplicando la altura del recuadro.
-  a[role="anchor"] {
-    display: none;
-  }
-
-  // El padding va acá (no en el <h1>) para que el área clickeable sea
-  // exactamente el recuadro visible completo, no solo el texto.
-  a:not([role="anchor"]) {
-    display: block;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-}
-
 // Centrar todas las imágenes (por defecto quedan alineadas a la izquierda).
 img {
   display: block;

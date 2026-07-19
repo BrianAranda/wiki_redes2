@@ -82,7 +82,7 @@ Una organización que decida usar direcciones IPs privadas puede hacerlo sin ten
 
 ### Redes privadas para proveedores ISP
 
-Existe un espacio de direcciones compartido para las comunicaciones entre un proveedor de servicios y sus suscriptores, cuando se usa un NAT de nivel de operador: **100.64.0.0/10** (de 100.64.0.0 a 100.127.255.255). Al ser una dirección /10, tiene 22 bits para direcciones IP en cada subred ($2^{10}=1024$ subredes posibles, cada una con $2^{22}=4.194.304$ direcciones).
+Existe un espacio de direcciones compartido para las comunicaciones entre un proveedor de servicios y sus suscriptores, cuando se usa un NAT de nivel de operador: **100.64.0.0/10** (que abarca desde 100.64.0.0 hasta 100.127.255.255). Al ser una dirección /10, tiene 22 bits para direcciones IP en cada subred ($2^{10}=1024$ subredes posibles, cada una con $2^{22}=4.194.304$ direcciones).
 
 ## Pros y Contras de Direcciones Privadas
 
