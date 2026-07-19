@@ -298,3 +298,6 @@ La empresa NATURALIVE es propietaria de 172.50.10.07/16. Se plantearon inicialme
 >- Para tener como mínimo 900 *host* es necesario más de $\lceil log_2(900) \rceil = 10$ bits para *host*.
 >- Con los 16 bits de red y los 6 necesarios para subred tenemos una máscara de $\boxed{/22}$
 >- Con los 10 bits para *host* tenemos para cubrir 1022 *hosts* por subred.
+
+---
+**Continuar a:** [[02 - Laboratorio 1 - IPv4 GNS3|Laboratorio N°1 - IPv4 (GNS3)]]

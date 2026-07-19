@@ -102,10 +102,34 @@ Resumen de las reglas clave:
   inventadas), sin tildes/eñes en archivos y carpetas — todo esto igual que antes, ver la skill.
 
 ## Flujo de práctica / labs
-- Cada lab es una nota en `content/Practica/`. Pego capturas de la VM en `content/_attachments/`.
+- **Cada lab es una única nota** en `content/Practica/`, **sin subdividir** aunque el PDF de
+  origen tenga una Tabla de Contenidos con varias entradas (a diferencia de `Teoria/`): un lab es
+  un procedimiento paso a paso, no un desarrollo de temas, así que todas sus secciones (`##`)
+  quedan dentro de esa misma nota.
+- **Frontmatter: `title` + `fuente`** (wikilink al PDF del lab en `_Fuentes/`, si el lab viene de
+  un PDF de la cátedra) — acá la nota única cumple el rol que en `Teoria/` cumple el `index.md`
+  de la carpeta, así que sí lleva `fuente` aunque sea una nota individual.
+- **Si el lab viene de un PDF de la cátedra** (ej. una guía con capturas de Winbox/GNS3), extraer
+  las capturas reales del PDF con el mismo método que la skill `extraer-nota-catedra`
+  (`pdfimages -list` / `pdfimages -png`), abriendo cada imagen extraída para confirmar qué
+  pantalla/diálogo muestra antes de nombrarla — no inventar un placeholder salvo que la
+  extracción falle. Se guardan en `content/_attachments/<Nombre del lab>/` (misma convención de
+  subcarpeta por fuente que en `Teoria/`). Ojo: los PDF de laboratorio de la cátedra a veces
+  reutilizan por error una captura de otra sección (p. ej. una pantalla con IPs de un ejercicio
+  distinto) — si pasa, usarla igual para ilustrar el concepto pero sin forzar que los números
+  coincidan con el resto de la nota.
+- **Si el lab es un trabajo propio en la VM** (sin PDF guía de la cátedra), pego directamente mis
+  propias capturas en `content/_attachments/`.
 - Redactar el **paso a paso** intercalando `![[captura.png]]` con la explicación de qué se hizo
   y por qué (no solo describir la imagen: explicar el concepto de red que demuestra).
-- Enlazar cada lab con la(s) nota(s) teórica(s) que aplica (`[[Encapsulación]]`, etc.).
+- Enlazar cada lab con la(s) nota(s) teórica(s) que aplica (usando la ruta completa si la nota
+  vive en una subcarpeta de `Teoria/`, ej. `[[06 - Direcciones IPv4|Direcciones IPv4]]`).
+- **Navegación secuencial entre notas de `Practica/`**, misma convención que en `Teoria/`: al
+  final de cada nota, separado con `---`, `**Volver a:** [[...]]` / `**Continuar a:** [[...]]`
+  (renglón en blanco entre ambos). La primera nota de la carpeta no lleva "Volver a"; la última
+  (por ahora) no lleva "Continuar a" — se agrega recién cuando se sume la siguiente nota de
+  práctica (a diferencia de `Teoria/`, `Practica/` no tiene "Preguntas de repaso" propias, así que
+  no hay a dónde apuntar ese último "Continuar a" hasta que exista una nota más).
 
 ## Flujo de repaso: responder preguntas de cátedra
 - Se activa **a pedido**, no automáticamente al extraer la nota (para eso ver la skill

@@ -1,6 +1,6 @@
 ---
 name: extraer-nota-catedra
-description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Frontmatter mínimo (solo title en las notas, con fuente propia si citan algo aparte; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, index.md con Tabla de contenido como encabezados numerados (sin índice interno por nota, se apoya en el TOC automático de Quartz), wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
+description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Excepción: si el PDF es una guía de laboratorio para /Practica/ (paso a paso, no desarrollo de temas), va todo en una sola nota sin subdividir por entrada del índice. Frontmatter mínimo (solo title en las notas, con fuente propia si citan algo aparte; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, index.md con Tabla de contenido como encabezados numerados (sin índice interno por nota, se apoya en el TOC automático de Quartz), wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
 allowed-tools: Read, Write, Glob, Bash, Skill
 ---
 
@@ -9,6 +9,16 @@ allowed-tools: Read, Write, Glob, Bash, Skill
 ## Cuándo se activa
 Cuando hay que convertir un PDF de la cátedra (normalmente en `content/_Fuentes/`) en una nota de
 estudio para el vault de Obsidian.
+
+> **Excepción — guías de laboratorio (`content/Practica/`):** si el PDF es un lab (procedimiento
+> paso a paso con la VM/GNS3/hardware, no un desarrollo de temas), **no** se aplica la regla de
+> "una nota por entrada del índice" del punto 3: va **una sola nota** por PDF, sin importar cuántas
+> secciones tenga la Tabla de Contenidos — todas quedan como `##` dentro de esa misma nota. El
+> resto del procedimiento sí se mantiene: extracción real de imágenes con `pdfimages` (punto 10),
+> frontmatter con `title` + `fuente` (acá la nota única cumple el rol del `index.md` de carpeta),
+> navegación secuencial entre notas de `Practica/` (punto 7, sin destino a "Preguntas de repaso"
+> porque `Practica/` no tiene esa sección). Ver el detalle completo en CLAUDE.md → "Flujo de
+> práctica / labs".
 
 ## Procedimiento
 
