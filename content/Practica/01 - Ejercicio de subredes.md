@@ -9,25 +9,39 @@ title: Ejercicio de Subredes
 
 Para cada dirección, determinar la máscara de subred, la dirección de *gateway*, y la primera y última dirección utilizable de esa subred:
 
-> [!example]- 172.16.18.10/18
+> [!success]- 172.16.18.10/18
 > **Máscara**
-> $/18 \longrightarrow 1111\:1111\quad1111\:1111\quad1100\:0000\quad0000\:0000\longrightarrow\boxed{255.255.192.0}$
+> $$
+> /18 \longrightarrow 1111\:1111\quad1111\:1111\quad1100\:0000\quad0000\:0000\longrightarrow\boxed{255.255.192.0}
+> $$
 > 
 > Al host le corresponden los bits de la máscara que son cero
-> $1010\:1100\quad0001\:0000\quad00\underbrace{01\:0010\quad0000\:1010}_{host}\longrightarrow 172.16.18.10$
+>$$
+>1010\:1100\quad0001\:0000\quad00\underbrace{01\:0010\quad0000\:1010}_{host}\longrightarrow 172.16.18.10
+>$$
 >
 > **Red**: poniendo a cero todos los bits de *host*
-> $1010\:1100\quad0001\:0000\quad0000\:0000\quad0000\:0000 \longrightarrow \boxed{172.16.0.0/18}$
+> $$
+> 1010\:1100\quad0001\:0000\quad0000\:0000\quad0000\:0000 \longrightarrow \boxed{172.16.0.0/18}
+> $$
 > 
 > **Broadcast**: poniendo a uno todos los bits de *host*
-> $1010\:1100\quad0001\:0000\quad0011\:1111\quad1111\:1111 \longrightarrow \boxed{172.16.63.255}$
+> $$
+> 1010\:1100\quad0001\:0000\quad0011\:1111\quad1111\:1111 \longrightarrow \boxed{172.16.63.255}
+> $$
 > 
 > **Rango hosts**: descartando la dirección de red y de broadcast
-> $1010\:1100\quad0001\:0000\quad0000\:0000\quad0000\:0001 \longrightarrow \boxed{172.16.0.1}\longrightarrow\text{Primer dirección}$
-> $1010\:1100\quad0001\:0000\quad0011\:1111\quad1111\:1110 \longrightarrow \boxed{172.16.63.254}\longrightarrow\text{Última dirección}$
+> $$
+> 1010\:1100\quad0001\:0000\quad0000\:0000\quad0000\:0001 \longrightarrow \boxed{172.16.0.1}\longrightarrow\text{Primer dirección}
+> $$
+> $$
+> 1010\:1100\quad0001\:0000\quad0011\:1111\quad1111\:1110 \longrightarrow \boxed{172.16.63.254}\longrightarrow\text{Última dirección}
+> $$
 >
 > ***Gateway***: por convención es la primera dirección utilizable de la subred:
-> $\text{Primer dirección}=\text{Gateway}\longrightarrow \boxed{172.16.0.1}$
+> $$
+> \text{Primer dirección}=\text{Gateway}\longrightarrow \boxed{172.16.0.1}
+> $$
 
 > [!example]- 172.28.26.12/13
 > **Máscara**
