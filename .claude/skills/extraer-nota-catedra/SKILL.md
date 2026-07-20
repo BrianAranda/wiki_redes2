@@ -17,8 +17,12 @@ estudio para el vault de Obsidian.
 > resto del procedimiento sí se mantiene: extracción real de imágenes con `pdfimages` (punto 10),
 > frontmatter con `title` + `fuente` (acá la nota única cumple el rol del `index.md` de carpeta),
 > navegación secuencial entre notas de `Practica/` (punto 7, sin destino a "Preguntas de repaso"
-> porque `Practica/` no tiene esa sección). Ver el detalle completo en CLAUDE.md → "Flujo de
-> práctica / labs".
+> porque `Practica/` no tiene esa sección). Además, en un lab la transcripción debe ser **literal,
+> no una resolución**: todo el texto explicativo del PDF (advertencias, aclaraciones operativas
+> como "no olvidar activar/Enable", notas al pie, alternativas de configuración) se transcribe
+> completo en vez de resumirse — es la única lectura del PDF en la sesión. No anticipar ni
+> inventar la resolución de problemas del laboratorio; eso lo agrega el usuario después a mano.
+> Ver el detalle completo en CLAUDE.md → "Flujo de práctica / labs".
 
 ## Procedimiento
 

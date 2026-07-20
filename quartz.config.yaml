@@ -148,6 +148,8 @@ plugins:
     options:
       localGraph:
         depth: 1
+      globalGraph:
+        enableRadial: false
     layout:
       position: right
       priority: 10

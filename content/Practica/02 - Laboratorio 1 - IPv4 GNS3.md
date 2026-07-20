@@ -263,13 +263,19 @@ Vamos a IP/DHCP Server/Networks (es una pestaña)
 
 ![[Pasted image 20260719110315.png]]
 
-## Solicitando direcciones (*Leases*)
+## *Leases*
+
+### Verificación inicial
 
 Si vamos a IP/DHCP Server/Leases vamos a ver que todavía no tenemos ninguna dirección asignada, esto puesto que lo configuramos el Servidor DHCP pero los Clientes aún no la solicitaron.
 
 > Las direcciones que aparecen como dinámicas corresponden a los nodos que automáticamente solicitan direcciones como Clientes DHCP: el Webserver y el Webterm
 
 ![[Pasted image 20260719110628.png]]
+
+### Solicitando direcciones
+
+Tenemos que volver al esquema de GNS3 y pedir las  direcciones.
 
 Para las **VPCS** (PC1/PC2) el comando es `ip dhcp`, y se verifica con `show ip all`.
 
@@ -299,11 +305,13 @@ Para Webserver:
 
 ![[Pasted image 20260719111942.png]]
 
+### Verificación final
+
 Del lado del router, la pestaña **Leases** del servidor DHCP muestra qué IP quedó **arrendada** a cada MAC, y por cuánto tiempo más es válida esa asignación (columna *Expires After*).
 
 ![[Pasted image 20260719112108.png]]
 
-## Direcciones estáticas
+### Direcciones estáticas
 
 Las IP entregadas por DHCP son dinámicas, prácticas para hosts que rotan, pero poco convenientes para un servidor al que siempre se quiere llegar por la misma dirección. Por eso conviene "fijar" el *lease* de un servidor:
 
@@ -312,7 +320,6 @@ Las IP entregadas por DHCP son dinámicas, prácticas para hosts que rotan, pero
 Una vez marcado como estático (**Make Static**) desaparece la "D" de dinámica en esa fila, y a partir de ahí se puede editar la IP a mano. El nodo sigue respondiendo a su IP anterior hasta que se le renueve la configuración (por expiración del *lease* o manualmente).
 
 ![[Pasted image 20260719112439.png]]
-
 
 ## Nateo
 
@@ -358,7 +365,7 @@ Desde Webserver:
 
 ![[Pasted image 20260719113413.png]]
 
-## *Destination* NAT (*Port Forwarding*)
+### *Destination* NAT (*Port Forwarding*)
 
 El nodo **debian1** corre un servidor web en el puerto 80 (`172.31.200.254` en este ejemplo). Desde la LAN se llega sin problema, porque el Mikrotik conoce la ruta hacia esa red:
 

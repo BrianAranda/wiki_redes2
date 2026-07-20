@@ -120,8 +120,17 @@ Resumen de las reglas clave:
   coincidan con el resto de la nota.
 - **Si el lab es un trabajo propio en la VM** (sin PDF guía de la cátedra), pego directamente mis
   propias capturas en `content/_attachments/`.
+- **Transcripción literal, no resolución.** Todo el texto explicativo del PDF (advertencias,
+  aclaraciones operativas del tipo "no olvidar activar/Enable", alternativas de configuración,
+  notas al pie, qué botón apretar) se transcribe **completo**, no se resume ni se reemplaza por una
+  versión condensada propia — el PDF se lee una sola vez en la sesión (ver "Reglas de tokens"), así
+  que lo que no quede escrito en la nota se pierde para siempre. La resolución de problemas propios
+  del laboratorio, comparar con resultados reales o comentarios de mi propia experiencia haciéndolo
+  los agrego yo después a mano, con `>` como cita simple (sin ser un callout) para diferenciarlos
+  del contenido transcripto del PDF — no anticiparlos ni inventarlos al extraer la nota.
 - Redactar el **paso a paso** intercalando `![[captura.png]]` con la explicación de qué se hizo
-  y por qué (no solo describir la imagen: explicar el concepto de red que demuestra).
+  y por qué (no solo describir la imagen: explicar el concepto de red que demuestra), siguiendo el
+  orden y el detalle del PDF en vez de reorganizar o sintetizar por cuenta propia.
 - Enlazar cada lab con la(s) nota(s) teórica(s) que aplica (usando la ruta completa si la nota
   vive en una subcarpeta de `Teoria/`, ej. `[[06 - Direcciones IPv4|Direcciones IPv4]]`).
 - **Navegación secuencial entre notas de `Practica/`**, misma convención que en `Teoria/`: al
