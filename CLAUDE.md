@@ -179,4 +179,6 @@ Resumen de las reglas clave:
 
 ## Estado de avance
 - [x] Unidad 1 — Introducción a Redes II
+- [x] Unidad 2 — IPv4
+- [x] Unidad 3 — IPv6
 - [ ] (ir completando a medida que avancemos)
