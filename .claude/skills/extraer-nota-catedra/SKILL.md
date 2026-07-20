@@ -1,6 +1,6 @@
 ---
 name: extraer-nota-catedra
-description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian, una nota por entrada del índice del PDF, con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Excepción: si el PDF es una guía de laboratorio para /Practica/ (paso a paso, no desarrollo de temas), va todo en una sola nota sin subdividir por entrada del índice. Frontmatter mínimo (solo title en las notas, con fuente propia si citan algo aparte; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, index.md con Tabla de contenido como encabezados numerados (sin índice interno por nota, se apoya en el TOC automático de Quartz), wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
+description: Convierte un PDF de la cátedra en una carpeta de notas markdown de Obsidian (una carpeta por PDF), agrupando las entradas del índice del PDF en notas por afinidad temática/cohesión (no un mapeo 1:1), con navegación secuencial entre ellas. Usar cuando se procese un PDF de /_Fuentes/, o cuando se diga "extraé este PDF", "armá la nota de este tema" o "pasá esto a nota". Excepción: si el PDF es una guía de laboratorio para /Practica/ (paso a paso, no desarrollo de temas), va todo en una sola nota sin subdividir. Frontmatter mínimo (solo title en las notas, con fuente propia si citan algo aparte; title+fuente en el index.md de la carpeta), nombres de archivo/carpeta sin tildes, index.md con Tabla de contenido (sin índice interno por nota, se apoya en el TOC automático de Quartz), wikilinks, callouts, extrae los diagramas reales embebidos del PDF a /_attachments/<carpeta>/ (placeholder solo si la extracción no es posible), y registra los wikilinks sin resolver en /pendientes.md.
 allowed-tools: Read, Write, Glob, Bash, Skill
 ---
 
@@ -34,19 +34,26 @@ estudio para el vault de Obsidian.
    - URLs `https://aulavirtual.fio.unam.edu.ar/...`.
    - Números de página tipo "2/7".
 
-3. **Un PDF = una carpeta = una nota por entrada del índice.** Cada PDF de la cátedra va a su
+3. **Un PDF = una carpeta = notas agrupadas por cohesión temática.** Cada PDF de la cátedra va a su
    propia carpeta en `content/Teoria/`, nombrada `<NN> - <Título del PDF, sin tildes>/`. Dentro,
-   **cada entrada de nivel superior de la Tabla de Contenidos del PDF es su propia nota**, sin
-   agrupar varias entradas en una sola nota (regla anterior de "agrupar por cohesión", derogada).
-   - Nombre de archivo de cada nota: `<nn> - <Título de la entrada, sin tildes>.md`, con `nn` de
+   las entradas de la Tabla de Contenidos del PDF **se agrupan en notas según convenga**, no hay
+   mapeo 1:1 obligatorio entre entrada del índice y nota:
+   - Una entrada larga y sustancial por sí sola (con desarrollo propio de varias páginas) suele
+     merecer su propia nota.
+   - Varias entradas cortas y afines (introducción/motivación, ejemplos de cálculo breves, un
+     conjunto de secciones "de cierre" como videos/ejercicios/preguntas frecuentes, etc.) se
+     **agrupan en una sola nota** cuando comparten tema o son de tamaño insuficiente para
+     justificar una nota propia — el criterio es el mismo que usaría un estudiante armando su
+     propio resumen: notas cohesivas y de buen tamaño, ni fragmentadas en exceso ni mezclando
+     temas sin relación.
+   - Cada entrada (o grupo de entradas afines) que forma una nota queda como `##` dentro de esa
+     nota (los subtítulos propios de cada entrada, si los tiene, bajan un nivel a `###`). Ver
+     punto 6 sobre el esqueleto de cada nota.
+   - Nombre de archivo de cada nota: `<nn> - <Título de la nota, sin tildes>.md`, con `nn` de
      dos dígitos **reiniciado en 1 dentro de cada carpeta** (no sigue la numeración de otras
-     unidades). Ejemplo con un PDF de 5 entradas: `01 - Redes I.md`, `02 - ....md`, ...,
-     `05 - Sockets.md`.
-   - Si una entrada tiene subtítulos propios en la TOC, esos subtítulos son `##` dentro de esa
-     nota (no notas separadas). Ver punto 6 sobre el esqueleto de cada nota.
-   - Si el PDF cierra con un título tipo resumen/repaso, ese contenido no se convierte en nota:
-     va a la sección de "Preguntas de repaso" de la carpeta (ver punto 8) o se descarta si ya
-     está cubierto por otras preguntas.
+     unidades) y correlativo al orden de aparición en el PDF. El título de la nota puede ser el
+     de la entrada del índice (si es una nota 1:1) o un título propio que abarque el grupo (ej.
+     "Introducción a IPv6" para un grupo que fusiona "Introducción" + "IoT" + "Solución: IPv6").
 
 4. **Nombre de archivo/carpeta, sin tildes/eñes**, tanto la carpeta del PDF como cada nota adentro
    (ej. `Encapsulacion.md` en vez de "Encapsulación.md"; si el título tiene `/`, como "TCP/IP",
@@ -113,15 +120,16 @@ estudio para el vault de Obsidian.
    fuente: "[[<nombre del PDF>.pdf]]"
    ---
    # Tabla de contenido
-   ## 1. [[01 - Primer entrada|Título limpio]]
-   ## 2. [[02 - Segunda entrada|Título limpio]]
+   ## [[01 - Primera nota|Título limpio]]
+   ## [[02 - Segunda nota|Título limpio]]
    ...
 
    # Preguntas de repaso
    1. ... (preguntas de desarrollo derivadas de todo el contenido del PDF)
    ```
-   Las entradas del índice van como encabezados `##` numerados (no una lista simple `-`): así
-   aparecen en el TOC automático de Quartz en la barra lateral, igual que dentro de cualquier nota.
+   Las notas van como encabezados `##` (no una lista simple `-`): así aparecen en el TOC
+   automático de Quartz en la barra lateral, igual que dentro de cualquier nota. Sin numeración
+   manual delante del wikilink (el orden de aparición ya lo da el nombre de archivo `nn -`).
    `fuente` acepta lista o texto plano si la entrada no es un PDF con archivo — ver CLAUDE.md.
 
 9. **Wikilinks.** Cada concepto con peso propio (protocolos, modelos, términos técnicos eje)

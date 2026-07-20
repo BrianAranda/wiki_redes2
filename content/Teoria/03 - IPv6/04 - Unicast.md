@@ -353,6 +353,6 @@ Esta última es para representar **SOLO** a los nodos IPv4 que **NO** soportan I
 Es un esquema de direcciones de transición y no profundizaremos en la materia.
 
 ---
-**Volver a:** [[08 - Identificacion de Direcciones|Identificación de Direcciones]]
+**Volver a:** [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]
 
-**Continuar a:** [[10 - Anycast|Anycast]]
+**Continuar a:** [[05 - Anycast y Multicast|Anycast y Multicast]]

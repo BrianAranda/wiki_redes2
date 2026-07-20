@@ -202,6 +202,6 @@ Podrían estar retrasando por una variedad de razones, como la falta de talento 
 > Obtenido de: `https://blogs.infoblox.com/ipv6-coe/ipv6-only-where-you-can-dual-stack-where-you-must/`
 
 ---
-**Volver a:** [[15 - ICMPv6|ICMPv6]]
+**Volver a:** [[08 - ICMPv6|ICMPv6]]
 
-**Continuar a:** [[17 - ping6|ping6]]
+**Continuar a:** [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]

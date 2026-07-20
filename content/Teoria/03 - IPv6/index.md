@@ -4,31 +4,20 @@ fuente: "[[3. IPv6.pdf]]"
 ---
 # Tabla de contenido
 
-## 1. [[01 - Introduccion|Introducción]]
-## 2. [[02 - IoT|IoT]]
-## 3. [[03 - Solucion IPv6|Solución IPv6]]
-## 4. [[04 - Arquitectura Direcciones IPv6|Arquitectura de Direcciones IPv6]]
+## [[01 - Introduccion a IPv6|Introducción a IPv6]]
+## [[02 - Arquitectura de Direcciones IPv6|Arquitectura de Direcciones IPv6]]
+## [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]
 
-## 5. [[05 - IPv6 Addressing|IPv6 Addressing]]
-## 6. [[06 - Representacion de Direcciones|Representación de Direcciones]]
-## 7. [[07 - Prefijos de Direcciones|Prefijos de Direcciones]]
-## 8. [[08 - Identificacion de Direcciones|Identificación de Direcciones]]
-## 9. [[09 - Unicast|Unicast]]
-## 10. [[10 - Anycast|Anycast]]
-## 11. [[11 - Multicast FF02|Multicast FF02]]
-## 12. [[12 - Resumen de Direcciones IPv6|Resumen de Direcciones IPv6]]
+## [[04 - Unicast|Unicast]]
+## [[05 - Anycast y Multicast|Anycast y Multicast]]
 
-## 13. [[13 - Neighbor Discovery ND|Neighbor Discovery ND]]
-## 14. [[14 - Direcciones Dinamicas|Direcciones Dinámicas]]
-## 15. [[15 - ICMPv6|ICMPv6]]
-## 16. [[16 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
+## [[06 - Neighbor Discovery ND|Neighbor Discovery ND]]
+## [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
+## [[08 - ICMPv6|ICMPv6]]
+## [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
 
-## 17. [[17 - ping6|ping6]]
-## 18. [[18 - Ejemplo de Calculo de Red|Ejemplo de Cálculo de Red]]
-## 19. [[19 - Ejemplo de Reglas de Simplificacion|Ejemplo de Reglas de Simplificación]]
-## 20. [[20 - Videos|Videos]]
-## 21. [[21 - Ejercicios de IPv6|Ejercicios de IPv6]]
-## 22. [[22 - Preguntas y Respuestas|Preguntas y Respuestas]]
+## [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]
+## [[11 - Complementos|Complementos]]
 
 # Preguntas de repaso
 

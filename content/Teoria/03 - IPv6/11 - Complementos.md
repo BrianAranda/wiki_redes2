@@ -1,7 +1,62 @@
 ---
-title: Preguntas y Respuestas
+title: Complementos
 fuente: "[6sos.org](http://www.6sos.org/index.php)"
 ---
+## Videos
+
+La cátedra recomienda una serie de videos ilustrativos (formato *whiteboard/pizarra animada*) como repaso complementario de la unidad, cubriendo tres ejes:
+
+- **IPv6 Introducción:** repaso visual de la notación y estructura básica de una dirección IPv6.
+- **Migración:** pasos para planificar una migración a IPv6 — verificar que los equipos sean compatibles con IPv6, verificar equipamiento con IPv6 habilitado por defecto, posibles túneles automáticos, elaborar un plan de implantación, deshabilitar equipamiento viejo.
+- **Seguridad:** diferencias de seguridad entre IPv4 e IPv6 — formato de dirección, ND/MLD y multicast reemplazando ARP/ICMP e IGMP, distribución de grandes redes, cabeceras de extensión, autoconfiguración stateless, y preguntas abiertas sobre blacklists y firewall en el nuevo escenario de direccionamiento.
+
+## Ejercicios de IPv6
+
+### 1) Identificar según tipo las siguientes direcciones IPv6
+
+1. `0000:00AA:ABCD:0000:A1B2:EEEE:1111:2222`
+2. `FE80:0001:0000:FEAD:0005:5555:87AC:3CE1`
+3. `2018:000A:DDED:4444:FF5E:00FE:0000:1245`
+4. `FE80:0000:0000:0000:0005:4175:BBBB:0101`
+5. `000F:0000:0000:0000:0000:AAAA:BBBB:CCCC`
+6. `0FFF:0000:0000:FFFF:0000:1111:DCBA:0001`
+7. `FFF1:0000:A000:B000:C000:D000:E000:F000`
+
+### 2) Identificar cuáles de las direcciones IPv6 son correctas
+
+1. `FE80::CAFE`
+2. `4F00::0A01:1`
+3. `::1`
+4. `FE80::AC04::0012`
+5. `2001:DB8:1:ACAD::FE55:0:0001`
+6. `FEAA:0001:0:1:FFEA:1001:000E`
+7. `2001:101::ABC0`
+
+### 3) Comprimir las siguientes direcciones IPv6
+
+1. `FE80:0001:0000:FEAD:0500:5555:87AC:3CE1`
+2. `0000:0001:0000:0000:A000:0002:1111:BA01`
+3. `2001:0DB8:0004:ACAD:0000:0000:FE00:0002`
+4. `2001:0030:0001:ACAD:0000:330E:10C2:32BF`
+5. `FE80:0000:0000:0001:0000:60BB:008E:7402`
+
+### 4) Obtener información a partir del prefijo de red de la siguiente dirección IPv6
+
+`2000:1111:aaaa:0:50a5:8a35:a5bb:66e1/64`
+
+#### Resolución
+
+De izquierda a derecha, la porción de red de una dirección IPv6 unicast global tiene una estructura jerárquica que proporcionará la siguiente información:
+
+1. **Número de enrutamiento global de IANA** (los tres primeros bits binarios se fijan en `001`): `200::/12`
+2. **Prefijo del registro regional de Internet (RIR)** (bits del /12 al /23): `2001:0D::/23` (el carácter D hexadecimal es 1101 en sistema binario. Los bits del 21 al 23 son 110, y el último bit es parte del prefijo del ISP).
+3. **Prefijo del proveedor de servicios de Internet (ISP)** (bits hasta el /32): `2001:0DB8::/32`
+4. **Prefijo de sitio o agregador de nivel de sitio (SLA)**, que el ISP asigna al cliente (bits hasta el /48): `2001:0DB8:0001::/48`
+5. **Prefijo de subred** (asignado por el cliente; bits hasta el /64): `2001:0DB8:0001:ACAD::/64`
+6. **ID de interfaz** (el host se identifica por los últimos 64 bits en la dirección): `2001:DB8:0001:ACAD:8D4F:4F4D:3237:95E2/64`
+
+## Preguntas y Respuestas
+
 La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.org/index.php` y las incluyó, ya resueltas, como FAQ de cierre de la unidad.
 
 > [!question]- 1. ¿Qué es el protocolo IP?
@@ -38,7 +93,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 > [!question]- 6. ¿Cuáles son las mayores ventajas de IPv6?
 > **Respuesta:** Las podemos resumir en las siguientes:
 >
-> - **Escalabilidad:** IPv6 tiene direcciones de 128 bits frente a las direcciones de 32 bits de IPv4. Por tanto el número de direcciones IP disponibles se multiplica por 7,9 × 10²⁸. IPv6 nos ofrece un espacio de $2^{128}$ (340.282.366.920.938.463.463.374.607.431.768.211.456). Para hacernos a la idea de lo que esta cifra implica, basta con calcular el número de direcciones IP que podríamos tener por metro cuadrado de la superficie terrestre: nada más y nada menos que 665.570.793.348.866.943.898.599 (ver [[04 - Arquitectura Direcciones IPv6#Cantidad de IPs por metro cuadrado|Cantidad de IPs por metro cuadrado]]).
+> - **Escalabilidad:** IPv6 tiene direcciones de 128 bits frente a las direcciones de 32 bits de IPv4. Por tanto el número de direcciones IP disponibles se multiplica por 7,9 × 10²⁸. IPv6 nos ofrece un espacio de $2^{128}$ (340.282.366.920.938.463.463.374.607.431.768.211.456). Para hacernos a la idea de lo que esta cifra implica, basta con calcular el número de direcciones IP que podríamos tener por metro cuadrado de la superficie terrestre: nada más y nada menos que 665.570.793.348.866.943.898.599 (ver [[02 - Arquitectura de Direcciones IPv6#Cantidad de IPs por metro cuadrado|Cantidad de IPs por metro cuadrado]]).
 > - **Seguridad:** IPv6 incluye seguridad en sus especificaciones como es la encriptación de la información y la autentificación del remitente de dicha información.
 > - **Aplicaciones en tiempo real:** para dar mejor soporte a tráfico en tiempo real (i.e. videoconferencia), IPv6 incluye etiquetado de flujos en sus especificaciones. Con este mecanismo los encaminadores o routers pueden reconocer a qué flujo extremo a extremo pertenecen los paquetes que se transmiten.
 > - **Plug and Play:** IPv6 incluye en su estándar el mecanismo "plug and play", lo cual facilita a los usuarios la conexión de sus equipos a la red. La configuración se realiza automáticamente.
@@ -114,12 +169,12 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 >
 > En este mecanismo, el equipo (host) genera su propia dirección usando una combinación de la información que el mismo tiene (en su interfaz, o tarjeta de red), y la información que periódicamente suministran los routers.
 >
-> Los routers indican el prefijo que identifica la(-s) subredes asociadas con el enlace (ver [[14 - Direcciones Dinamicas#14.1. SLAAC|SLAAC]]).
+> Los routers indican el prefijo que identifica la(-s) subredes asociadas con el enlace (ver [[07 - Direcciones Dinamicas#14.1. SLAAC|SLAAC]]).
 
 > [!question]- 17. ¿Qué es el "identificador de interfaz"?
 > **Respuesta:** El "identificador de interfaz" es aquel que identifica de forma única una interfaz en una subred, y que a menudo, por defecto, es generado a partir de la dirección MAC de la tarjeta de red.
 >
-> La dirección IPv6 se forma combinando los 64 bits del identificador de interfaz con los prefijos que los encaminadores (routers) indican como correspondientes a la subred (ver [[09 - Unicast#1) EUI-64|EUI-64]]).
+> La dirección IPv6 se forma combinando los 64 bits del identificador de interfaz con los prefijos que los encaminadores (routers) indican como correspondientes a la subred (ver [[04 - Unicast#1) EUI-64|EUI-64]]).
 
 > [!question]- 18. ¿Qué ocurre si en una red no hay encaminadores?
 > **Respuesta:** Si no hay encaminadores, el identificador de interfaz es autosuficiente para permitir al PC que genere la dirección de enlace local.
@@ -131,7 +186,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 >
 > Los servidores mantienen, por tanto, una base de datos con todas las direcciones que han sido asignadas y a qué hosts, al igual que todo lo relacionado con el resto de los parámetros.
 >
-> Por lo general, este mecanismo se basa en el uso de DHCPv6 (ver [[14 - Direcciones Dinamicas#14.3. DHCPv6 con estado|DHCPv6 con estado]]).
+> Por lo general, este mecanismo se basa en el uso de DHCPv6 (ver [[07 - Direcciones Dinamicas#14.3. DHCPv6 con estado|DHCPv6 con estado]]).
 
 > [!question]- 20. ¿Qué sentido tiene el uso de ambos mecanismos de autoconfiguración?
 > **Respuesta:** La autoconfiguración "stateful", a menudo se usa cuando se requiere un control más riguroso acerca de qué dirección es asignada a qué hosts, al contrario del caso de la autoconfiguración "stateless" (en la que la única preocupación es que la dirección no esté duplicada).
@@ -149,7 +204,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 >
 > a) Inicialmente, una dirección es "preferida" ("preferred"), lo que implica que su uso en cualquier comunicación no está restringido.
 >
-> b) Posteriormente, una dirección pasa a ser "desaprobada" ("deprecated"), anticipándose a que se va a invalidar su vínculo con la interfaz actual. Mientras esta en estado "desaprobada", se desaconseja el uso de una dirección, aunque no estrictamente prohibido. Sin embargo, cuando sea posible, cualquier nueva comunicación (por ejemplo la apertura de una nueva conexión TCP), debe usar una dirección "preferida". Una dirección "desaprobada" sólo debería de ser utilizada por aquellas aplicaciones que ya la empleaban y a las que les es difícil cambiar a otra dirección sin causar una interrupción del servicio (ver [[09 - Unicast#Tiempos de vida de las direcciones (informativo)|Tiempos de vida de las direcciones]]).
+> b) Posteriormente, una dirección pasa a ser "desaprobada" ("deprecated"), anticipándose a que se va a invalidar su vínculo con la interfaz actual. Mientras esta en estado "desaprobada", se desaconseja el uso de una dirección, aunque no estrictamente prohibido. Sin embargo, cuando sea posible, cualquier nueva comunicación (por ejemplo la apertura de una nueva conexión TCP), debe usar una dirección "preferida". Una dirección "desaprobada" sólo debería de ser utilizada por aquellas aplicaciones que ya la empleaban y a las que les es difícil cambiar a otra dirección sin causar una interrupción del servicio (ver [[04 - Unicast#Tiempos de vida de las direcciones (informativo)|Tiempos de vida de las direcciones]]).
 
 > [!question]- 22. ¿Qué es la detección de direcciones duplicadas?
 > **Respuesta:** Para asegurarse de que las direcciones asignadas, tanto por procesos de autoconfiguración como por mecanismos manuales, son únicas en un determinado enlace, se emplea, antes de dicha asignación, el algoritmo de detección de direcciones duplicadas.
@@ -158,20 +213,20 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 >
 > Si se detecta una dirección duplicada, esta no puede ser asignada a la interfaz en cuestión.
 >
-> La dirección en la que se está aplicando el algoritmo de detección de direcciones duplicadas, se dice que es "tentativa", hasta la completa finalización de dicho algoritmo. En este caso, no se considera que dicha dirección ha sido asignada a una interfaz, y por tanto los paquetes recibidos son descartados (ver [[14 - Direcciones Dinamicas#14.4. Duplicate Address Detection (DAD)|DAD]]).
+> La dirección en la que se está aplicando el algoritmo de detección de direcciones duplicadas, se dice que es "tentativa", hasta la completa finalización de dicho algoritmo. En este caso, no se considera que dicha dirección ha sido asignada a una interfaz, y por tanto los paquetes recibidos son descartados (ver [[07 - Direcciones Dinamicas#14.4. Duplicate Address Detection (DAD)|DAD]]).
 
 > [!question]- 23. ¿Cómo se forma una dirección IPv6?
 > **Respuesta:** Ya sabemos que una dirección IPv6 tiene 128 bits. De estos, los 64 bits inferiores o de menor peso, identifican a una determinada interfaz, como ya hemos comentado, y se denominan "identificador de interfaz".
 >
 > Los 64 bits de orden superior, indican la "ruta" o "prefijo" de la red o del router en uno de cuyos enlaces se conecta dicha interfaz.
 >
-> La dirección IPv6, se forma por tanto, combinando el prefijo con el identificador de interfaz (ver [[09 - Unicast#9.1. Global Unicast Address (GUA)|GUA]]).
+> La dirección IPv6, se forma por tanto, combinando el prefijo con el identificador de interfaz (ver [[04 - Unicast#9.1. Global Unicast Address (GUA)|GUA]]).
 
 > [!question]- 24. ¿Es posible tener direcciones IPv4 e IPv6 a la vez?
-> **Respuesta:** Sí. La mayoría de los sistemas operativos que soportan actualmente IPv6 permiten la utilización simultánea de ambos protocolos. De esta forma, es posible la comunicación tanto con redes que sólo soporten IPv4 como con aquellas redes que sólo soporten IPv6, así como la utilización de aplicaciones diseñadas para ambos protocolos (ver [[16 - Migracion IPv4 a IPv6#16.1. Técnicas de Doble pila (DUAL STACK)|Dual Stack]]).
+> **Respuesta:** Sí. La mayoría de los sistemas operativos que soportan actualmente IPv6 permiten la utilización simultánea de ambos protocolos. De esta forma, es posible la comunicación tanto con redes que sólo soporten IPv4 como con aquellas redes que sólo soporten IPv6, así como la utilización de aplicaciones diseñadas para ambos protocolos (ver [[09 - Migracion IPv4 a IPv6#16.1. Técnicas de Doble pila (DUAL STACK)|Dual Stack]]).
 
 > [!question]- 25. ¿Es posible la utilización de tráfico IPv6 sobre redes IPv4?
-> **Respuesta:** Sí. Para ello se utiliza una técnica que se denomina túnel. Consiste en introducir en un extremo el tráfico IPv6 como si fueran datos del protocolo IPv4. De esta manera, el tráfico IPv6 viaja "encapsulado" dentro del tráfico IPv4 y en el otro extremo, este tráfico es separado e interpretado como tráfico IPv6. Para ello necesitas utilizar un servidor de túneles, como el que proporcionamos en la sección de conectividad (ver [[16 - Migracion IPv4 a IPv6#16.2. Técnicas de Tunneling|Técnicas de Tunneling]]).
+> **Respuesta:** Sí. Para ello se utiliza una técnica que se denomina túnel. Consiste en introducir en un extremo el tráfico IPv6 como si fueran datos del protocolo IPv4. De esta manera, el tráfico IPv6 viaja "encapsulado" dentro del tráfico IPv4 y en el otro extremo, este tráfico es separado e interpretado como tráfico IPv6. Para ello necesitas utilizar un servidor de túneles, como el que proporcionamos en la sección de conectividad (ver [[09 - Migracion IPv4 a IPv6#16.2. Técnicas de Tunneling|Técnicas de Tunneling]]).
 
 > [!question]- 26. ¿Cómo se repartirán las nuevas direcciones IPv6?
 > **Respuesta:** Los proveedores de servicios Internet (ISPs) que están ya en el proceso de implantación de la nueva versión del protocolo IP siguen las políticas de los registradores regionales de Internet o RIRs (*Regional Internet Registries*, RIPE en el caso de Europa, LATNIC en Latinoamérica), respecto de cómo repartir el enorme espacio de direccionamiento IP versión 6 entre sus clientes.
@@ -223,7 +278,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 > El proceso de fragmentación consiste, lógicamente, en dividir en paquetes más pequeños la parte "fragmentable" del paquete origen, y agregarle a cada uno de ellos la parte no fragmentable, que permitirá, al nodo destino, la re-composición de dicho paquete.
 
 > [!question]- 33. ¿Qué son los mecanismos de transición?
-> **Respuesta:** Son los métodos ideados para que coexistan máquinas y redes con IPv4 y/o IPv6 (ver [[16 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
+> **Respuesta:** Son los métodos ideados para que coexistan máquinas y redes con IPv4 y/o IPv6 (ver [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
 
 > [!question]- 34. ¿Qué es un túnel IPv6-en-IPv4?
 > **Respuesta:** Es un mecanismo de transición que permite a máquinas con IPv6 instalado comunicarse entre sí a través de una red IPv4.
@@ -237,6 +292,6 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 > **Respuesta:** El encabezado IPv6 no está protegido por una suma de comprobación (*checksum*); la protección de integridad se asume asegurada tanto por el checksum de capa de enlace y por un checksum de nivel superior (TCP, UDP, etc.). De esta forma los routers IPv6 no necesitan recalcular la suma de comprobación cada vez que algún campo del encabezado (como el contador de saltos o Tiempo de Vida) cambia.
 
 ---
-**Volver a:** [[21 - Ejercicios de IPv6|Ejercicios de IPv6]]
+**Volver a:** [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]
 
 **Continuar a:** [[Teoria/03 - IPv6/index#Preguntas de repaso|Preguntas de repaso]]

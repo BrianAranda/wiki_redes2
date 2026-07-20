@@ -134,6 +134,6 @@ $$2^{128} \approx 3{,}4028\times10^{38}$$
 - Cada piso (200 m²): ≈ $1{,}334\times10^{26}$
 
 ---
-**Volver a:** [[03 - Solucion IPv6|Solución IPv6]]
+**Volver a:** [[01 - Introduccion a IPv6|Introducción a IPv6]]
 
-**Continuar a:** [[05 - IPv6 Addressing|IPv6 Addressing]]
+**Continuar a:** [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]

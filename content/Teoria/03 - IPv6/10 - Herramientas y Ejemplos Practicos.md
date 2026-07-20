@@ -1,6 +1,8 @@
 ---
-title: ping6
+title: Herramientas y Ejemplos Prácticos
 ---
+## ping6
+
 DNS de Google IPv4: `8.8.8.8` como servidor principal y `8.8.4.4` como el secundario.
 DNS de Google IPv6: `2001:4860:4860::8888` como servidor principal y `2001:4860:4860::8844` como el secundario.
 
@@ -13,7 +15,7 @@ Se puede usar `ping6` o `ping -6` desde la terminal de Linux.
 > [!note] Nota histórica
 > A partir de la versión `s20150815` de `iputils`, el binario `ping6` ya no existe: fue fusionado dentro de `ping`. Crear un enlace simbólico llamado `ping6` que apunte a `ping` da la misma funcionalidad que antes.
 
-## Opciones más relevantes
+### Opciones más relevantes
 
 | Opción | Descripción |
 | --- | --- |
@@ -33,7 +35,7 @@ Se puede usar `ping6` o `ping -6` desde la terminal de Linux.
 | `-b` | Permite hacer ping a una dirección de broadcast. |
 | `-R` | (solo ping) Incluye la opción `RECORD_ROUTE` en el paquete `ECHO_REQUEST` y muestra el buffer de ruta en los paquetes devueltos. |
 
-## Uso para diagnóstico
+### Uso para diagnóstico
 
 Cuando se usa `ping` para aislar fallas, primero debería ejecutarse en el host local, para verificar que la interfaz de red local está activa y funcionando. Luego, se debe hacer ping a hosts y gateways cada vez más lejanos. Se calculan los tiempos de ida y vuelta (*round-trip*) y las estadísticas de pérdida de paquetes.
 
@@ -46,7 +48,49 @@ Cuando se ha enviado (y recibido) el número especificado de paquetes, o si el p
 > [!warning] Uso responsable
 > Este programa está pensado para pruebas, medición y gestión de red. Debido a la carga que puede imponer en la red, no es recomendable usar `ping` durante operaciones normales o desde scripts automatizados.
 
----
-**Volver a:** [[16 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
+## Ejemplo de Cálculo de Red
 
-**Continuar a:** [[18 - Ejemplo de Calculo de Red|Ejemplo de Cálculo de Red]]
+### Consigna
+
+Supongamos que el Internet Service Provider nos da la IPv6 Unicast Global siguiente: `2001:db8:cad::/48`.
+
+Escribir las direcciones necesarias para la Red, Sub Red y de Interfaces de la LAN.
+
+### Resolución
+
+El prefijo de Red me permite saber qué parte de la dirección será utilizada para Red.
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2001 | 0db8 | 0cad | 0000 | 000 | 0000 | 0000 | 0000 |
+
+Si escribimos según la regla [[04 - Unicast#9.1. Global Unicast Address (GUA)|3-1-4]] se vería:
+
+- **3** → `2001:0db8:0cad` — 48 bits para RED.
+- **1** → `0000` — 16 bits para Subred.
+- **4** → `0000:0000:0000:0000` — 64 bits para ID de Interfaces.
+
+Tomemos una como ID de Interfaz `:0000:0000:0000:0009` a modo de ejemplo:
+
+- La IPv6 Unicast Global para una interfaz sería: **`2001:db8:cad::9/64`**
+- Dirección de Loopback: **`::1/128`**
+- Dirección de local link: **`fe80::9/64`**
+- Dirección Unicast sin especificar: **`::/128`** (todos ceros)
+
+## Ejemplo de reglas de Simplificación
+
+Repaso aplicado de las [[03 - Direccionamiento IPv6#Representación de Direcciones|reglas de compresión]] vistas antes (omitir ceros a la izquierda de cada campo, y reemplazar la secuencia más larga de campos en cero por `::`, una única vez):
+
+![[ejemplo-reglas-simplificacion.png]]
+
+| Dirección original | Dirección comprimida |
+| --- | --- |
+| `fe80:0000:0000:0000:7895:0eff:fe51:d7f4/64` | `fe80::7895:eff:fe51:d7f4/64` |
+| `1230:0000:0000:4561:7ac5:000f:ae51:bff4/64` | `1230::4561:7ac5:f:ae51:bff4/64` |
+| `ce93:0000:0eff:0000:7000:0000:0000:a5f1/64` | `ce93:0000:eff:0000:7000::a5f1/64` |
+| `fe80:0000:0000:0000:5c6e:dfff:fe74:b0a1/50` | `fe80::5c6e:dfff:fe74:b0a1/50` |
+
+---
+**Volver a:** [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
+
+**Continuar a:** [[11 - Complementos|Complementos]]

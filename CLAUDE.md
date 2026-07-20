@@ -71,11 +71,16 @@ del nombre de la nota, muestra texto corrupto (mojibake). Por eso:
 ## Cómo extraer una nota desde un PDF (formato obligatorio)
 El detalle completo está en la skill `extraer-nota-catedra` (`.claude/skills/extraer-nota-catedra/SKILL.md`).
 Resumen de las reglas clave:
-- **Un PDF = una carpeta = una nota por entrada del índice.** Cada PDF de `content/_Fuentes/` va a
-  su propia carpeta `content/Teoria/<NN> - <Título del PDF>/`, y **cada entrada de nivel superior
-  de la Tabla de Contenidos del PDF es su propia nota** dentro de esa carpeta (no se agrupan varias
-  entradas en una sola nota). Los subtítulos de una entrada son `##` dentro de su nota, no notas
-  separadas.
+- **Un PDF = una carpeta = notas agrupadas por cohesión temática.** Cada PDF de `content/_Fuentes/`
+  va a su propia carpeta `content/Teoria/<NN> - <Título del PDF>/`, pero **dentro no hay mapeo 1:1
+  entre entrada del índice y nota**: las entradas de la Tabla de Contenidos se agrupan en notas
+  según convenga temáticamente. Una entrada sustancial (varias páginas de desarrollo propio) suele
+  merecer su propia nota; varias entradas cortas y afines (intro/motivación, ejemplos breves,
+  secciones de cierre tipo videos/ejercicios/preguntas frecuentes) se **agrupan en una sola nota**.
+  El criterio es el mismo que usaría un estudiante armando su propio resumen: notas cohesivas y de
+  buen tamaño, ni fragmentadas en exceso ni mezclando temas sin relación (ver el ejemplo real en
+  `content/Teoria/02 - IPv4/`). Cada entrada agrupada queda como `##` dentro de su nota, y los
+  subtítulos propios de esa entrada bajan a `###`.
 - **Frontmatter de cada nota: solo `title`, salvo excepción puntual.** `fuente` va normalmente
   únicamente en el `index.md` de la carpeta (wikilink al PDF, o texto plano si es una referencia
   sin archivo como un capítulo de libro; lista si son varias fuentes) — no se repite en cada nota

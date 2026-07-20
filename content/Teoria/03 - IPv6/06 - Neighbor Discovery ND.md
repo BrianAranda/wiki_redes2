@@ -216,6 +216,6 @@ Mantiene una lista de los destinos a los que se ha enviado tráfico recientement
 Un host IPv6 mantiene una lista de enrutadores predeterminada desde la cual selecciona un enrutador para el tráfico a destinos fuera del enlace. El enrutador seleccionado para un destino luego se almacena en caché en la caché de destino.
 
 ---
-**Volver a:** [[12 - Resumen de Direcciones IPv6|Resumen de Direcciones IPv6]]
+**Volver a:** [[05 - Anycast y Multicast|Anycast y Multicast]]
 
-**Continuar a:** [[14 - Direcciones Dinamicas|Direcciones Dinámicas]]
+**Continuar a:** [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
