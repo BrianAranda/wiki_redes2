@@ -2,6 +2,8 @@
 title: Laboratorio N°1 - IPv4 (Físico)
 fuente: "[[B. Laboratorio N°1 IPV4 Fisico.pdf]]"
 ---
+> **Nota:** Obvio no tengo los equipos necesarios para realizar este laboratorio, pero las configuraciones son practicamente las mismas que el Laboratorio anterior. Recomiendo no seguir esta guía porque no la pase en limpio.
+
 Versión con hardware real del [[02 - Laboratorio 1 - IPv4 GNS3|laboratorio de IPv4 en GNS3]]: mismo objetivo de configurar un router **MikroTik** (direccionamiento, DHCP, DNS y NAT), pero armado con un MikroTik **RB2011** físico, switches y notebooks reales en vez de nodos simulados. Se relaciona con [[06 - Direcciones IPv4|Direcciones IPv4]], [[08 - Subredes|Subredes]] y [[10 - DHCP|DHCP]].
 
 ## Objetivo y topología
@@ -71,9 +73,7 @@ Con las tres direcciones cargadas, RouterOS arma la tabla de rutas automáticame
 
 ![[tabla-rutas.png]]
 
-> [!info]- Siglas de la tabla de rutas
-> - **D** = dinámica · **A** = activa · **S** = estática · **C** = conectada
-> - **U** = inalcanzable (*unreachable*) · **I** = inválida (*invalid*)
+
 
 ## DNS
 
