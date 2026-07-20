@@ -1,5 +1,7 @@
 ---
 title: Introducción a IPv6
+fuente:
+  - "[RFC 8200](https://datatracker.ietf.org/doc/html/rfc8200)"
 ---
 ## Los problemas
 
@@ -71,7 +73,29 @@ Apenas en 1990, antes de que se comenzara a explotar comercialmente Internet, ya
 > [!important] Extensión del uso de IPv4
 > Es indudable que las medidas tomadas fueron tan buenas que la tasa de sobrevida de IPv4 se extendió más allá de lo esperado; el problema de falta de direcciones se comenzó a tratar en 1990, apenas 9 años desde la implementación de IPv4 en 1980.
 
-La solución fue **IPv6**, que directamente cambia el tamaño del campo de direccionamiento de 32 a **128 bits**, llevando el espacio disponible de los ~4.300 millones de IPv4 a un número prácticamente inagotable ($2^{128}$, ver [[02 - Arquitectura de Direcciones IPv6#Cantidad de IPs por metro cuadrado|Cantidad de IPs por metro cuadrado]]). Pero no se trata solo de "más direcciones": IPv6 aprovecha la oportunidad para simplificar y modernizar el protocolo, con una cabecera base más liviana y de longitud fija, mecanismos de autoconfiguración incorporados (SLAAC) que evitan la necesidad de un servidor DHCP para que un equipo obtenga una dirección, y un diseño pensado para que el uso de NAT deje de ser necesario, restableciendo la conectividad extremo a extremo que las direcciones privadas de IPv4 habían roto.
+La solución fue **IPv6**, que directamente cambia el tamaño del campo de direccionamiento de 32 a **128 bits**, llevando el espacio disponible de los ~4.300 millones de IPv4 a un número prácticamente inagotable ($2^{128}$, ver [[02 - Cabecera IPv6#Cantidad de IPs por metro cuadrado|Cantidad de IPs por metro cuadrado]]). Pero no se trata solo de "más direcciones": IPv6 aprovecha la oportunidad para simplificar y modernizar el protocolo, con una cabecera base más liviana y de longitud fija, mecanismos de autoconfiguración incorporados (SLAAC) que evitan la necesidad de un servidor DHCP para que un equipo obtenga una dirección, y un diseño pensado para que el uso de NAT deje de ser necesario, restableciendo la conectividad extremo a extremo que las direcciones privadas de IPv4 habían roto.
+
+Las características mas destacas de IPv6 son:
+
+- **Capacidades de direccionamiento ampliadas**: IPv6 aumenta el tamaño de las direcciones IP de 32 bits a 128 bits, para admitir más niveles de jerarquía de direccionamiento, un número mucho mayor de nodos direccionables y una autoconfiguración más sencilla de las direcciones. 
+
+- **Simplificación del formato de la cabecera**: Se eliminaron o se volvieron opcionales algunos campos de la cabecera IPv4, con el fin de reducir el costo de procesamiento en casos comunes del manejo de paquetes y limitar el costo de ancho de banda de la cabecera IPv6.
+
+- **Mejora en el soporte para extensiones y opciones**: Los cambios en la forma en que se codifican las opciones de la cabecera IP permiten un reenvío más eficiente, límites menos estrictos en la longitud de las opciones y mayor flexibilidad para introducir nuevas opciones en el futuro.
+
+- **Capacidad de etiquetado de flujos**: Se agrega una nueva capacidad para permitir el etiquetado de secuencias de paquetes que el remitente solicita que se traten en la red como un solo flujo.
+
+ - **Capacidades de autenticación y privacidad**: Se especifican extensiones para IPv6 que admiten la autenticación, la integridad de los datos y (opcionalmente) la confidencialidad de los datos.
+
+Por otro lado se tiene:
+
+- Mecanismos de IPsec incorporados.
+- Fragmentación solo en origen y re-ensamblado en destino.
+- No requiere el uso de NAT, permitiendo conexiones punto a punto.
+- Posee mecanismos que facilitan la configuración de las redes (SLAAC/autoconfiguración).
+
+>[!note] IPsec 
+>*Internet Protocol security* es un conjunto de protocolos cuya función es asegurar las comunicaciones sobre el Protocolo de Internet (IP) autenticando y/o cifrando cada paquete IP en un flujo de datos. Incluye protocolos para el establecimiento de claves de cifrado.
 
 > [!note] Adopción de IPv6
 > Google mide en tiempo real, a nivel mundial y por país, el porcentaje de usuarios que acceden a sus servicios sobre IPv6 (Visitar [Adopción IPv6](https://www.google.com/intl/en/ipv6/statistics.html)). Al momento de redactar esto la adopción global es del 50,91% y específicamente en Argentina del 28,89%.
@@ -81,4 +105,4 @@ La solución fue **IPv6**, que directamente cambia el tamaño del campo de direc
  >Es una tecnología de transición que provee conectividad IPv6 a *hosts* que soportan IPv6 pero que se encuentran conectados a Internet mediante una red IPv4 (ver [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
 
 ---
-**Continuar a:** [[02 - Arquitectura de Direcciones IPv6|Arquitectura de Direcciones IPv6]]
+**Continuar a:** [[02 - Cabecera IPv6|Arquitectura de Direcciones IPv6]]

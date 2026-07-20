@@ -172,6 +172,6 @@ Desde `https://bgp.he.net/` (Hurricane Electric) se pueden consultar los prefijo
 Finalmente, así se interconectan estos sistemas autónomos: la U.Na.M (AS263235) llega a Internet tanto a través de la RIU (AS4270) como de Obercom (AS266668).
 
 ---
-**Volver a:** [[02 - Arquitectura de Direcciones IPv6|Arquitectura de Direcciones IPv6]]
+**Volver a:** [[02 - Cabecera IPv6|Arquitectura de Direcciones IPv6]]
 
 **Continuar a:** [[04 - Unicast|Unicast]]
