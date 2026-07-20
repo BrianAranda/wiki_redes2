@@ -3,6 +3,13 @@ title: Introducción a IPv4
 fuente:
   - "[RFC 791](https://www.rfc-es.org/rfc/rfc0791-es.txt)"
 ---
+> [!note] Terminología
+>- **Nodo:** dispositivo que implementa IP (router o host).
+>- ***Router:*** nodo que reenvía paquetes IP que no son para él mismo.
+>- ***Host:*** cualquier nodo que no es router.
+>- **Enlace** (*link*): medio o facilidad que comunica a los nodos.
+>- ***Interfase***: lo que usa el nodo para conectarse al enlace.
+
 > [!important] Motivación de IP
 > El Protocolo Internet está diseñado para su uso en sistemas interconectados de redes de comunicación de ordenadores por  intercambio de paquetes. Proporciona los medios necesarios para la transmisión de bloques de datos llamados **datagramas** desde el origen al destino, donde origen y destino son hosts identificados por direcciones de longitud fija. Tambien se encarga, si es necesario, de la fragmentación y el reensamblaje de grandes datagramas para su transmisión a través de redes de trama pequeña.
 
