@@ -79,7 +79,7 @@ Tomemos una como ID de Interfaz `:0000:0000:0000:0009` a modo de ejemplo:
 
 ## Ejemplo de reglas de Simplificación
 
-Repaso aplicado de las [[03 - Direccionamiento IPv6#Representación de Direcciones|reglas de compresión]] vistas antes (omitir ceros a la izquierda de cada campo, y reemplazar la secuencia más larga de campos en cero por `::`, una única vez):
+Repaso aplicado de las [[03 - Direcciones IPv6#Representación de Direcciones|reglas de compresión]] vistas antes (omitir ceros a la izquierda de cada campo, y reemplazar la secuencia más larga de campos en cero por `::`, una única vez):
 
 ![[ejemplo-reglas-simplificacion.png]]
 

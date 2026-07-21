@@ -178,6 +178,15 @@ estudio para el vault de Obsidian.
 13. **Tablas** para todo lo que sea comparación o estructura (capas vs unidades de datos,
    protocolos por capa de transporte, etc.).
 
+14. **Palabras en otro idioma, siempre en cursiva.** Toda palabra o expresión que no sea español
+   (normalmente en inglés) va en *cursiva*, tanto si aparece suelta como dentro de una oración en
+   español. Ejemplos típicos en esta materia: *router*, *host*, *link*, *switch*, *gateway*,
+   *broadcast*, *unicast*, *multicast*, *anycast*, *interface*, *scope*, *deprecated*, *forever*,
+   *plug and play*, *jumbogram*. No aplica a siglas/acrónimos (`IP`, `MAC`, `DNS`, `SLAAC`), a
+   nombres propios de protocolos/RFCs/comandos, ni a términos ya asimilados al español técnico de
+   la cátedra (ej. "router" SÍ lleva cursiva porque es un préstamo del inglés, pero un comando
+   como `ping` va en código, no en cursiva, porque es literal el nombre de un programa).
+
 ## Reglas de token
 - El PDF se procesa una vez; el resto del trabajo es sobre los `.md` generados.
 - No cargar varios PDFs en la misma sesión.

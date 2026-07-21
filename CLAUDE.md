@@ -105,6 +105,7 @@ Resumen de las reglas clave:
   como "IP") — usar alias sin barra.
 - Wikilinks a conceptos con nota propia, callouts de Obsidian, imágenes extraídas del PDF (no
   inventadas), sin tildes/eñes en archivos y carpetas — todo esto igual que antes, ver la skill.
+- Palabras en otro idioma en *cursiva* (ver "Mis preferencias" más abajo).
 
 ## Flujo de práctica / labs
 - **Cada lab es una única nota** en `content/Practica/`, **sin subdividir** aunque el PDF de
@@ -181,6 +182,10 @@ Resumen de las reglas clave:
 - Paso a paso y con ejemplos concretos.
 - **Si para resolver algo te falta información, pedímela antes de inventar.**
 - Trabajo iterativo: voy corrigiendo sobre la marcha; esperá mis ajustes antes de procesar en lote.
+- **Toda palabra en otro idioma (normalmente inglés) va en *cursiva***, tanto al redactar contenido
+  nuevo como al extraer una nota de un PDF. Ejemplos habituales: *router*, *host*, *unicast*,
+  *multicast*, *anycast*, *broadcast*, *interface*, *link*, *switch*, *gateway*, *scope*. No aplica
+  a siglas/acrónimos (`IP`, `MAC`, `DNS`, `SLAAC`) ni a nombres de comandos (esos van en `código`).
 
 ## Estado de avance
 - [x] Unidad 1 — Introducción a Redes II

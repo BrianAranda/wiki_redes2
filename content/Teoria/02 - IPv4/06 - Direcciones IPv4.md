@@ -6,6 +6,9 @@ fuente:
 ---
 Los campos de dirección origen y destino de la [[04 - Cabecera IPv4#Direcciones de Origen y Destino|Cabecera IPv4]] contienen cada uno una dirección de Internet **global** de 32 bits, que generalmente consta de un identificador de red y un identificador de computador (*host*).
 
+## Representar direcciones IPv4
+### Notación decimal con punto
+
 Las direcciones IP se escriben en **notación decimal con punto**, usando un número decimal por cada uno de los 4 octetos (o bytes) de 32 bits. Por ejemplo:
 
 $$
@@ -17,6 +20,15 @@ $$
 }_{\boxed{\Large192.228.17.57}}
 $$
 
+### Prefijo o máscaras red
+
+Es el número que indica cuántos bits de una dirección IP corresponden a la red, y cuántos quedan libres para identificar *hosts* dentro de ella. Se escribe como `/n` (por ejemplo, `/24`) o como una máscara en notación decimal (`255.255.255.0`), y ambas formas dicen exactamente lo mismo: los primeros `n` bits son fijos (la red), el resto son variables (el host).
+
+El número `n` indica cuantos bits en 1 estarán en la máscara desde el MSB (desde la izquierda)
+
+$$
+/8 \longrightarrow 1111 \: 1111 \quad 0000 \: 0000 \quad 0000 \: 0000 \quad 0000 \: 0000 \longrightarrow 255.0.0.0
+$$
 ## Redes con Clases
 
 Si bien **ya no se usan para asignar ni rutear direcciones**, el sistema de clases fue el esquema original de 1981 (RFC 791) y quedó obsoleto en 1993 reemplazado por CIDR (RFC 1519). La dirección está codificada para permitir una asignación variable de bits entre red y computador, esquema conocido como ***Classful***. 

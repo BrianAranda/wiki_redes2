@@ -1,6 +1,10 @@
 ---
 title: Unicast
 ---
+
+> [!note] Excepción
+> Direcciones de unidifusión con un alcance mayor que el alcance del enlace no son necesarias para interfaces que no se utilizan como origen o destino de ningún paquete IPv6 hacia o desde el nodo. A veces esto es conveniente para interfaces punto a punto.
+
 Las direcciones de unidifusión o unicast global de IPv6 tienen la siguiente estructura:
 
 ```
@@ -353,6 +357,6 @@ Esta última es para representar **SOLO** a los nodos IPv4 que **NO** soportan I
 Es un esquema de direcciones de transición y no profundizaremos en la materia.
 
 ---
-**Volver a:** [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]
+**Volver a:** [[03 - Direcciones IPv6|Direccionamiento IPv6]]
 
 **Continuar a:** [[05 - Anycast y Multicast|Anycast y Multicast]]

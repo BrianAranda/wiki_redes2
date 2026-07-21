@@ -1,7 +1,7 @@
 ---
-title: Arquitectura de Direcciones IPv6
+title: Cabecera IPv6
 fuente:
-  - "[RFC 4291](https://www.rfc-editor.org/rfc/rfc4291)"
+  - "[RFC 4291](https://datatracker.ietf.org/doc/html/rfc4291#section-2)"
   - "[Fundamentos de IPv6](https://cloud.fio.unam.edu.ar/index.php/s/kfroJFkzy5YNi59?dir=/&editing=false&openfile=true)"
   - "[RFC 8200](https://datatracker.ietf.org/doc/html/rfc8200)"
 ---
@@ -168,4 +168,4 @@ Dado que el espacio de direcciones IPv6 tiene tamaño $2^{128}$, y asumiendo (so
 ---
 **Volver a:** [[01 - Introduccion a IPv6|Introducción a IPv6]]
 
-**Continuar a:** [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]
+**Continuar a:** [[03 - Direcciones IPv6|Direcciones IPv6]]

@@ -5,8 +5,8 @@ fuente: "[[3. IPv6.pdf]]"
 # Tabla de contenido
 
 ## [[01 - Introduccion a IPv6|Introducción a IPv6]]
-## [[02 - Cabecera IPv6|Arquitectura de Direcciones IPv6]]
-## [[03 - Direccionamiento IPv6|Direccionamiento IPv6]]
+## [[02 - Cabecera IPv6|Cabecera IPv6]]
+## [[03 - Direcciones IPv6|Direcciones IPv6]]
 
 ## [[04 - Unicast|Unicast]]
 ## [[05 - Anycast y Multicast|Anycast y Multicast]]
