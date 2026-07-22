@@ -174,7 +174,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 > [!question]- 17. ¿Qué es el "identificador de interfaz"?
 > **Respuesta:** El "identificador de interfaz" es aquel que identifica de forma única una interfaz en una subred, y que a menudo, por defecto, es generado a partir de la dirección MAC de la tarjeta de red.
 >
-> La dirección IPv6 se forma combinando los 64 bits del identificador de interfaz con los prefijos que los encaminadores (routers) indican como correspondientes a la subred (ver [[04 - Unicast#1) EUI-64|EUI-64]]).
+> La dirección IPv6 se forma combinando los 64 bits del identificador de interfaz con los prefijos que los encaminadores (routers) indican como correspondientes a la subred (ver [[04 - Unicast#EUI-64|EUI-64]]).
 
 > [!question]- 18. ¿Qué ocurre si en una red no hay encaminadores?
 > **Respuesta:** Si no hay encaminadores, el identificador de interfaz es autosuficiente para permitir al PC que genere la dirección de enlace local.
@@ -220,7 +220,7 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 >
 > Los 64 bits de orden superior, indican la "ruta" o "prefijo" de la red o del router en uno de cuyos enlaces se conecta dicha interfaz.
 >
-> La dirección IPv6, se forma por tanto, combinando el prefijo con el identificador de interfaz (ver [[04 - Unicast#9.1. Global Unicast Address (GUA)|GUA]]).
+> La dirección IPv6, se forma por tanto, combinando el prefijo con el identificador de interfaz (ver [[04 - Unicast#Global Unicast Address (GUA)|GUA]]).
 
 > [!question]- 24. ¿Es posible tener direcciones IPv4 e IPv6 a la vez?
 > **Respuesta:** Sí. La mayoría de los sistemas operativos que soportan actualmente IPv6 permiten la utilización simultánea de ambos protocolos. De esta forma, es posible la comunicación tanto con redes que sólo soporten IPv4 como con aquellas redes que sólo soporten IPv6, así como la utilización de aplicaciones diseñadas para ambos protocolos (ver [[09 - Migracion IPv4 a IPv6#16.1. Técnicas de Doble pila (DUAL STACK)|Dual Stack]]).

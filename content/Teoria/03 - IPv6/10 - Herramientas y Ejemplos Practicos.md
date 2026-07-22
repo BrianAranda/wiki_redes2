@@ -64,7 +64,7 @@ El prefijo de Red me permite saber qué parte de la dirección será utilizada p
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 2001 | 0db8 | 0cad | 0000 | 000 | 0000 | 0000 | 0000 |
 
-Si escribimos según la regla [[04 - Unicast#9.1. Global Unicast Address (GUA)|3-1-4]] se vería:
+Si escribimos según la regla [[04 - Unicast#Global Unicast Address (GUA)|3-1-4]] se vería:
 
 - **3** → `2001:0db8:0cad` — 48 bits para RED.
 - **1** → `0000` — 16 bits para Subred.

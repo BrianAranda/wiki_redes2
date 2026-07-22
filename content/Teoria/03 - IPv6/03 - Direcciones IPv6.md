@@ -109,17 +109,11 @@ $$
 
 Las direcciones IPv6 de cualquier tipo son asignadas a las **interfaces** no a los nodos. Una sola interfaz puede tener múltiples tipos de direcciones IPv6. Existen tres tipos:
 
-### *Unicast*
+- *Unicast*: identifica a **una única interfaz**, un paquete con dirección de *unicast* es **distribuido a una sola** interfaz con esa dirección.
 
-Una dirección *unicast* identifica a **una única interfaz**, un paquete con dirección de *unicast* es **distribuido a una sola** interfaz con esa dirección.
+- *Multicast*: identifica un **conjunto de interfaces** de red, típicamente de distintos nodos. Un paquete con dirección de *multicast* es **distribuido a todas** las interfaces con esa dirección.
 
-### Multicast
-
-Una dirección de *multicast* identifica un **conjunto de interfaces** de red, típicamente de distintos nodos. Un paquete con dirección de *multicast* es **distribuido a todas** las interfaces con esa dirección.
-
-### *Anycast*
-
-Una dirección de *anycast* identifica un **conjunto de interfaces** de red, típicamente de distintos nodos. Un paquete con dirección de *anycast* es **distribuido a la interfaz mas cercana** con esa dirección.
+- *Anycast*: identifica un **conjunto de interfaces** de red, típicamente de distintos nodos. Un paquete con dirección de *anycast* es **distribuido a la interfaz mas cercana** con esa dirección.
 
 > [!warning] Broadcast no existe en IPv6
 
@@ -141,13 +135,6 @@ Cualquier dirección de IPv6 se puede reconocer, entre otras cosas, **por sus bi
 | *Link Local Unicast* | 1111 1110 1000           | FE80::/10     |
 | *Global Unicast*     | (Cualquier otra)         |               |
 
->[!question] ¿Cuales son las primer y última dirección *unicast* global?
->Las direcciones unicast global utilizan los tres primeros bits en `001`:
->- Primer hexadecimal: **001**0 y **001**1
->- Primer conjunto: 0010 0000 0000 0000 o sea 2000 en hexadecimal.
->- Último conjunto: 0011 1111 1111 1111 o sea 3FFF en hexadecimal.
->- El rango de *unicast* global abarca desde 2000 a 3FFF
-
 > [!note] Notas
 > Las direcciones de *anycast* son tomadas de las *unicast* global, por eso no figuran en la tabla.
 
@@ -155,21 +142,15 @@ Cualquier dirección de IPv6 se puede reconocer, entre otras cosas, **por sus bi
 
 Dentro de las direcciones *unicast* existe además un concepto de direccionamiento que se conoce como ámbito o *scope*, que indica hasta dónde es alcanzable una dirección.  Hay 3 ámbitos:
 
-### Ámbito enlace
+- **Ámbito enlace:** Direcciones únicas para ser usadas en **una sola interfaz** de red. Conocidas como *Link Local* (`FE80::/10`). Con estas direcciones se pueden asignar las direcciones globales, y sirven para la detección de vecinos o los protocolos de enrutamiento dinámico para compartir las rutas.
 
-Direcciones únicas para ser usadas en **una sola interfaz** de red. Conocidas como *Link Local* (`FE80::/10`). Con estas direcciones se pueden asignar las direcciones globales, y sirven para la detección de vecinos o los protocolos de enrutamiento dinámico para compartir las rutas.
+- **Ámbito sitio:** Similares a direcciones IPv4 privadas. Se conocen como *Unique Local Address* (`FC00::/7` a `FD00::/7`). Se obtienen con un proceso aleatorio que permite asegurar que son únicas y aunque lo sean no se pueden utilizar para comunicarse en Internet, los enrutadores de Internet no tienen rutas para llegar a ellas.
 
-### Ámbito sitio
-
-Similares a direcciones IPv4 privadas. Se conocen como *Unique Local Address* (`FC00::/7` a `FD00::/7`). Se obtienen con un proceso aleatorio que permite asegurar que son únicas y aunque lo sean no se pueden utilizar para comunicarse en Internet, los enrutadores de Internet no tienen rutas para llegar a ellas.
-
-### Ámbito Global
-
-Estas direcciones son únicas globalmente (`2000::/3` a `3FFF::/3`). Las asigna la IANA.
+- **Ámbito Global:** Estas direcciones son únicas globalmente (`2000::/3` a `3FFF::/3`). Las asigna la IANA.
 
 ![[ambitos-enlace-sitio-global.png]]
 
-## Asignación de un prefijo Global (PA/PI)
+## Prefijos Globales
 
 Ya vimos que existe un ámbito Global que asigna la IANA, por lo que, ahora tenemos que ver cómo una organización obtiene en la práctica su propio bloque de direcciones dentro de ese ámbito. Hay dos tipos de direcciones que se pueden asignar a un ISP:
 
@@ -202,6 +183,50 @@ En la Facultad de Ingeniería: por un lado, la Facultad forma parte de la U.Na.M
 > - La UNaM tiene su **propio** AS (263235) porque quiere ser independiente, tiene su propio prefijo `2803:70e0::/32` obtenido **directamente de LACNIC** (el RIR), no de ningún ISP (es un caso PI). Al tener AS propio, puede anunciar su prefijo `2803:70e0::/32` a quien la conecte con Internet (a la RIU, y también a Obercom), y el anuncio queda registrado con su ASN como origen.
 > - Obercom es un ISP comercial, con **su propio** prefijo separado `2803:a920::/32`, que normalmente reparte a sus clientes. Con su AS (266668), simplemente **retransmite** ese anuncio hacia el resto de Internet cuando actúa de tránsito para la FIO, pero en el anuncio BGP, el "AS de origen del prefijo de la fucultad sigue figurando con el ASN de la facultad, no con el de Obercom. Aparece como un salto intermedio (AS-*path*), no como el dueño del prefijo.
 > - Por eso alguien de afuera puede ver, mirando la tabla de rutas de BGP, que ese rango específico pertenece a la UNaM aunque el paquete físicamente sale por Obercom.
+
+## Direcciones temporales
+
+Una dirección temporal en IPv6 es una dirección generada de manera **aleatoria** y **cambiada periódicamente** para mejorar la privacidad del usuario. Se utiliza en dispositivos que se conectan a Internet para evitar el rastreo de la dirección IP fija por parte de sitios web o servicios en línea.
+
+El uso de direcciones temporales es opcional y configurable pero están habilitadas por defecto. Tienen una vida útil corta, normalmente horas o días y es común tener varias para asegurarse de que las conexiones existentes puedan continuar mientras se crea una nueva.
+
+> [!tip] ¿Cuándo usar direcciones temporales?
+> Es útil en dispositivos personales para proteger la privacidad al navegar en Internet.
+> 
+> No recomendable en servidores o dispositivos que necesitan direcciones estáticas, como impresoras, *routers* o servidores web.
+
+Objetivos principales de las direcciones temporales en IPv6:
+
+1. **Mejorar la privacidad:** al cambiar frecuentemente, dificulta que terceros rastreen la actividad de un dispositivo en la red.
+2. **Evitar identificación a largo plazo:** a diferencia de las direcciones EUI-64 (basadas en la MAC del dispositivo), las temporales no revelan información del hardware.
+3. **Seguridad contra ataques de seguimiento:** algunos atacantes pueden usar direcciones IPv6 estáticas para crear perfiles de actividad de usuarios.
+
+Se generan utilizando el mecanismo de privacidad definido en el RFC 8981 (antes RFC 4941):
+
+1. **Obtención del prefijo IPv6:** el dispositivo recibe un prefijo de red mediante SLAAC o DHCPv6.
+2. **Generación del identificador de interfaz aleatorio:** se usa un número aleatorio para generar la parte del *host* y cambia cada cierto tiempo.
+3. **Asignación y uso de la dirección temporal:** se usa para conexiones salientes y se mantiene activa solo por un tiempo definido antes de generar una nueva.
+4. **Eliminación de direcciones viejas:** cuando se genera una nueva dirección temporal, la anterior se marca como "*deprecated*" y deja de usarse en nuevas conexiones, pero sigue funcionando hasta que las conexiones activas finalicen.
+
+### Tiempos de vida
+
+> Esta sección es meramente informativa
+
+Las direcciones IPv6 tienen distintos tiempos de vida; el tratamiento en profundidad de este tema escapa a la materia y se puede profundizar en el [RFC 4862](https://www.rfc-editor.org/rfc/rfc4862).
+
+- **Direcciones tentativas:** las que están en proceso de verificación.
+- **Dirección preferida:** se verificó que la dirección es única.
+- **Dirección en desuso (*deprecated*):** la dirección todavía es válida pero no lo será en el futuro.
+- **Dirección válida:** la dirección es una dirección preferida o en desuso.
+- **Dirección inválida:** una dirección que se volvió inválida al terminar su vida útil.
+
+![[tiempodevida.png]]
+
+- **Vida útil preferida:** este es el período de tiempo en el que se prefiere una dirección válida hasta que queda obsoleta. Cuando expira la dirección pasa a ser obsoleta.
+- **Vida útil válida:** este es el período de tiempo que una dirección permanece en el estado válido. Debe ser mayor o igual a la vida preferida. Cuando expira la dirección deja de ser válida.
+
+> [!tip] "Forever" no es tan literal
+> Las IPv6 que no son temporales aparecen con la etiqueta `forever`, esto no quiere decir que sean para siempre. A modo de ejemplo, dos capturas del mismo host `ip -6 addr show` en momentos distintos muestran que la Link-Local (`fe80::.../64`) es "forever" pero cambia entre una captura y otra, por el principio de *Privacy Extensions for* SLAAC.
 
 ---
 **Volver a:** [[02 - Cabecera IPv6|Cabecera IPv6]]

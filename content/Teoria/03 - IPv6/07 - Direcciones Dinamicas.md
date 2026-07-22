@@ -119,7 +119,7 @@ El equipo recibe el RA desde `FE80::1` y lo toma como Default Gateway; el flag A
 
 Este método SLAAC, WinPC a partir de los datos recibidos genera dos direcciones de unicast, una global pública y otra global temporal.
 
-La parte de IPv6 que corresponde a la interfase de red se genera de manera automática usando [[04 - Unicast#1) EUI-64|EUI-64]] o de manera aleatoria dependiendo de la configuración del Sistema Operativo.
+La parte de IPv6 que corresponde a la interfase de red se genera de manera automática usando [[04 - Unicast#EUI-64|EUI-64]] o de manera aleatoria dependiendo de la configuración del Sistema Operativo.
 
 > [!important] Relación entre SLAAC y RA
 > Notar que este mensaje de RA usado en SLAAC da la posibilidad de que los equipos reciban los DNSs que de por sí SLAAC no los proveería. Esto se realiza en nuestro laboratorio de IPv6 al configurar el ND del MK de nivel 2 (agregando los servidores DNS a la configuración de ND del router, además del prefijo de red).
@@ -209,7 +209,7 @@ Este proceso se realiza en 4 pasos, no vamos a entrar en detalle en esta materia
 > [!info]- Referencia
 > Para más detalles ver página 402 del libro: *"IPv6 Fundamentals: A Straightforward Approach to Understanding IPv6"*, Second Edition, autor Rick Graziani.
 
-Podemos ver en la figura que WinPC envía un NS, en el que como IP de origen usa la Unspecified Address; recordemos que la dirección `0:0:0:0:0:0:0:0` se conoce como Dirección No específica (ver [[04 - Unicast#9.7. UA Unspecified Address|UA Unspecified Address]]). Indica la ausencia de dirección, y se usa durante el proceso de inicialización de IPv6 en el campo de IP de Origen cuando el nodo no tiene IP. Como dirección de Destino, pone una dirección del Grupo multicast de todos los nodos solicitados `FF02::1`; los paquetes que se envían a este grupo son recibidos y procesados por todas las interfaces IPv6 en el enlace o en la red. Esto tiene el mismo efecto que una dirección de broadcast en IPv4.
+Podemos ver en la figura que WinPC envía un NS, en el que como IP de origen usa la Unspecified Address; recordemos que la dirección `0:0:0:0:0:0:0:0` se conoce como Dirección No específica (ver [[04 - Unicast#UA - Unspecified Address|UA Unspecified Address]]). Indica la ausencia de dirección, y se usa durante el proceso de inicialización de IPv6 en el campo de IP de Origen cuando el nodo no tiene IP. Como dirección de Destino, pone una dirección del Grupo multicast de todos los nodos solicitados `FF02::1`; los paquetes que se envían a este grupo son recibidos y procesados por todas las interfaces IPv6 en el enlace o en la red. Esto tiene el mismo efecto que una dirección de broadcast en IPv4.
 
 Si ningún otro dispositivo responde con un mensaje NA en un tiempo determinado, prácticamente se garantiza que la dirección es única y puede ser utilizada por la WinPC. Si un mensaje NA es recibido por el host, la dirección no es única, y el sistema operativo debe determinar una nueva ID de interfaz para utilizar.
 

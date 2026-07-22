@@ -44,7 +44,7 @@ Notar que esta dirección anycast es sintácticamente lo mismo que una direcció
 Los paquetes enviados a esta dirección van a ser distribuidos al router o a la subred. Todos los enrutadores deben admitir las Direcciones anycast de Subred-Router para las subredes a las que tienen interfaces.
 
 > [!question] ¿Cuántas IPs se necesitan en IPv6 para un enlace punto a punto entre dos routers?
-> La primer respuesta sería `/127`. Pero tomando en cuenta esta dirección de anycast de subred de router, vemos que debería ser `/126` (visto en [[04 - Unicast#9.3. Subnet ID|Subnet ID]]).
+> La primer respuesta sería `/127`. Pero tomando en cuenta esta dirección de anycast de subred de router, vemos que debería ser `/126` (visto en [[04 - Unicast#Subnet ID|Subnet ID]]).
 
 ## Multicast FF02
 
