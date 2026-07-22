@@ -193,7 +193,7 @@ El uso de direcciones temporales es opcional y configurable pero están habilita
 > [!tip] ¿Cuándo usar direcciones temporales?
 > Es útil en dispositivos personales para proteger la privacidad al navegar en Internet.
 > 
-> No recomendable en servidores o dispositivos que necesitan direcciones estáticas, como impresoras, *routers* o servidores web.
+> No recomendable para servidores o dispositivos que necesitan direcciones estáticas para funcionar, como impresoras, *routers* o servidores web.
 
 Objetivos principales de las direcciones temporales en IPv6:
 
@@ -220,7 +220,7 @@ Las direcciones IPv6 tienen distintos tiempos de vida; el tratamiento en profund
 - **Dirección válida:** la dirección es una dirección preferida o en desuso.
 - **Dirección inválida:** una dirección que se volvió inválida al terminar su vida útil.
 
-![[tiempodevida.png]]
+![[tiempodevida.png|600]]
 
 - **Vida útil preferida:** este es el período de tiempo en el que se prefiere una dirección válida hasta que queda obsoleta. Cuando expira la dirección pasa a ser obsoleta.
 - **Vida útil válida:** este es el período de tiempo que una dirección permanece en el estado válido. Debe ser mayor o igual a la vida preferida. Cuando expira la dirección deja de ser válida.

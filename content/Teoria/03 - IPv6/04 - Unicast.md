@@ -1,7 +1,7 @@
 ---
 title: Unicast
 fuente:
-  - "[RFC 4291](https://datatracker.ietf.org/doc/html/rfc4291#section-2.5)"
+  - "[RFC 4291](https://datatracker.ietf.org/doc/html/rfc4291)"
 ---
 Las direcciones *unicast* IPv6 se pueden agregar con prefijos de longitud de bits arbitraria, de forma similar a las direcciones IPv4 *classless*. Existen varios tipos y subtipos de direcciones *unicast*:
 
@@ -263,7 +263,7 @@ El problema es que el RFC 4193 solo define los métodos específicos para el bit
 
 > No tratamos el tema en la materia.
 
-Existen direcciones llamadas de Sitio local o *Site-Local* del tipo *unicast* que estan obsoletas y comenzaban con el tipo `FEC0/10`, pero, no si existen, deberían desaparecer en el futuro. 
+Existen direcciones llamadas de Sitio local o *Site-Local* del tipo *unicast* que estan obsoletas y comenzaban con el tipo `FEC0/10`, pero, si no existen, deberían desaparecer en el futuro. 
 
 ## IPv6 con IPv4 embebida
 
