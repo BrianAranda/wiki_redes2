@@ -2,7 +2,7 @@
 title: Direcciones Dinámicas
 ---
 > [!note] Relación con Neighbor Discovery
-> La obtención de direcciones de capa 3, y la relación de direcciones de capa 3 con capa 2 (MAC), están relacionadas; es por eso que este tema de "Direcciones Dinámicas" y "[[06 - Neighbor Discovery ND|Neighbor Discovery ND]]", el tema anterior, están íntimamente relacionados.
+> La obtención de direcciones de capa 3, y la relación de direcciones de capa 3 con capa 2 (MAC), están relacionadas; es por eso que este tema de "Direcciones Dinámicas" y "[[06 - Neighbor Discovery|Neighbor Discovery ND]]", el tema anterior, están íntimamente relacionados.
 
 En esta sección veremos las formas en las que un dispositivo con IPv6 puede obtener de manera dinámica la dirección global unicast. Ellas son:
 
@@ -271,6 +271,6 @@ En resumen:
 > `https://abcxperts.com/formas-de-asignar-direccionamiento-ipv6-parte-2/`
 
 ---
-**Volver a:** [[06 - Neighbor Discovery ND|Neighbor Discovery ND]]
+**Volver a:** [[06 - Neighbor Discovery|Neighbor Discovery ND]]
 
 **Continuar a:** [[08 - ICMPv6|ICMPv6]]

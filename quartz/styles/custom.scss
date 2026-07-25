@@ -34,6 +34,34 @@ img {
   margin: 1rem auto;
 }
 
+// Centrar los bloques de código (``` ```): por defecto ocupan el 100% del
+// ancho de la columna aunque el código adentro sea angosto. width:fit-content
+// los encoge a su contenido real para poder centrarlos; max-width:100% +
+// overflow-x:auto (ya lo trae Quartz) se mantienen para bloques más anchos
+// que la columna, que siguen ocupando todo el ancho y scrollean en vez de
+// desbordar la página.
+pre {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem auto;
+}
+
+// Bloques de código con título (```lang title="..."```): se centra la
+// figura completa (título + código) como unidad, en vez de duplicar el
+// centrado del <pre> de arriba dentro de una figura ya centrada.
+figure[data-rehype-pretty-code-figure] {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem auto;
+
+  & > pre {
+    margin: 0;
+    width: 100%;
+  }
+}
+
 // Justificar el texto de los párrafos. hyphens: auto evita huecos grandes
 // entre palabras largas al justificar en columnas angostas.
 // overflow-wrap: normal es aparte: el motor de Quartz pone overflow-wrap:

@@ -3,7 +3,7 @@ title: ICMPv6
 ---
 El protocolo [[ICMP|ICMPv6]] es utilizado por los nodos IPv6 para detectar errores encontrados en la interpretación de paquetes y para realizar otras funciones de la capa de internet, como el diagnóstico (ICMPv6 ping).
 
-El protocolo ICMPv6 incorpora la función de descubrimiento de vecinos, que en IPv4 realiza el protocolo [[07 - ARP|ARP]]. Dentro de esta funcionalidad se incorpora el descubrimiento de enrutadores que incluso permite la configuración automática de las direcciones globales (ver [[06 - Neighbor Discovery ND|Neighbor Discovery ND]]).
+El protocolo ICMPv6 incorpora la función de descubrimiento de vecinos, que en IPv4 realiza el protocolo [[07 - ARP|ARP]]. Dentro de esta funcionalidad se incorpora el descubrimiento de enrutadores que incluso permite la configuración automática de las direcciones globales (ver [[06 - Neighbor Discovery|Neighbor Discovery ND]]).
 
 A través de esta funcionalidad de descubrimiento de vecinos y de enrutadores, un equipo conectado a la red con una dirección de enlace local puede descubrir el enrutador que está en su misma red y obtener el prefijo global asignado a la red.
 

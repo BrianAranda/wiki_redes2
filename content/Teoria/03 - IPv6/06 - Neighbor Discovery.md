@@ -1,76 +1,82 @@
 ---
-title: Neighbor Discovery ND
+title: Neighbor Discovery
+fuente:
+  - "[RFC 4861](https://datatracker.ietf.org/doc/html/rfc4861)"
 ---
-En Neighbor Discovery se envían mensajes ICMPv6 y se hace uso de diferentes direcciones de IPv6, todas ellas definidas en [RFC 4291](https://www.rfc-editor.org/rfc/rfc4291).
+El protocolo de descubrimiento de vecinos (ND de *Neighbor Discovery*) se utiliza en IPv6 para que los nodos (*hosts* y *routers*) determinen las direcciones de la capa de enlace de los vecinos que se sabe que residen en los enlaces conectados y para eliminar rápidamente los valores almacenados en caché que dejan de ser válidos.  
 
-**IPv6 NDP** (*Neighbor Discovery Protocol*, Protocolo de Descubrimiento de Vecinos en español) es el protocolo que proporciona el descubrimiento de nodo de red, como su nombre indica, esto sirve para dos propósitos:
+Los *hosts* también utilizan ND para encontrar *routers* vecinos que estén dispuestos a reenviar paquetes en su nombre.  A su vez, utilizan el protocolo para realizar un seguimiento activo de qué vecinos son accesibles y cuáles no, y para detectar cambios en las direcciones de la capa de enlace.
 
-1. Reemplazar a [[07 - ARP|ARP]].
-2. Autoconfigurar el host para la red.
+Este protocolo resuelve una serie de problemas relacionados con la interacción entre nodos conectados al mismo enlace, los cuales podríamos agrupar en tres propósitos:
 
-Los mensajes informativos y de error encontrados en [[ICMP|ICMPv6]] son muy similares a los mensajes de control y error implementados por ICMPv4. Sin embargo, ICMPv6 usado en ND tiene nuevas características y funcionalidades mejoradas que no se encuentran en ICMPv4. Los mensajes ICMPv6 se encapsulan en IPv6.
+> [!important] Propósitos de *Neighbor Discovery*
+> 1. **Reemplazar ARP:** resuelve quién es quién en capa 2 por medio de:
+> 	- ***Address resolution***: el reemplazo directo de ARP, obtener la MAC a partir de la IPv6.
+> 	- ***Next hop determination***: determinar a qué vecino/*router* reenviar un paquete.
+> 	- ***Neighbor Unreachability Detection* (NUD)**: detectar si un vecino dejó de responder.
+> 	- ***Duplicate Address Detection* (DAD)**: detectar si ya existe la dirección.
+> 2. **Auto configurar el *host* para la red**: resuelve qué necesita saber un *host* para poder funcionar en la red por medio de:
+> 	- ***Router Discovery***: encontrar el _router_ del enlace (el _Default Gateway_).
+> 	- ***Prefix Discovery***: descubrir qué prefijos son "locales" (on-link) en ese enlace.
+> 	- ***Parameter Discovery***: enterarse de parámetros como el MTU.
+> 	- ***Address Autoconfiguration***: literalmente SLAAC, armar la GUA propia.
+> 	- **Duplicate Address Detection (DAD)**: detectar si ya existe la dirección.
+> 3. **Redirección**: resuelve cuando un *router* quiere decirle a un host "para ese destino hay un salto mejor que yo". Esto por medio de:
+> 	- ***Redirect***: informa que existe un mejor primer salto para el destino.
 
-- Estos mensajes se usan para la configuración de prefijo de red, dirección de gateway, DNS (usado en SLAAC, DHCP).
-- Estos se usan para obtener la dirección MAC a partir de la IPv6; este mecanismo reemplaza al ARP (para comunicarse con cualquier equipo de la red).
+> [!info] Estudio de redirección
+> En la materia no estudiamos el uso de redirección pero se detalla en [RFC 4861 - Sección 8](https://datatracker.ietf.org/doc/html/rfc4861#section-8)
 
 ## Mensajes de ND
 
-Este mecanismo Neighbor Discovery o simplemente ND es usado entre:
+El protocolo *Neighbor Discovery* define cinco tipos diferentes de paquetes ICMP: 
 
-- **A)** Mensajes de router-dispositivo utilizados para la **asignación dinámica de direcciones**.
-- **B)** Mensajes de dispositivo a dispositivo utilizados para la **resolución de direcciones**.
+1. RS: *Router Solicitation* ó Solicitud de *router*.
+2. RA: *Router Advertisement* ó Anuncio de *router* .
+3. NS: *Neighbor Solicitation* ó Solicitud de vecino.
+4. NA: *Neighbor Advertisement* ó Anuncio de vecino.
+5. Re: *Redirect* ó Redireccionamiento.
 
-Para implementar estos dos mecanismos se usa en principio 4 (*) mensajes ICMPv6:
+Los mensajes anteriores se agrupan según quién los envía y para qué:
 
-**A) Los mensajes que comienzan con R** de router ↔ equipo (RA y RS) para la asignación dinámica de direcciones:
-1. Mensaje de solicitud de enrutador (**RS**).
-2. Mensaje de anuncio de enrutador (**RA**).
+A) Mensajes entre _host_ y _router_ (RS y RA), usados para la **asignación dinámica de direcciones**:
+1. Mensaje *Router Solicitation* (RS): de *host* a *router*.
+2. Mensaje *Router Advertisement*  (RA): de *router* a *host*.
 
-**B) Los mensajes que comienzan con N** de equipo ↔ equipo (NA y NS) utilizados para la resolución de direcciones:
-3. Mensaje de solicitud de vecino (**NS**).
-4. Mensaje de anuncio de vecino (**NA**).
+B) Mensajes entre _nodos_ (NS y NA), usados para la **resolución de direcciones**:  
+3. Mensaje *Neighbor Solicitation* (NS).  
+4. Mensaje *Neighbor Advertisement* (NA).
+- Nota: no importa si son *host* o *router* en cada extremo.
 
-> [!important] Importante
-> - Notar que 1 y 2, Router-Dispositivo, es para **OBTENER IPV6**.
-> - Notar que 3 y 4, Dispositivo-Dispositivo (cualquier tipo, incluso Router), es para **RESOLVER DIRECCIONES**.
+C) Mensaje de _router_ a _host_ (Re), usado para la **optimización del primer salto**:
+5. Mensaje *Redirect* (Re): desde *router* a *host*.
 
-> [!note] (*) Nota
-> Existe un 5to mensaje de Redirección utilizado para comunicar equipo con Router para la selección del 1er salto; esto no lo veremos en nuestra materia y es similar a ICMPv4.
+### Formatos de los mensajes ND
 
-### Tipos de mensajes de ND
+Los cinco mensajes ND traen primeramente lo esencial: Tipo, Código y *Checksum*, pero tambien necesita llevar datos variables según el mensaje. En vez de hacer una estructura distinta por mensaje, cada uno declara las opciones que trae, y el receptor las lee una por una.
 
-Existen **5 tipos** de mensajes ICMPv6 para estos cuatro mecanismos. Algunas de las cuales pueden aparecer varias veces en el mismo mensaje.
+Los mensajes incluyen cero o más opciones, algunas de las cuales pueden aparecer varias veces en el mismo mensaje. Estas deben completarse con ceros cuando sea necesario para garantizar que terminen en sus límites de 64 bits. Estas opciones son:
 
-Hay cinco opciones de descubrimiento de vecinos ICMPv6:
+| Tipo | Nombre de la opción         | Objetivo de la opción                              |
+| ---- | --------------------------- | -------------------------------------------------- |
+| 1    | *Source Link-Layer Address* | Contiene la dirección de Capa 2 (MAC) del origen   |
+| 2    | *Target Link-Layer Address* | Contiene la dirección de Capa 2 (MAC) del destino  |
+| 3    | *Prefix Information*        | Proporciona prefijos y otra información para SLAAC |
+| 4    | *Redirected Header*         | Contiene todos o parte del paquete redirigido      |
+| 5    | MTU                         | Se asegura que todos los nodos usen el mismo MTU   |
 
-- **Tipo 1:** Dirección de capa de enlace de origen: esta opción contiene la dirección de capa 2 MAC (normalmente Ethernet) del remitente del paquete. Se utiliza en NS, RS, RA.
-- **Tipo 2:** dirección de capa de enlace de destino: esta opción contiene la dirección de capa 2 MAC (normalmente Ethernet) del objetivo previsto. Se utiliza en NA y mensajes de redireccionamiento(*).
-- **Tipo 3:** información de prefijo: la opción información de prefijo proporciona a los hosts prefijos y otra información para SLAAC. Aparece la opción información de prefijo en mensajes de anuncio de enrutador RA.
-- **Tipo 4:** encabezado de redireccionamiento: esta opción se usa en mensajes de redireccionamiento para contener todos o parte del paquete que se está redirigiendo.
-- **Tipo 5:** MTU: la opción MTU se utiliza en los mensajes de anuncio del enrutador para ayudar a asegurarse de que todos los dispositivos en un enlace utilicen la misma MTU.
+ Además pueden utilizarse las siguientes direcciones:
 
-## 13.1. Direcciones usadas en ND
+- *Multicast* a todos los nodos del tipo *Link Local* (`FF02::1`) para alcanzar a todos los nodos.
+- *Multicast* a todos los *routers* del tipo *Link Local* (`FF02::2`) para alcanzar a todos los *routers*.
+- *Link Local* (`FE80::/10`) para alcanzar a los vecinos, siendo de la forma.
+- *Multicast* de Capa 2 (`33:33`).
+- *Unicast* Global (`2000::/3`)
 
-ND utiliza las siguientes direcciones:
+> [!info] Estudio completo de los formatos de mensajes ND
+> En la materia no estudiamos a fondo la estructura de los bits de cada mensaje. A modo opcional se detalla cada una en el [RFC 4861 - Sección 4](https://datatracker.ietf.org/doc/html/rfc4861#section-4)
 
-- **Multicast a todos los nodos:** es una dirección del tipo link-local para alcanzar a todos los nodos, y es `FF02::1`.
-- **Multicast a todos los routers:** es una dirección del tipo link-local para alcanzar a todos los enrutadores, y es `FF02::2`.
-- **Link-Local:** es una dirección unicast que sirve para alcanzar a los vecinos, siendo de la forma `FE80::/10`. Cada interfaz de un enrutador debe tener direcciones de este tipo.
-- **Direcciones de Multicast de capa 2:** `33:33`.
-- **Direcciones de Unicast Global.**
-
-Estas direcciones son usadas en 4 tipos de mensajes:
-
-| Mensaje | Origen → Destino |
-| --- | --- |
-| Mensaje de Solicitud (RA) | De Router a Dispositivos |
-| Mensaje de solicitud de Router (RS) | De Dispositivos a Routers |
-| Mensaje de solicitud de vecino (NS) | De Dispositivo a Dispositivos |
-| Mensaje de anuncio de vecino (NA) | De Dispositivo a Dispositivos |
-
-## 13.2. Mensajes RS y RA de ND
-
-### Mensaje RS
+### *Router Solicitation* (RS)
 
 ![[escenario-rs-ra.png]]
 
@@ -99,7 +105,7 @@ Capa 3 IP Destino: `FF02::2` (Multicast, todos los routers)
 Capa 2 Origen: `00:50:56:af:97:68`
 Capa 2 Destino: `33:33:0:0:0:2`
 
-### Mensaje RA
+### *Router Advertisement* (RA)
 
 Los mensajes RA son enviados por routers habilitados para IPv6 cada 200 segundos para proporcionar información de direccionamiento a los hosts habilitados para IPv6, o como respuesta a un mensaje RS.
 

@@ -36,7 +36,7 @@ Una dirección de multidifusión IPv6 es un identificador de un grupo de interfa
 
 Los nodos que se configuran con una dirección *multicast* determinada forman lo que se llama un **grupo de multidifusión** y un nodo puede pertenecer a varios grupos distintos. Cuando un paquete es enviado a una *multicast*, todos los miembros del grupo procesan el paquete.
 
-![[multicast.png|600]]
+![[multicast.png|700]]
 
 > [!warning] Importante
 > Las direcciones de Multicast están **solo** en el campo de IP de **destino** de un datagrama.
@@ -141,9 +141,9 @@ Las direcciones de *multicast* de capa 3 deben tener su equivalente en capa 2. P
 
 A modo de resumen final tenemos:
 
-![[resumen_direcciones.png|600]]
+![[resumen_direcciones.png|700]]
 
 ---
 **Volver a:** [[04 - Unicast|Unicast]]
 
-**Continuar a:** [[06 - Neighbor Discovery ND|Neighbor Discovery ND]]
+**Continuar a:** [[06 - Neighbor Discovery|Neighbor Discovery ND]]
