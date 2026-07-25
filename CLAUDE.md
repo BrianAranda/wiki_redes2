@@ -57,6 +57,20 @@ del nombre de la nota, muestra texto corrupto (mojibake). Por eso:
   encabezados dentro de la nota — ahí no hay ninguna restricción, se escribe normal.
 - Esta regla es solo para el nombre físico del archivo/carpeta, no para el contenido.
 
+## Listas anidadas: espacios, no tabs (regla técnica, no de estilo)
+Obsidian acepta un tab para indentar una sub-lista debajo de un ítem (numerado o con guión) y la
+anida sin problema en el editor. El parser de markdown que usa Quartz para publicar el sitio es
+más estricto (sigue CommonMark): no reconoce el tab como indentación suficiente, y la sub-lista
+queda como una lista nueva e independiente en vez de anidada — se ve bien en Obsidian pero mal en
+el sitio publicado (pierde la jerarquía visual, y si el padre era una lista numerada, además la
+corta en dos bloques separados). Por eso:
+- **Nunca usar Tab para indentar una sub-lista.** Usar espacios: al menos 3 debajo de un ítem
+  numerado (`1. `), al menos 2 debajo de uno con guión (`- `). En la práctica, 4 espacios sirve
+  para ambos casos y es más fácil de recordar que contar caracteres.
+- Si Obsidian auto-indenta con Tab al presionar la tecla, revisar en modo fuente que haya quedado
+  como espacios antes de pushear (o configurar Obsidian para que la tecla Tab inserte espacios).
+- Aplica tanto en listas del cuerpo de la nota como dentro de callouts (`> [!tipo]`).
+
 ## Reglas de tokens (IMPORTANTES — afectan el costo de cada sesión)
 - Los PDFs tienen muchas imágenes; cada página se procesa como imagen (~1.600 tokens c/u). Un PDF
   largo puede llenar el contexto. Por eso:

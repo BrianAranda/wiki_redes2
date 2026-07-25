@@ -11,18 +11,18 @@ Este protocolo resuelve una serie de problemas relacionados con la interacción 
 
 > [!important] Propósitos de *Neighbor Discovery*
 > 1. **Reemplazar ARP:** resuelve quién es quién en capa 2 por medio de:
-> 	- ***Address resolution***: el reemplazo directo de ARP, obtener la MAC a partir de la IPv6.
-> 	- ***Next hop determination***: determinar a qué vecino/*router* reenviar un paquete.
-> 	- ***Neighbor Unreachability Detection* (NUD)**: detectar si un vecino dejó de responder.
-> 	- ***Duplicate Address Detection* (DAD)**: detectar si ya existe la dirección.
+>    - ***Address resolution***: el reemplazo directo de ARP, obtener la MAC a partir de la IPv6.
+>    - ***Next hop determination***: determinar a qué vecino/*router* reenviar un paquete.
+>    - ***Neighbor Unreachability Detection* (NUD)**: detectar si un vecino dejó de responder.
+>    - ***Duplicate Address Detection* (DAD)**: detectar si ya existe la dirección.
 > 2. **Auto configurar el *host* para la red**: resuelve qué necesita saber un *host* para poder funcionar en la red por medio de:
-> 	- ***Router Discovery***: encontrar el _router_ del enlace (el _Default Gateway_).
-> 	- ***Prefix Discovery***: descubrir qué prefijos son "locales" (on-link) en ese enlace.
-> 	- ***Parameter Discovery***: enterarse de parámetros como el MTU.
-> 	- ***Address Autoconfiguration***: literalmente SLAAC, armar la GUA propia.
-> 	- **Duplicate Address Detection (DAD)**: detectar si ya existe la dirección.
+>    - ***Router Discovery***: encontrar el _router_ del enlace (el _Default Gateway_).
+>    - ***Prefix Discovery***: descubrir qué prefijos son "locales" (on-link) en ese enlace.
+>    - ***Parameter Discovery***: enterarse de parámetros como el MTU.
+>    - ***Address Autoconfiguration***: literalmente SLAAC, armar la GUA propia.
+>    - **Duplicate Address Detection (DAD)**: detectar si ya existe la dirección.
 > 3. **Redirección**: resuelve cuando un *router* quiere decirle a un host "para ese destino hay un salto mejor que yo". Esto por medio de:
-> 	- ***Redirect***: informa que existe un mejor primer salto para el destino.
+>    - ***Redirect***: informa que existe un mejor primer salto para el destino.
 
 > [!info] Estudio de redirección
 > En la materia no estudiamos el uso de redirección pero se detalla en [RFC 4861 - Sección 8](https://datatracker.ietf.org/doc/html/rfc4861#section-8)
@@ -40,16 +40,16 @@ El protocolo *Neighbor Discovery* define cinco tipos diferentes de paquetes ICMP
 Los mensajes anteriores se agrupan según quién los envía y para qué:
 
 A) Mensajes entre _host_ y _router_ (RS y RA), usados para la **asignación dinámica de direcciones**:
-1. Mensaje *Router Solicitation* (RS): de *host* a *router*.
-2. Mensaje *Router Advertisement*  (RA): de *router* a *host*.
+- Mensaje *Router Solicitation* (RS): de *host* a *router*.
+- Mensaje *Router Advertisement*  (RA): de *router* a *host*.
 
-B) Mensajes entre _nodos_ (NS y NA), usados para la **resolución de direcciones**:  
-3. Mensaje *Neighbor Solicitation* (NS).  
-4. Mensaje *Neighbor Advertisement* (NA).
+B) Mensajes entre _nodos_ (NS y NA), usados para la **resolución de direcciones**:
+- Mensaje *Neighbor Solicitation* (NS).  
+- Mensaje *Neighbor Advertisement* (NA).
 - Nota: no importa si son *host* o *router* en cada extremo.
 
 C) Mensaje de _router_ a _host_ (Re), usado para la **optimización del primer salto**:
-5. Mensaje *Redirect* (Re): desde *router* a *host*.
+- Mensaje *Redirect* (Re): desde *router* a *host*.
 
 ### Formatos de los mensajes ND
 

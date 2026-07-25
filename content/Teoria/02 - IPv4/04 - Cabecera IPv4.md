@@ -93,11 +93,11 @@ El **identificador** o **ID** (16 bits) es un número de secuencia que, junto a 
 De los **indicadores** (3 bits) solo dos de los tres bits están definidos actualmente.
 - El primer bit está **reservado** y vale siempre cero.
 - El segundo bit corresponde a **DF (*Don't Fragment*)**, es decir, no fragmentar:
-	- Si vale 0 puede fragmentarse
-	- Si vale 1 no puede fragmentarse
+    - Si vale 0 puede fragmentarse
+    - Si vale 1 no puede fragmentarse
 - El tercer bit corresponde a **MF (*More Fragments*)**, es decir, mas fragmentos:
-	- Si vale 0 es el último fragmento
-	- Si vale 1 existen mas fragmentos
+    - Si vale 0 es el último fragmento
+    - Si vale 1 existen mas fragmentos
 
 El bit MF se usa para la fragmentación y el reensamblado, mientras que, el bit DF la prohíbe. Si el datagrama excede el tamaño máximo de una red en la ruta y DF es 1, se **descarta**. Cuando se prohíbe la fragmentación es aconsejable usar encaminamiento desde el origen para evitar redes con MTU pequeños.
 

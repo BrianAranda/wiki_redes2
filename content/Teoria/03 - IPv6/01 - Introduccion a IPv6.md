@@ -63,12 +63,12 @@ Para este escenario, IPv4 no podría satisfacer las necesidades.
 Apenas en 1990, antes de que se comenzara a explotar comercialmente Internet, ya un grupo visionario vio el problema en el horizonte y se comenzaron a trabajar alternativas. Estas aparecieron en 1992 cuando el IETF crea el Grupo **ROAD** (ROuting ADdressing) que comienza a estudiar posibles soluciones:
 
 1. El uso de [[08 - Subredes|Subredes]] y [[08 - Subredes#CIDR|CIDR]] para dejar de usar clases. Su introducción permitió una mayor flexibilidad al dividir rangos de direcciones IP en redes separadas. Permitió:
-	-  Un uso más eficiente de las cada vez más escasas direcciones IPv4.
-	-  Un mayor uso de la jerarquía de direcciones (agregación de prefijos de red), disminuyendo la sobrecarga de los enrutadores principales de Internet para realizar el encaminamiento.
-	- Bloques de direcciones de tamaño apropiado a las necesidades y usos.
+    -  Un uso más eficiente de las cada vez más escasas direcciones IPv4.
+    -  Un mayor uso de la jerarquía de direcciones (agregación de prefijos de red), disminuyendo la sobrecarga de los enrutadores principales de Internet para realizar el encaminamiento.
+    - Bloques de direcciones de tamaño apropiado a las necesidades y usos.
 2. El uso de [[NAT]] y [[10 - DHCP|DHCP]]:
     - NAT +  [[06 - Direcciones IPv4#Redes privadas|Redes privadas]].
-	- En el año 1995 se comienza a usar NAT + CIDR, lo que permite usar una única dirección IP pública para toda una red. Sin embargo, el acceso y su implementación resultó **insuficiente** por sí sola para frenar el agotamiento.
+    - En el año 1995 se comienza a usar NAT + CIDR, lo que permite usar una única dirección IP pública para toda una red. Sin embargo, el acceso y su implementación resultó **insuficiente** por sí sola para frenar el agotamiento.
 
 > [!important] Extensión del uso de IPv4
 > Es indudable que las medidas tomadas fueron tan buenas que la tasa de sobrevida de IPv4 se extendió más allá de lo esperado; el problema de falta de direcciones se comenzó a tratar en 1990, apenas 9 años desde la implementación de IPv4 en 1980.

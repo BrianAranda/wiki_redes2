@@ -178,7 +178,13 @@ estudio para el vault de Obsidian.
 13. **Tablas** para todo lo que sea comparación o estructura (capas vs unidades de datos,
    protocolos por capa de transporte, etc.).
 
-14. **Palabras en otro idioma, siempre en cursiva.** Toda palabra o expresión que no sea español
+14. **Listas anidadas: espacios, no tabs.** Si una entrada del PDF trae una lista con sub-ítems
+   (frecuente dentro de callouts), indentar la sub-lista con **espacios** (mínimo 3 debajo de un
+   ítem numerado `1. `, mínimo 2 debajo de uno con guión `- `; 4 espacios sirve para ambos casos).
+   Nunca un carácter tab — ver CLAUDE.md → "Listas anidadas: espacios, no tabs" para el motivo
+   técnico completo (Obsidian lo anida igual, pero el parser de Quartz no).
+
+15. **Palabras en otro idioma, siempre en cursiva.** Toda palabra o expresión que no sea español
    (normalmente en inglés) va en *cursiva*, tanto si aparece suelta como dentro de una oración en
    español. Ejemplos típicos en esta materia: *router*, *host*, *link*, *switch*, *gateway*,
    *broadcast*, *unicast*, *multicast*, *anycast*, *interface*, *scope*, *deprecated*, *forever*,

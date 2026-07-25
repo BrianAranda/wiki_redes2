@@ -107,14 +107,14 @@ El despliegue de un plan de direccionamiento requiere responder cuatro preguntas
 Una organización tiene asignada la dirección `193.1.1.0/24`. Internamente necesita definir **6 subredes**, sin superar los **25 hosts por subred**.
 
 1. **Determinar la máscara:** 
-	- Con 2 bits obtenemos $2^2=4$ subredes que es insuficiente.
-	- Con 3 bits obtenemos $2^3=8$ subredes que cumple los 6 requeridos con 2 de margen. 
-	- Tomando 3 bits junto al `/24` original tenemos `/27` de máscara (`255.255.255.224`).
+    - Con 2 bits obtenemos $2^2=4$ subredes que es insuficiente.
+    - Con 3 bits obtenemos $2^3=8$ subredes que cumple los 6 requeridos con 2 de margen. 
+    - Tomando 3 bits junto al `/24` original tenemos `/27` de máscara (`255.255.255.224`).
 2. **Determinar la cantidad de *hosts*:** 
-	- Teníamos originalmente $32-24=8$ bits disponibles para *host*. 
-	- Tomando tres bits para subred quedan $8-3=5$ bits de *host*.
-	- Con 5 bits tenemos $2^5=32$ direcciones posibles. 
-	- Descontando las 2 reservadas (red y broadcast), quedan 30 *hosts* posibles por subred. Por lo que alcanza para los 25 requeridos, con 5 de margen.
+    - Teníamos originalmente $32-24=8$ bits disponibles para *host*. 
+    - Tomando tres bits para subred quedan $8-3=5$ bits de *host*.
+    - Con 5 bits tenemos $2^5=32$ direcciones posibles. 
+    - Descontando las 2 reservadas (red y broadcast), quedan 30 *hosts* posibles por subred. Por lo que alcanza para los 25 requeridos, con 5 de margen.
 
 Por lo que con 3 bits dedicados al subneteo tenemos 8 subredes con 30 *hosts* cada una:
 

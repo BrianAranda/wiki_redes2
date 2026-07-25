@@ -223,11 +223,11 @@ Dada la red 149.250.0.0 con máscara 255.255.255.0 ¿Cuántas redes disponibles 
 >- La máscara al ser 255.255.255.0 es /24 entonces tenemos 24-16=8 bits de subred.
 >- Con 8 bits de subred tenemos $2^8=\boxed{256\text{ subredes}}$ posibles.
 >- Las subredes se identifican (particularmente en este caso) con el tercer octeto entonces:
->	- Primer subred: $\boxed{149.250.0.0/24}$
->	- Última subred: $\boxed{149.250.255.0/24}$
+>    - Primer subred: $\boxed{149.250.0.0/24}$
+>    - Última subred: $\boxed{149.250.255.0/24}$
 >- Recordando que la dirección de *broadcast* corresponde a todos los bits de *host* en unos, y que en este caso el cuarto octeto corresponde a dichos bits:
->	- Primer *broadcast*: $\boxed{149.250.0.255}$
->	- Última *broadcast*: $\boxed{149.250.255.255}$
+>    - Primer *broadcast*: $\boxed{149.250.0.255}$
+>    - Última *broadcast*: $\boxed{149.250.255.255}$
 
 ## Ejercicio 4
 
@@ -281,9 +281,9 @@ Una organización posee la IP 172.12.0.0. Se necesita dividir en subredes que so
 
 > [!success]- Resolución
 >- Para tener como mínimo 469 *host* necesitamos $\lceil log_2(469) \rceil = 9$ bits para *host*.
->	- La simbología $\lceil x \rceil$ es para función techo, osea el entero mas próximo superior. 
->	- Lo anterior tambien se puede hacer al tanteo usando 8 y 9 bits.
->	- Con los 9 bits definidos tenemos $2^9-2=\boxed{510 \text{ host}}$ posibles por subred.
+>    - La simbología $\lceil x \rceil$ es para función techo, osea el entero mas próximo superior. 
+>    - Lo anterior tambien se puede hacer al tanteo usando 8 y 9 bits.
+>    - Con los 9 bits definidos tenemos $2^9-2=\boxed{510 \text{ host}}$ posibles por subred.
 >- La dirección comienza con 172, corresponde a Clase B y se tienen 16 bits de red.
 >- De los 16 bits restantes descartamos 9 para los *host* y asegurar el máximo de subredes.
 >- Con los 7 que quedan hacemos subredes, quedando un total de $2^7=\boxed{128 \text{ subredes}}$
