@@ -2,6 +2,7 @@
 title: Neighbor Discovery
 fuente:
   - "[RFC 4861](https://datatracker.ietf.org/doc/html/rfc4861)"
+  - "[Fundamentos IPv6 Cisco](https://cloud.fio.unam.edu.ar/index.php/s/kfroJFkzy5YNi59?dir=/&editing=false&openfile=true)"
 ---
 El protocolo de descubrimiento de vecinos (ND de *Neighbor Discovery*) se utiliza en IPv6 para que los nodos (*hosts* y *routers*) determinen las direcciones de la capa de enlace de los vecinos que se sabe que residen en los enlaces conectados y para eliminar rápidamente los valores almacenados en caché que dejan de ser válidos.  
 
@@ -51,7 +52,7 @@ B) Mensajes entre _nodos_ (NS y NA), usados para la **resolución de direccio
 C) Mensaje de _router_ a _host_ (Re), usado para la **optimización del primer salto**:
 - Mensaje *Redirect* (Re): desde *router* a *host*.
 
-### Formatos de los mensajes ND
+### Formatos de los mensajes
 
 Los cinco mensajes ND traen primeramente lo esencial: Tipo, Código y *Checksum*, pero tambien necesita llevar datos variables según el mensaje. En vez de hacer una estructura distinta por mensaje, cada uno declara las opciones que trae, y el receptor las lee una por una.
 
@@ -74,140 +75,119 @@ Los mensajes incluyen cero o más opciones, algunas de las cuales pueden aparece
 - *Unicast* Global (`2000::/3`)
 
 > [!info] Estudio completo de los formatos de mensajes ND
-> En la materia no estudiamos a fondo la estructura de los bits de cada mensaje. A modo opcional se detalla cada una en el [RFC 4861 - Sección 4](https://datatracker.ietf.org/doc/html/rfc4861#section-4)
+> En la materia no estudiamos a fondo la estructura de los bits de cada mensaje. A modo opcional se detalla cada una en el [RFC 4861 - Sección 4](https://datatracker.ietf.org/doc/html/rfc4861#section-4). 
+> 
+> Además a continuación se exponen imágenes y capturas del libro [Fundamentos IPv6 Cisco](https://cloud.fio.unam.edu.ar/index.php/s/kfroJFkzy5YNi59?dir=/&editing=false&openfile=true) del capítulo 13 (Parte IV). Para profundizar mas en qué tiene cada mensaje.
 
 ### *Router Solicitation* (RS)
 
-![[escenario-rs-ra.png]]
+Un *host* (no un *router*) envía un RS para descubrir quién es el *gateway* del enlace y, si todavía no tiene dirección, para disparar su autoconfiguración: la respuesta (RA) le va a traer el prefijo de red desde el cual arma su GUA. Esto sucede al iniciar el equipo en la mayoría de los SO. 
 
-Los mensajes RS son utilizados por un equipo que no es router para:
-1. Descubrir quién es el Gateway de la red.
-2. Autoconfigurarse IPv6: en caso de que el dispositivo final no cuente con una IPv6 asignada, también utilizará el RS para autoconfigurarse basada en la respuesta del RS donde obtiene el prefijo de red local por parte del Gateway.
+Vamos a analizar el siguiente ejemplo:
 
-Un equipo WinPC envía un mensaje RS (ver parámetros del ICMP6, Nro. 133) cuando necesita obtener información de Direccionamiento. Esto sucede al iniciar el equipo en la mayoría de los SO.
+![[rs_situacion.png|600]]
 
-En el RS, se solicita un RA (una respuesta por parte del Router), por lo que si hay un router habilitado y configurado responderá con un mensaje RA en respuesta a un mensaje RS. En la imagen, PC1 (WinPC) envía un mensaje RS para determinar cómo recibir dinámicamente su información de dirección IPv6.
+Un *host* (WinPC) envía un RS a todos los *routers* esperando como respuesta un RA. Las direcciones que tiene el mensaje son:
+- Origen: su propia *Link Local Address* (LLA), `FE80::D0F8:9FF6:4201:7086`.
+- Destino: `FF02::2` (*multicast* a todos los *routers*).
 
-La PC envía un mensaje RS, esperando como respuesta un mensaje de RA. Las direcciones de este mensaje son:
-- origen de este mensaje es la de Unicast del tipo **Link Local Address (LLA)** `fe80::d0f8:9ff6:4201:7086`
-- destino la `FF02::2` (Multicast de Nodo solicitado de todos los Routers)
+Si se captura el mensaje con Wireshark, el RS incluye la opción *Source Link-Layer Address* con la MAC de origen, y va dirigido a una dirección *multicast* de capa 2: `33:33` seguido de los 32 bits inferiores de la dirección *multicast* IPv6 de destino (`00:00:00:02`, tomados de `FF02::2`).
 
-Si capturamos con Wireshark este mensaje RS, veríamos que incluye la MAC de origen, y va dirigido a una dirección multicast, en la que todos los routers forman parte; este mensaje sería el Tipo 1 (visto en el capítulo anterior). La dirección `33:33` es la dirección de multidifusión Ethernet para IPv6. Los 32 bits inferiores, `00:00:00:02`, se asignan desde la dirección de multidifusión IPv6 de destino, `ff02::2`.
+![[rs_captura.png]]
 
-![[wireshark-rs-mensaje.png]]
-
-El router R1 responde con un mensaje RA del tipo 1 (ver parámetros del ICMP6, Nro. 134), en nuestro ejemplo:
-
-**RS Resumen**
-**WinPC → Router**
-Capa 3 IP Origen: `fe80::d0f8:9ff6:4201:7086` (Unicast Link Local)
-Capa 3 IP Destino: `FF02::2` (Multicast, todos los routers)
-Capa 2 Origen: `00:50:56:af:97:68`
-Capa 2 Destino: `33:33:0:0:0:2`
+Entonces: *Host* → *Router*
+- Capa 3 IP Origen: `FE80::D0F8:9FF6:4201:7086` (*Unicast Link Local*)
+- Capa 3 IP Destino: `FF02::2` (*Multicast*, todos los *routers*)
+- Capa 2 MAC Origen: `00:50:56:af:97:68`
+- Capa 2 MAC Destino: `33:33:0:0:0:2`
 
 ### *Router Advertisement* (RA)
 
-Los mensajes RA son enviados por routers habilitados para IPv6 cada 200 segundos para proporcionar información de direccionamiento a los hosts habilitados para IPv6, o como respuesta a un mensaje RS.
+Un *router* envía un RA para proporcionar información de direccionamiento a los *hosts* del enlace: lo hace periódicamente (cada 200 segundos por defecto) y también como respuesta directa a un RS. Antes de poder enviarlos, el *router* debe estar habilitado como *router* IPv6, lo que también le permite reenviar paquetes IPv6 y correr protocolos de *routing* dinámico.
 
-Antes de enviar mensajes RA, se debe configurar un enrutador como enrutador IPv6, utilizando la configuración de enrutamiento de unidifusión ipv6 (`ipv6 unicast-routing`).
+Continuando con el ejemplo de RS:
 
-Esto también permite que el router habilite protocolos de enrutamiento IPv6 dinámicos y reenvíe paquetes IPv6.
+![[ra_situacion.png|600]]
 
-En nuestro ejemplo, el RA sería una respuesta al RS enviado desde R1 a WinPC. El router puede ser configurado para enviar el mensaje RA como unicast en respuesta a un mensaje RS.
+Un *router* (R1) responde al RS del *host* (WinPC) con un RA. El mensaje incluye:
+- Origen: la LLA del *router*, `FE80::1`.
+- Destino: `FF02::1` (*multicast* a todos los dispositivos IPv6) o, si el *router* está configurado para responder por *unicast*, la LLA del *host* que envió el RS.
+- Opción *Source Link-Layer Address* con la MAC del *router* (`58:AC:78:93:DA:00`), necesaria para que el *host* pueda armarle tramas de vuelta.
+- Opción MTU.
+- Opción *Prefix Information*, con el prefijo `2001:DB8:CAFE:1::/64` y el *flag* A (*Autonomous address-configuration flag*) activado, indicando que el *host* debe usar SLAAC para armar su GUA con ese prefijo.
 
-El mensaje de RS sería del tipo 133 y el de RA sería 134; si los capturamos con Wireshark se vería que el RA incluye: dirección de origen `fe80::1` (LLA del router R1), destino `ff02::1` (todos los dispositivos IPv6), la opción "Source link-layer address" con la MAC del router, la opción MTU, y la **opción Prefix Information** con el prefijo `2001:db8:cafe:1::/64` y el flag A (*Autonomous address-configuration flag*) activado, que indica que el equipo debe usar SLAAC para crear su GUA.
+Si capturamos el mensaje con Wireshark podemos ver esto en:
 
-La IP dirección de destino (recordar que el equipo NO tiene IP) es la dirección de multicast del router donde está el router: `33:33:00:00:00:01`.
+![[ra_captura_1.png|600]]
+![[ra_captura_2.png|600]]
+![[ra_captura_3.png|600]]
 
-Se incluye la dirección MAC del Router: `58:ac:78:93:da:00`, necesaria en el futuro para los paquetes de capa 2 que tengan destino fuera de la red.
+Entonces: *Router → Host*
+- Capa 3 IP Origen: `fe80::1` (*Unicast Link Local*)
+- Capa 3 IP Destino: `FF02::1` (*Multicast*, todos los nodos) o la LLA
+- Capa 2 MAC Origen: `58:AC:78:93:DA:00`
+- Capa 2 MAC Destino: `33:33:0:0:0:1`
 
-La dirección IPv6 de origen (la del router) es `fe80::1`, dirección de LLA (Local Link Address).
+### *Neighbor Solicitation* (NS)
 
-La dirección IPv6 de destino es la dirección multicast `FF02::1`, o la dirección de RS que envió el dispositivo (multicast de todos los dispositivos).
+Un NS es enviado por cualquier nodo (*host* o *router*, no hay una dirección fija como en RS/RA) que conoce la IPv6 de destino pero necesita su MAC, es el reemplazo directo de una solicitud [[07 - ARP|ARP]]. 
 
-Se puede ver que el RA notifica al equipo que puede usar el prefijo `2001:db8:cafe:1::` al host, sobre el prefijo que se puede usar para configuración automática de direcciones sin estado.
+> [!info]- NS también se usa para DAD
+> El mismo mensaje NS se reutiliza para la Detección de Direcciones Duplicadas (DAD), cambiando el propósito de la pregunta: en vez de "¿quién tiene esta IP? decime tu MAC", pregunta "¿alguien más tiene ya esta IP?", por eso su dirección de origen es la *Unspecified Address* (`::`) en vez de una dirección propia. El procedimiento de DAD está definido en [RFC 4862 - Sección 5.4](https://datatracker.ietf.org/doc/html/rfc4862#section-5.4) y se desarrolla con su propio ejemplo en [[07 - Direcciones Dinamicas#14.4. Duplicate Address Detection (DAD)|Direcciones Dinámicas]].
 
-**RA Resumen**
-**Router → WinPC**
-Capa 3 IP Origen: `fe80::1` (Unicast Link Local)
-Capa 3 IP Destino: `FF02::1` (Multicast, todos los nodos)
-Capa 2 Origen: `58:ac:78:93:da:00`
-Capa 2 Destino: `33:33:0:0:0:1`
+Por ejemplo el *router* R1 quiere comunicarse con el *host* WinPC, revisa su caché de vecinos (tabla IPv6/MAC, la evolución de la tabla ARP), pero no tiene una entrada para esa IP.
 
-## 13.3. Mensajes NS y NA de ND
+![[ns_escenario.png|600]]
 
-Este mecanismo Neighbor Discovery, o simplemente ND, es usado entre un Equipo y otro Equipo (PCs o Routers) para gestionar la comunicación con IPv6.
+Entonces el *router* (R1) envía un NS por su interfaz G0/0 hacia la [[05 - Anycast y Multicast#*Multicast* de nodo solicitado|dirección de multidifusión de nodo solicitado]] derivada de la IPv6 de destino, esta es formada con los 24 bits de orden inferior de la IPv6 buscada. 
 
-### a) Resolución de direcciones
+En capa 2, por la [[05 - Anycast y Multicast#*Multicast* Capa 2 y Capa 3|relación multicast entre capa 2 y 3]], se antepone `33:33` a los 32 bits inferiores de esa dirección *multicast* para armar la MAC de destino (desconocida realmente). La ventaja frente a ARP es que este mensaje no es un verdadero *broadcast*: solo lo procesan las interfaces que ya calcularon esa misma dirección de nodo solicitado (idealmente, solo el *host* WinPC).
 
-La resolución de direcciones en IPv6 es similar a la [[07 - ARP|ARP]] en IPv4. Un dispositivo envía un mensaje de solicitud de vecino cuando conoce la dirección IPv6 de destino pero necesita solicitar su dirección de capa 2 (normalmente una dirección Ethernet). Esto es similar a una solicitud de ARP en IPv4. En respuesta al mensaje de solicitud de vecino, el dispositivo de destino envía un mensaje de anuncio de vecino, similar a una respuesta de ARP.
+Calculando:
+- Dirección de destino: `2001:DB8:CAFE:1:D0F8:9FF6:4201:7086`
+- Últimos 24 bits: `01:7086`
+- *Multicast* de nodo solicitado derivada: `FF02::1:FF01:7086`
+- MAC de destino: `33:33:FF:01:70:86`
 
-La resolución de direcciones incluye la **detección de direcciones duplicadas (DAD)**, que verifica la exclusividad de una dirección en el enlace. DAD es muy similar a un ARP gratuito. El dispositivo envía un mensaje de solicitud de vecino para su propia dirección IPv6 para detectar si otro dispositivo en el enlace está usando la misma dirección. Si no se recibe un mensaje de anuncio de vecino, el dispositivo sabe que su dirección es única en el enlace.
+El mensaje NS para el ejemplo sería:
 
-### b) Caché de vecinos y detección de no alcanzabilidad de vecinos (NUD)
+![[ns_mensaje.png|600]]
 
-Los dispositivos IPv6 utilizan mensajes NS y sus mensajes NA asociados para crear un caché de vecinos. El caché de vecinos contiene una asignación de direcciones MAC de IPv6 a Ethernet, similar a un caché ARP de IPv4.
+Entonces: *Router → Host* (En este ejemplo, podría ser entre cualquier tipo de nodo)
+- Capa 3 IP Origen: `2001:DB8:CAFE:1::1` (*Unicast Global*)
+- Capa 3 IP Destino: `FF02::1:FF01:7086` (*Multicast* de nodo solicitado derivada)
+- Capa 2 MAC Origen: `58:AC:78:93:DA:00`
+- Capa 2 MAC Destino: `33:33:FF:01:70:86` (Derivada de la IPv6 destino)
 
-Veamos cómo funcionan. En nuestro ejemplo, como el propósito es comunicar dos equipos, vamos a tomar en particular Router y PC; no cambia nada, son dos equipos que en este caso se quieren comunicar (NO se habla de configurar IPv6, eso se vio en el capítulo anterior).
+### *Neighbor Advertisement* (NA)
 
-> [!info]- Referencia
-> Este tema no se verá en profundidad; si desea más información puede remitirse a: *"IPv6 Fundamentals: A Straightforward Approach to Understanding IPv6"*, Second Edition, autor Rick Graziani.
+Un NA es la respuesta a un NS: lo envía el nodo que reconoce que la dirección solicitada es la suya, informando su propia MAC.
 
-### Resolución de direcciones (paso a paso)
+Continuando con el ejemplo de NS, el *host* (WinPC) recibe el NS de *router* R1 y reconoce que el destino es su propia dirección, aprovecha para agregar a su propia caché de vecinos la IPv6 y MAC de R1 (que venían en ese NS). 
 
-R1 se quiere comunicar con WinPC, mira su "TABLA DE VECINOS" (IPv6/MAC), antes conocida como tabla ARP. Pero no tiene MAC para ese vecino.
+![[na_situacion.png|600]]
 
-![[ns-objetivo-resolver-mac.png]]
+Después responde con un NA por *unicast*, directo a R1, incluyendo su propia MAC:
 
-**Paso 1) ¿Tengo la MAC de esa IP en mi tabla de vecinos?**
+![[na_mensaje_1.png|600]]
 
-R1 revisa su caché de vecinos (o tabla de vecinos) para ver si hay una entrada para la dirección `2001:db8:cafe:1:d0f8:9ff6:4201:7086` y una dirección MAC Ethernet asociada. Similar a una caché ARP, la caché de vecinos mantiene una lista de asignaciones de direcciones MAC de IPv6 a Ethernet. En este ejemplo, R1 no tiene esta dirección IPv6 aún en su caché de vecinos, por lo que necesita enviar un mensaje de solicitud de vecino para solicitar la dirección MAC a quien la tenga.
+Entonces: *Host → Router*
+- Capa 3 IP Origen: `2001:DB8:CAFE:1:D0F8:9FF6:4201:7086` (*Unicast Global*)
+- Capa 3 IP Destino: `2001:DB8:CAFE:1::1` (*Unicast Global*)
+- Capa 2 MAC Origen: `00:50:56:AF:97:68`
+- Capa 2 MAC Destino: `58:AC:78:93:DA:00`
 
-**Paso 2) Mensaje NS**
+Al recibir este NA, R1 agrega la IPv6 y MAC de WinPC a su caché de vecinos, y con eso ya puede reenviarle directamente la trama que tenía pendiente. Con este último paso se cierra el ciclo: ambos extremos terminan con una entrada nueva en su caché de vecinos.
 
-R1 envía un mensaje de solicitud de vecino a través de su interfaz G0/0. La dirección IPv6 de destino es una dirección de multidifusión de nodo solicitado derivada de la dirección de destino en el mensaje ICMPv6. La dirección de destino en el mensaje NS es la dirección IPv6 de destino en el paquete, `2001:db8:cafe:1:d0f8:9ff6:4201:7086`.
+![[ns_na.png|600]]
 
-La dirección de multidifusión de nodo solicitado es `ff02::1:ff01:7086`, que utiliza los 24 bits de orden inferior de la dirección de destino. La dirección IPv6 de nodo solicitado se asigna a la dirección MAC de destino Ethernet: `33:33` se antepone a los 32 bits de orden inferior de la dirección de multidifusión de nodo solicitado, lo que da como resultado una dirección de multidifusión Ethernet de `33:33:ff:01:70:86`. (Esta asignación se analiza con más detalle más adelante en este capítulo, y verá la ventaja de utilizar una dirección de multidifusión Ethernet en comparación con una dirección de difusión en una solicitud ARP IPv4).
+## Cache de los *Hosts*
 
-![[ns-mensaje-detalle.png]]
+Los *host* tienen 2 tipos de caché:
 
-**NS Resumen**
-**Router → WinPC**
-Capa 3 IP Origen: `2001:db8:cafe:1::1` (Unicast Global)
-Capa 3 IP Destino: `FF02::1ff01:7086` (Multicast, todos los nodos derivada de la IPv6 destino)
-Capa 2 Origen: `58:ac:78:93:da:00`
-Capa 2 Destino: `33:33:ff:01:ff:70:86` (Multicast todos los nodos derivada de la IPv6 destino)
+### Caché de Vecinos (*Neighbor Cache*)
 
-**Paso 3) WinPC procesa lo que recibe**
-
-WinPC recibe el mensaje de solicitud de vecino y determina que es el destino previsto del mensaje. Agrega la dirección IPv6 de origen `2001:db8:cafe:1::1` del encabezado IPv6 y la dirección de capa de enlace `58:ac:78:93:da:00` del mensaje NS a su propia caché de vecino. Luego, usará esta información en su mensaje de anuncio de vecino a R1.
-
-**Paso 4) Mensaje NA**
-
-WinPC responde con un mensaje de anuncio de vecino NA. El mensaje NA incluye la dirección IPv6 de WinPC, la dirección IPv6 de destino `2001:db8:cafe:1:d0f8:9ff6:4201:7086` y la dirección MAC Ethernet `00:50:56:af:97:68`. El anuncio de vecino se envía como unidifusión a R1.
-
-![[na-mensaje-detalle.png]]
-
-**NA Resumen**
-**WinPC → Router**
-Capa 3 IP Origen: `2001:db8:cafe:1:d0f8:9ff6:4201:7086` (Unicast Global)
-Capa 3 IP Destino: `2001:db8:cafe:1::1` (Unicast Global)
-Capa 2 Origen: `00:50:56:af:97:68`
-Capa 2 Destino: `58:ac:78:93:da:00`
-
-**Paso 5) Router procesa lo que recibe**
-
-R1 recibe el mensaje NA de anuncio de vecino de WinPC. R1 ahora puede agregar la dirección MAC de WinPC, `00:50:56:af:97:68`, y su dirección IPv6 asociada, `2001:db8:cafe:1:d0f8:9ff6:4201:7086`, a su caché de vecinos. `00:50:56:af:97:68` se incluye como la dirección MAC de destino en el encabezado Ethernet, y R1 puede reenviar la trama a WinPC.
-
-Como se puede observar, los pasos para lograr la comunicación entre dos equipos son sencillos, utilizan direcciones que ya hemos mencionado, pero no tiene sentido profundizar en estos temas, ya que son propios de gente que se especialice en comunicaciones y configuraciones de IPv6; en nuestro caso excede la profundidad de nuestra materia.
-
-## 13.4. Cache de los Hosts
-
-Los host tienen 2 tipos de caché.
-
-### Caché de Vecinos (Neighbor Cache)
-
-La caché vecina equivale a una caché ARP o una tabla ARP en IPv4. El Neighbor Cache mantiene una lista de entradas sobre los vecinos a los que se ha dirigido tráfico recientemente enviado. La caché también indica si el vecino es un enrutador o un host, el estado de accesibilidad de la dirección, si hay alguna en cola.
+La caché vecina equivale a una caché ARP o una tabla ARP en IPv4. El *Neighbor Cache* mantiene una lista de entradas sobre los vecinos a los que se ha dirigido tráfico recientemente enviado. También indica si el vecino es un *router* o un *host*, el estado de accesibilidad de la dirección o si hay alguna en cola.
 
 Comandos en Linux:
 
@@ -215,11 +195,15 @@ Comandos en Linux:
 ip -6 neighbor show
 ```
 
-### Caché de Destino (Destination Cache)
+Solo guarda pares IPv6 ↔ MAC de nodos que están **en el mismo enlace** (vecinos directos).. Nunca tiene una entrada para algo que está fuera del enlace, porque ahí no tiene sentido preguntar por una MAC (un destino remoto no tiene una MAC directamente alcanzable).
+
+### Caché de Destino (*Destination Cache*)
 
 Mantiene una lista de los destinos a los que se ha enviado tráfico recientemente, incluidos aquellos en otros enlaces o redes. En esos casos, la entrada es la Capa 2 dirección del enrutador del siguiente salto.
 
-Un host IPv6 mantiene una lista de enrutadores predeterminada desde la cual selecciona un enrutador para el tráfico a destinos fuera del enlace. El enrutador seleccionado para un destino luego se almacena en caché en la caché de destino.
+Un *host* IPv6 mantiene una lista de *routers* predeterminada desde la cual selecciona uno para el tráfico a destinos fuera del enlace. El *router* seleccionado para un destino luego se almacena en la caché de destino.
+
+Guarda, para **cualquier destino** al que se le mande tráfico recientemente, cuál es el próximo salto que hay que usar para llegar ahí. Es la referencia a qué vecino usar para reenviar el paquete.
 
 ---
 **Volver a:** [[05 - Anycast y Multicast|Anycast y Multicast]]

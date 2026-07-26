@@ -110,12 +110,12 @@ Un nodo debe calcular y unirse a las direcciones de multidifusión de nodo solic
 Las direcciones de *multicast* de capa 3 deben tener su equivalente en capa 2. Para ello se utilizan los 32 bits bajos de la dirección Ethernet y los 32 bits bajos de la dirección IPv6 de multidifusión.
 
 > [!example] *Multicast* entre capas
-> En el origen:
+> Ejemplo 1:
 > - Capa 3 IPv6 utiliza la dirección: `FF02::D`
 > - Capa 2 MAC utiliza la dirección: `33 33 00 00 00 0D`
 > - Coincide el `:D` con el `00 00 00 0D`
 > 
-> En el destino:
+> Ejemplo 2:
 > - Capa 3 utiliza el tráfico: `FF05::1:3`
 > - Capa 2 utiliza la dirección:`33 33 00 01 00 03`
 > - Coinciden el `:1:3` con el `00 01 00 03`
