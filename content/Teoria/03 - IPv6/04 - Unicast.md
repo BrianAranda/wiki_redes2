@@ -133,14 +133,11 @@ Recordar que un hexteto es un conjunto de cuatro hexadecimales o dieciséis bits
 > [!note] Nota
 > Direcciones de unidifusión global que comienzan con binario `000` no tienen la restricción anterior en el tamaño o estructura del campo de ID de interfaz; estas direcciones se usan para [[#IPv6 con IPv4 embebida]].
 
-Las GUA se pueden asignar de tres maneras distintas:
+Las GUA se pueden asignar de distintas maneras:
 
-1. Manual:
-	1. Manual.
-	2. Manual + EUI-64.
-	3. IPv6 *unnumbered*
-2. *Stateless Address Autoconfiguration* (SLAAC).
-3. *Stateful* DHCPv6.
+![[obtener_gua.png|600]]
+
+De las cuales estudiaremos mas adelante en [[07 - Direcciones Dinamicas|direcciones dinámicas]].
 
 > [!info]- IPv6 *unnumbered* 
 > IPv6 sin numerar, es lo mismo que IPv4. Permite a una interfaz utilizar la dirección IPv6 de otra interfaz del mismo dispositivo, solo en Cisco.
