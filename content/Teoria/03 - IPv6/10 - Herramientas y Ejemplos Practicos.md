@@ -1,6 +1,34 @@
 ---
 title: Herramientas y Ejemplos Prácticos
 ---
+> Esto lo movi desde ICMPv6, arreglar luego
+
+## ICMP Accesibilidad al Host
+
+El protocolo ICMP es utilizado en una herramienta de diagnóstico (aplicación) que se llama **ping**.
+
+Permite diagnosticar el estado, velocidad y calidad de una red determinada y utiliza el envío de paquetes ICMP de solicitud (ICMP Echo Request) y de respuesta (ICMP Echo Reply). Muchas veces se utiliza para medir la latencia o tiempo que tardan en comunicarse dos puntos remotos, y por ello se utiliza el término PING para referirse al retardo o latencia (en inglés, *lag*) de la conexión en los juegos en red, esto daría una idea de congestión, por ejemplo.
+
+Veamos unos ejemplos de ping a `www.google.com`:
+
+```
+The response for 'www.google.com' using IPv6 is:PING www.google.com(nuq04s43-in-x04.1e100.net) 56 data bytes
+64 bytes from nuq04s43-in-x04.1e100.net: icmp_seq=1 ttl=120 time=1.40 ms
+64 bytes from nuq04s43-in-x04.1e100.net: icmp_seq=2 ttl=120 time=1.58 ms
+64 bytes from nuq04s43-in-x04.1e100.net: icmp_seq=3 ttl=120 time=1.46 ms
+64 bytes from nuq04s43-in-x04.1e100.net: icmp_seq=4 ttl=120 time=1.54 ms
+64 bytes from nuq04s43-in-x04.1e100.net: icmp_seq=5 ttl=120 time=1.82 ms
+
+--- www.google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4005ms
+rtt min/avg/max/mdev = 1.404/1.564/1.823/0.145 ms
+```
+
+En este caso la utilidad ping hizo solo "5 pings" y podemos ver que al finalizar muestra un detalle que es el que permite obtener información o inferir el estado de la red contra `www.google.com`.
+
+Podemos ver que el ping se hace a un Nombre (`www.google.com`) así que es de esperar que se realice una resolución de nombres previo al ping.
+
+
 ## ping6
 
 DNS de Google IPv4: `8.8.8.8` como servidor principal y `8.8.4.4` como el secundario.

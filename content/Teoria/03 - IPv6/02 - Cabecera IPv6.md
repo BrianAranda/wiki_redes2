@@ -81,7 +81,8 @@ A modo informativo, se mencionan los posibles valores de la cabecera siguiente (
 | 50            | **Encap Security Payload:** igual que la cabecera anterior, forma parte de IPSEC y en IPv6 está incluida dentro del protocolo                                        |
 | 6             | TCP                                                                                                                                                                  |
 | 17            | UDP                                                                                                                                                                  |
-| 58            | ICMP for IPv6 (se resalta porque es algo que se verá más adelante)                                                                                                   |
+| 58            | ICMP for IPv6 ([[08 - ICMPv6\|ICMPv6]])                                                                                                                              |
+
 
 > [!info]- Orden de *Nexts Headers*
 > El RFC 8200 recomienda que cuando se utiliza más de una cabecera de extensión en el mismo paquete, que dichas cabeceras aparezcan en el siguiente orden:
