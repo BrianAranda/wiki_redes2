@@ -18,7 +18,7 @@ Las técnicas de transición inicialmente involucraron unir islas de IPv6 sobre 
 > - **CNAME:** contiene el nombre de dominio y es solamente para subdominios. Redirige el sub-dominio al dominio deseado.
 > - **MX:** contiene el nombre del servidor de e-mail (por ejemplo `mx1.active24.com`). Define dónde se tienen que entregar los correos electrónicos.
 
-## *Dual Stack
+## *Dual Stack*
 
 > Definido en el [RFC 4213](https://www.rfc-editor.org/info/rfc4213/)
 
@@ -45,13 +45,13 @@ En general, los equipos nuevos ya implementan *dual stack*, por ejemplo, Cisco I
 
 ### Consideraciones 
 
-A tener en cuenta:
 - La implementación de *dual stack* **no puede ser por tiempo indefinido** ya que puede afectar la *performance* (algunos dispositivos reenvían más rápido el tráfico IPv4 que el IPv6), la seguridad y generar mayores costos dada la mayor complejidad de gestión.
 - Hay que tener presente que dispositivos terminales viejos **pueden interpretar erróneamente respuestas DNS** que contengan registros A o AAAA (ver nota a continuación) y actuar de modo errático. Mantener políticas de seguridad semejantes sobre IPv4 e IPv6 puede ser complejo, pero son necesarias.
 - A medida que avance la implementación global de IPv6 se hará más complejo y costoso el mantenimiento de sistemas IPv4 en estado operativo.
 
 > [!info]- API para DNS IPv4 e IPv6
-Hay disponible una API (*Application Programming Interface*) que soporta requerimientos DNS para IPv4 e IPv6 y permite responder a diferentes situaciones:
+> 
+> Hay disponible una API (*Application Programming Interface*) que soporta requerimientos DNS para IPv4 e IPv6 y permite responder a diferentes situaciones:
 > 
 > - Una aplicación que **no soporta IPv6** o está forzada a utilizar IPv4, hace una solicitud DNS de un registro tipo A para IPv4. En consecuencia la aplicación enviará su solicitud de servicio utilizando IPv4.
 > - Una aplicación que soporta **solamente IPv6** o prefiere utilizar IPv6 operará sobre IPv6. La aplicación envía una solicitud exclusivamente de un registro AAAA. En consecuencia la aplicación establecerá la conexión con el servidor utilizando IPv6.
@@ -72,7 +72,8 @@ Estos túneles pueden ser configurados de manera manual o ser automáticos. Crea
 ![[tunneling.png]]
 
 > [!note] Implementación de *Tunneling*
-Este procedimiento permite conectar 2 "islas" o redes IPv6 a través de un *backbone* o red IPv4. Podríamos describir sus pasos como:
+> 
+> Este procedimiento permite conectar 2 "islas" o redes IPv6 a través de un *backbone* o red IPv4. Podríamos describir sus pasos como:
 > 
 > 1. Un *router* *dual stack* con una interfaz conectada a una red IPv6 y otra a una IPv4, recibe un paquete IPv6 desde un *host* que debe aplicar *tunneling*. 
 > 2. Encapsula el paquete IPv6 en un paquete IPv4 y lo envía a través del túnel. 
@@ -88,53 +89,27 @@ Pueden ser logrados a través de dos metodologías diferentes:
 1. Configuración manual
 2. Configuración automática.
 
-### Túneles de configuración manual
+### Configuración manual
 
 Este modo de implementación requiere que el túnel inicie y termine en dispositivos *dual stack* que tienen conectividad IPv4 entre sí. Es necesario utilizar una interfaz túnel con una dirección IPv6 *link local* asociada a la interfaz IPv4 de cada extremo del túnel. Está disponible en la mayoría de las plataformas, aunque es un recurso limitado ya que no escala bien.
 
-#### IPv6 *in* IPv4
+- **IPv6 *in* IPv4** (Ver [RFC 3053](https://www.rfc-editor.org/rfc/rfc3053) y [RFC 4213](https://datatracker.ietf.org/doc/html/rfc4213)): Permite establecer conexión entre 2 puntos (*site to site*). Requiere de la configuración de las direcciones de origen y destino del túnel. Impone muy poco *overhead*.
 
-> Ver [RFC 3053](https://www.rfc-editor.org/rfc/rfc3053) y [RFC 4213](https://datatracker.ietf.org/doc/html/rfc4213).
+- **GRE** (Ver [RFC 2784](https://www.rfc-editor.org/rfc/rfc2784) y [RFC 2890](https://www.rfc-editor.org/rfc/rfc2890)) : El *Generic Routing Encapsulation*) utiliza el protocolo de tunelizado IPv4 estándar. Permite establecer túneles punto a punto. Es necesario solamente para soportar redes que utilizan enrutamiento IS-IS (del inglés *Intermediate System to intermediate System*), un protocolo de estado de enlace, o SPF (*shortest path first*).
 
-Permite establecer conexión entre 2 puntos (*site to site*). Requiere de la configuración de las direcciones de origen y destino del túnel. Impone muy poco *overhead*.
-
-#### GRE 
-
-> Ver [RFC 2784](https://www.rfc-editor.org/rfc/rfc2784) y [RFC 2890](https://www.rfc-editor.org/rfc/rfc2890).
-
-El GRE (*Generic Routing Encapsulation*) utiliza el protocolo de tunelizado IPv4 estándar. Permite establecer túneles punto a punto. Es necesario solamente para soportar redes que utilizan enrutamiento IS-IS (del inglés *Intermediate System to intermediate System*), un protocolo de estado de enlace, o SPF (*shortest path first*).
-
-### Túneles de configuración automática
+### Configuración automática
 
 En estos casos el túnel se configura automáticamente sin necesidad de que al momento de configurar un extremo del túnel se conozca el otro extremo del mismo. Esta metodología escala mejor que la configuración estática ya que no es necesario configurar explícitamente cada punto terminal de los túneles. Como contrapartida, estos túneles dependen de servidores provistos por terceras partes en Internet y no soportan bien el tráfico de *multicast*.
 
-#### 6to4
+- **6to4** (Ver [RFC 6732]((https://datatracker.ietf.org/doc/html/rfc6732)): Permite conectar "islas" IPv6 a través de una red IPv4. En este tipo de túneles no se pueden utilizar direcciones IPv6 *unicast* globales. El túnel utiliza direcciones con prefijo `2002::/16`.
 
-> Ver [RFC 6732]((https://datatracker.ietf.org/doc/html/rfc6732)
+- **6rd**  (Ver [RFC 5969](https://www.rfc-editor.org/rfc/rfc5969)): De 6 *rapid deployment* es un mecanismo de tunelizado para transición a IPv6 utilizado en redes de *service providers* para transporte de tráfico IPv6.
 
-Permite conectar "islas" IPv6 a través de una red IPv4. En este tipo de túneles no se pueden utilizar direcciones IPv6 *unicast* globales. El túnel utiliza direcciones con prefijo `2002::/16`.
+- **ISATAP**  (Ver [RFC 5214](https://www.rfc-editor.org/rfc/rfc5214)): De *Intra-Site Automatic Tunnel Addressing Protocol* son túneles para intranets corporativas en las que la infraestructura aún no soporta IPv6, mientras que los terminales requieren IPv6.
 
-#### 6rd 
+- **Teredo** (Ver [RFC 4380](https://www.rfc-editor.org/rfc/rfc4380)): Permite establecer túneles desde terminales que soportan IPv6 pero están conectadas a redes IPv4, contra servidores Teredo. Encapsula el tráfico IPv6 en un paquete IPv4 UDP, por lo que tiene objeciones desde la perspectiva de seguridad.
 
-> Ver [RFC 5969](https://www.rfc-editor.org/rfc/rfc5969)
-
-De 6 *rapid deployment* es un mecanismo de tunelizado para transición a IPv6 utilizado en redes de *service providers* para transporte de tráfico IPv6.
-
-#### ISATAP 
-
-> Ver [RFC 5214](https://www.rfc-editor.org/rfc/rfc5214)
-
-De *Intra-Site Automatic Tunnel Addressing Protocol* son túneles para intranets corporativas en las que la infraestructura aún no soporta IPv6, mientras que los terminales requieren IPv6.
-
-#### Teredo
-
-> Ver [RFC 4380](https://www.rfc-editor.org/rfc/rfc4380)
-
-Permite establecer túneles desde terminales que soportan IPv6 pero están conectadas a redes IPv4, contra servidores Teredo. Encapsula el tráfico IPv6 en un paquete IPv4 UDP, por lo que tiene objeciones desde la perspectiva de seguridad.
-
-### Consideraciones 
-
-A tener en cuenta:
+### Consideraciones
 
 - El MTU efectivo es reducido en al menos 20 bytes cuando el encabezado IPv4 no contiene datos adicionales, ya que hay que considerar un segundo encabezado de capa de red.
 - Una red tunelizada es difícil de diagnosticar, por lo que debe ser considerada una solución de transición y no una arquitectura final.
@@ -152,27 +127,14 @@ A tener en cuenta:
 
 Esta técnica consiste en utilizar algún dispositivo en la red que convierta los paquetes de IPv4 a IPv6 y viceversa. Ese dispositivo tiene que ser capaz de realizar la traducción en los dos sentidos de forma de permitir la comunicación.
 
-#### NAT64 y DNS64
+- **NAT64 y DNS64** (Ver [RFC 6146](https://www.rfc-editor.org/rfc/rfc6146) y [RFC 6147](https://www.rfc-editor.org/rfc/rfc6147)): En NAT64 se utiliza un prefijo especial para mapear direcciones IPv4 a IPv6: `64:ff9b::/96`. De esta forma, la complejidad de administración se simplifica al sólo tener que administrar una red IPv6 *only*. Las conexiones IPv6 son nativas, por lo que a medida que el despliegue de IPv6 crece en el mundo, el costo de esta solución no se incrementa. 
+    - Es necesario también utilizar una modificación al DNS, llamada DNS64, que permite generar un registro AAAA aún cuando el destino no tenga dirección IPv6, es decir, el DNS responda sólo con registros de tipo A .
 
-> Ver [RFC 6146](https://www.rfc-editor.org/rfc/rfc6146) y [RFC 6147](https://www.rfc-editor.org/rfc/rfc6147).
+- **464XLAT** (Ver [RFC 6877](https://www.rfc-editor.org/rfc/rfc6877)): Se basa en la técnica anterior, pero introduce una doble traducción para los casos en que se necesite utilizar una aplicación que no soporta IPv6. Esto soluciona algunos problemas de NAT64 y es una técnica muy adecuada para redes de celulares (móviles), ya que los sistemas Android ya la incorporan. También para montar *datacenters* IPv6 *only*.
 
-En NAT64 se utiliza un prefijo especial para mapear direcciones IPv4 a IPv6: `64:ff9b::/96`. De esta forma, la complejidad de administración se simplifica al sólo tener que administrar una red IPv6 *only*. Las conexiones IPv6 son nativas, por lo que a medida que el despliegue de IPv6 crece en el mundo, el costo de esta solución no se incrementa. 
-
-Es necesario también utilizar una modificación al DNS, llamada DNS64, que permite generar un registro AAAA aún cuando el destino no tenga dirección IPv6, es decir, el DNS responda sólo con registros de tipo A .
-
-#### 464XLAT
-
-> Ver [RFC 6877](https://www.rfc-editor.org/rfc/rfc6877).
-
-Se basa en la técnica anterior, pero introduce una doble traducción para los casos en que se necesite utilizar una aplicación que no soporta IPv6. Esto soluciona algunos problemas de NAT64 y es una técnica muy adecuada para redes de celulares (móviles), ya que los sistemas Android ya la incorporan. También para montar *datacenters* IPv6 *only*.
-
-#### MAP-E y MAP-T
-
-> Ver [RFC 7597](https://www.rfc-editor.org/rfc/rfc7597) y  [RFC 7599](https://www.rfc-editor.org/rfc/rfc7599).
-
-Son técnicas de transición similares a las anteriores pero que trabajan por compartición de puertos (A+P, ver RFC6346). 
-- MAP-T usa traducción para transportar el tráfico IPv4. 
-- MAP-E utiliza encapsulado (túneles).
+- **MAP-E y MAP-T** (Ver [RFC 7597](https://www.rfc-editor.org/rfc/rfc7597) y  [RFC 7599](https://www.rfc-editor.org/rfc/rfc7599)): Son técnicas de transición similares a las anteriores pero que trabajan por compartición de puertos (A+P, ver RFC6346). 
+    - MAP-T usa traducción para transportar el tráfico IPv4. 
+    - MAP-E utiliza encapsulado (túneles).
 
 ---
 **Volver a:** [[08 - ICMPv6|ICMPv6]]
