@@ -15,8 +15,6 @@ fuente: "[[3. IPv6.pdf]]"
 ## [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
 ## [[08 - ICMPv6|ICMPv6]]
 ## [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
-
-## [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]
 ## [[11 - Complementos|Complementos]]
 
 # Preguntas de repaso

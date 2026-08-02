@@ -139,4 +139,4 @@ Esta técnica consiste en utilizar algún dispositivo en la red que convierta lo
 ---
 **Volver a:** [[08 - ICMPv6|ICMPv6]]
 
-**Continuar a:** [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]
+**Continuar a:** [[11 - Complementos|Complementos]]

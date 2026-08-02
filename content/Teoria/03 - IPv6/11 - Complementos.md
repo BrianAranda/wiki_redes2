@@ -2,13 +2,6 @@
 title: Complementos
 fuente: "[6sos.org](http://www.6sos.org/index.php)"
 ---
-## Videos
-
-La cátedra recomienda una serie de videos ilustrativos (formato *whiteboard/pizarra animada*) como repaso complementario de la unidad, cubriendo tres ejes:
-
-- **IPv6 Introducción:** repaso visual de la notación y estructura básica de una dirección IPv6.
-- **Migración:** pasos para planificar una migración a IPv6 — verificar que los equipos sean compatibles con IPv6, verificar equipamiento con IPv6 habilitado por defecto, posibles túneles automáticos, elaborar un plan de implantación, deshabilitar equipamiento viejo.
-- **Seguridad:** diferencias de seguridad entre IPv4 e IPv6 — formato de dirección, ND/MLD y multicast reemplazando ARP/ICMP e IGMP, distribución de grandes redes, cabeceras de extensión, autoconfiguración stateless, y preguntas abiertas sobre blacklists y firewall en el nuevo escenario de direccionamiento.
 
 ## Ejercicios de IPv6
 
@@ -55,9 +48,6 @@ De izquierda a derecha, la porción de red de una dirección IPv6 unicast global
 5. **Prefijo de subred** (asignado por el cliente; bits hasta el /64): `2001:0DB8:0001:ACAD::/64`
 6. **ID de interfaz** (el host se identifica por los últimos 64 bits en la dirección): `2001:DB8:0001:ACAD:8D4F:4F4D:3237:95E2/64`
 
-## Preguntas y Respuestas
-
-La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.org/index.php` y las incluyó, ya resueltas, como FAQ de cierre de la unidad.
 
 > [!question]- 1. ¿Qué es el protocolo IP?
 > **Respuesta:** IP son las siglas de "Internet Protocol". El protocolo fue diseñado en los años 70 con el fin de interconectar ordenadores que estuviesen en redes separadas. Hasta entonces los equipos informáticos se conectaban entre sí mediante redes locales, pero éstas estaban separadas entre sí formando islas de información.
@@ -292,6 +282,6 @@ La cátedra encontró varias preguntas sobre IPv6 en el sitio `http://www.6sos.o
 > **Respuesta:** El encabezado IPv6 no está protegido por una suma de comprobación (*checksum*); la protección de integridad se asume asegurada tanto por el checksum de capa de enlace y por un checksum de nivel superior (TCP, UDP, etc.). De esta forma los routers IPv6 no necesitan recalcular la suma de comprobación cada vez que algún campo del encabezado (como el contador de saltos o Tiempo de Vida) cambia.
 
 ---
-**Volver a:** [[10 - Herramientas y Ejemplos Practicos|Herramientas y Ejemplos Prácticos]]
+**Volver a:** [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
 
 **Continuar a:** [[Teoria/03 - IPv6/index#Preguntas de repaso|Preguntas de repaso]]

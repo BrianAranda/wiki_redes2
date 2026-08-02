@@ -8,7 +8,7 @@ fuente:
 
 IPv6 utiliza el *Internet Control Message Protocol* (ICMP) tal y como se define para IPv4 (Ver [[12 - Diagnostico de Red#ICMPv4|ICMPv4]]), con una serie de modificaciones. El protocolo resultante se denomina ICMPv6 y tiene un valor de [[02 - Cabecera IPv6#*Extension Headers*|Extension Header]] de 58 (diferente al de ICMP para IPv4).
 
-Los nodos IPv6 utilizan ICMPv6 para notificar los errores que se producen durante el procesamiento de paquetes y para realizar otras funciones de la capa de Internet, como el [[10 - Herramientas y Ejemplos Practicos|diagnóstico]] o [[06 - Neighbor Discovery|Neighbor Discovery]].
+Los nodos IPv6 utilizan ICMPv6 para notificar los errores que se producen durante el procesamiento de paquetes y para realizar otras funciones de la capa de Internet, como el [[#ping6|diagnóstico]] o [[06 - Neighbor Discovery|Neighbor Discovery]].
 
 Los mensajes ICMPv6 tienen el siguiente formato general:
 
@@ -93,7 +93,7 @@ Cuando un dispositivo tiene que transmitir un gran número de paquetes, es prefe
 
 Los mensajes ICMP informativos son utilizados para distintos propósitos, se pueden subdividir en tres grupos:
 
-* Para [[10 - Herramientas y Ejemplos Practicos|diagnóstico]]:
+* Para [[#ping6|diagnóstico]]:
     * `type = 128` *Echo Request* (Solicitud de Eco)
     - `type = 129` *Echo Reply* (Respuesta de Eco)
 * Para administrar grupos *multicast* (no vemos esto):
@@ -106,6 +106,17 @@ Los mensajes ICMP informativos son utilizados para distintos propósitos, se pue
     - Neighbor Solicitation message
     - Neighbor Advertisement message
     - Redirect message
+
+### ping6
+
+La herramienta [[12 - Diagnostico de Red#Comando Ping|ping]], ya vista para IPv4, funciona igual sobre ICMPv6 usando estos mismos mensajes *Echo Request*/*Echo Reply*. Para forzar su uso sobre IPv6 se puede usar `ping6` o `ping -6` desde la terminal de Linux.
+
+> [!note] Nota histórica
+> A partir de la versión `s20150815` de `iputils`, el binario `ping6` ya no existe: fue fusionado dentro de `ping`. Crear un enlace simbólico llamado `ping6` que apunte a `ping` da la misma funcionalidad que antes.
+
+`ping` también puede enviar *IPv6 Node Information Queries* ([RFC 4620](https://www.rfc-editor.org/rfc/rfc4620)). Los saltos intermedios pueden no estar permitidos, porque el enrutamiento de origen (*source routing*) de IPv6 fue declarado obsoleto ([RFC 5095](https://www.rfc-editor.org/rfc/rfc5095)).
+
+A diferencia de IPv4, al hacer *ping* a una dirección de alcance *link-local* hay que indicar la interfaz de salida, ya sea con la notación `%` en el destino (ej. `fe80::1%eth0`) o con la opción `-I interface`.
 
 ## Determinación del origen del paquete
 

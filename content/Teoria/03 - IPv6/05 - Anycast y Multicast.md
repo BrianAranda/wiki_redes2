@@ -143,6 +143,32 @@ A modo de resumen final tenemos:
 
 ![[resumen_direcciones.png|700]]
 
+> [!example]- Ejemplo de cálculo de red
+> 
+> **Consigna:** Nuestro ISP nos da la IPv6 *Unicast Global* `2001:db8:cad::/48`. Escribir las direcciones necesarias para la Red, Sub Red y de Interfaces de la LAN.
+> 
+> **Resolución:** Si dividimos la dirección en hextetos:
+> 
+> $$
+> 2001 \quad 0db8 \quad 0cad \quad 0000 \quad 000 \quad 0000 \quad 0000 \quad 0000 
+> $$
+> 
+> El prefijo de red `/48` nos permite saber qué parte de la dirección será utilizada para red.
+> 
+> Si escribimos según la regla 3-1-4 para la GUA sería:
+> 
+> - **3** → `2001:0db8:0cad`, 48 bits para red.
+> - **1** → `0000`, 16 bits para subred.
+> - **4** → `0000:0000:0000:0000`, 64 bits para el *Interface* ID.
+> 
+> Tomemos una como ID de Interfaz `:0000:0000:0000:0009` a modo de ejemplo:
+> 
+> - La IPv6 *Unicast Global* para una interfaz sería: **`2001:db8:cad::9/64`**
+> - Dirección de *Loopback*: **`::1/128`**
+> - Dirección de *Link Local*: **`fe80::9/64`**
+> - Dirección *Unespecified*: **`::/128`** (todos ceros)
+> 
+
 ---
 **Volver a:** [[04 - Unicast|Unicast]]
 

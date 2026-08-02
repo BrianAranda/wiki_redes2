@@ -1,5 +1,5 @@
 ---
-title: Diagnóstico de Red
+title: Diagnóstico de red
 fuente:
   - "[RFC 792](https://www.rfc-es.org/rfc/rfc0792-es.txt)"
 ---
@@ -97,6 +97,18 @@ Para hacer ping a un nombre (ej. `www.google.com`) se realizan primero dos accio
 | `-R`            | Registrar la ruta la cabecera IP solo tiene lugar para 9 saltos, y muchos hosts la ignoran.     |
 | `-f`            | Flood ping: envía paquetes tan rápido como sea posible (requiere privilegios para intervalo 0). |
 | `-b`            | Permite hacer ping a una dirección de broadcast.                                                |
+### Ping para diagnóstico
+
+Cuando se usa `ping` para aislar fallas, primero debería ejecutarse en el *host* local, para verificar que la interfaz de red local está activa y funcionando. Luego, se debe hacer ping a *hosts* y *gateways* cada vez más lejanos. Se calculan los tiempos de ida y vuelta (round trip) y las estadísticas de pérdida de paquetes.
+
+Si se reciben paquetes duplicados, no se incluyen en el cálculo de pérdida de paquetes, aunque el tiempo de ida y vuelta de estos paquetes sí se usa al calcular los números de tiempo mínimo/promedio/máximo/mdev.
+
+**Desviación estándar poblacional (mdev):** esencialmente un promedio de cuán lejos está cada RTT de ping de la media. Cuanto más alto es mdev, más variable es el RTT (a lo largo del tiempo). Con una alta variabilidad de RTT, se tendrán problemas de velocidad en transferencias masivas (tomarán más tiempo del estrictamente necesario, ya que la variabilidad eventualmente hará esperar por ACKs) y se tendrá una calidad de VoIP mediocre o pobre.
+
+Cuando se ha enviado (y recibido) el número especificado de paquetes, o si el programa se termina con una señal `SIGINT`, se muestra un resumen breve. Si `ping` no recibe ningún paquete de respuesta, termina con código 1. Si se especifican tanto el conteo de paquetes como el `deadline`, y se reciben menos paquetes que el conteo cuando se cumple el `deadline`, también termina con código 1. En cualquier otro error, termina con código 2. De lo contrario, termina con código 0. Esto permite usar el código de salida para ver si un host está vivo o no.
+
+> [!warning] Uso responsable
+> Este programa está pensado para pruebas, medición y gestión de red. Debido a la carga que puede imponer en la red, no es recomendable usar `ping` durante operaciones normales o desde scripts automatizados.
 
 ## Comando Traceroute
 
