@@ -139,4 +139,5 @@ Esta técnica consiste en utilizar algún dispositivo en la red que convierta lo
 ---
 **Volver a:** [[08 - ICMPv6|ICMPv6]]
 
-**Continuar a:** [[11 - Complementos|Complementos]]
+**Continuar a:** [[Teoria/03 - IPv6/index#Preguntas de repaso|Preguntas de repaso]]
+

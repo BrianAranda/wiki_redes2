@@ -7,3 +7,5 @@ title: Práctica
 
 # [[03 - Laboratorio 1 - IPv4 Fisico|Laboratorio N°1 - IPv4 (Físico)]]
 
+# [[04 - Ejercicios IPv6|Ejercicios IPv6]]
+

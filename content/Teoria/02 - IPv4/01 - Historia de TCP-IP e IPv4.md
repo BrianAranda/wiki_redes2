@@ -28,6 +28,7 @@ Cada premisa explica una decisión de diseño:
 2. **Descentralización de las redes** implica que, sin un nodo central de control, cada red es autónoma. Si un nodo o una red cae, el resto sigue funcionando.
 3. **Recuperación ante errores** incluye que si un paquete se pierde, alguien tiene que reenviarlo. Es la base de la parte confiable de TCP: la corrección de errores se resuelve en los **extremos** de la comunicación, no en la red, es decir, la confiabilidad se delega a la capa de Transporte.
 4. **Compatibilidad universal entre redes** pretende ser un protocolo común que funcione sin importar la tecnología subyacente (Ethernet, Wi-Fi, lo que sea). Es la filosofía "IP sobre cualquier cosa".
+
 ## Código IPv4
 
 La implementación de referencia del protocolo IPv4 en el kernel de Linux puede consultarse en su código fuente: [Github de Torvald sección TCP para IPv4](https://github.com/torvalds/linux/blob/master/net/ipv4/tcp_ipv4.c)

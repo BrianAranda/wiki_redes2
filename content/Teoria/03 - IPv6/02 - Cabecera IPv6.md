@@ -108,6 +108,9 @@ Si comparamos ambas cabeceras veremos algunos campos eliminados y otros renombra
 > [!warning] Header Checksum e ID
 > Al eliminar el *Checksum* de la cabecera, el *router* puede decrementar el *Hop Limit* y reenviar el paquete **sin tener que realizar cálculos complejos**, lo que resulta en un encaminamiento más rápido y eficiente. Además como en IPv6 **no se fragmenta en el camino**, no es necesario tener un ID de datagrama, cada datagrama es único.
 
+> [!question]- ¿Por qué en IPv6 el *Header* no necesita campo de *Checksum*?
+> El encabezado IPv6 no está protegido por una suma de comprobación (*checksum*); la protección de integridad se asume asegurada tanto por el *checksum* de capa de enlace y por un *checksum* de nivel superior (TCP, UDP, etc.). De esta forma los *routers* IPv6 no necesitan recalcular la suma de comprobación cada vez que algún campo del encabezado (como el contador de saltos o Tiempo de Vida) cambia.
+
 Resumiendo tenemos que: 
 
 | IPv6                                   | IPv4                                   |

@@ -94,15 +94,29 @@ Por otro lado se tiene:
 - No requiere el uso de NAT, permitiendo conexiones punto a punto.
 - Posee mecanismos que facilitan la configuración de las redes (SLAAC/autoconfiguración).
 
->[!note] IPsec 
+>[!note]- IPsec 
 >*Internet Protocol security* es un conjunto de protocolos cuya función es asegurar las comunicaciones sobre el Protocolo de Internet (IP) autenticando y/o cifrando cada paquete IP en un flujo de datos. Incluye protocolos para el establecimiento de claves de cifrado.
 
-> [!note] Adopción de IPv6
+> [!note]- Adopción de IPv6
 > Google mide en tiempo real, a nivel mundial y por país, el porcentaje de usuarios que acceden a sus servicios sobre IPv6 (Visitar [Adopción IPv6](https://www.google.com/intl/en/ipv6/statistics.html)). Al momento de redactar esto la adopción global es del 50,91% y específicamente en Argentina del 28,89%.
 >
 
- >[!note] Teredo 
+ >[!note]- Teredo 
  >Es una tecnología de transición que provee conectividad IPv6 a *hosts* que soportan IPv6 pero que se encuentran conectados a Internet mediante una red IPv4 (ver [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
+
+> [!question]- ¿Qué pasó con IPv5?
+> **Respuesta:** La referencia "versión 5" se empleó para otro cometido distinto. Se diseñó un protocolo experimental de streaming en tiempo real. Para evitar confusiones, se optó por no usar ese nombre.
+
+> [!question]- ¿Cuáles son las mayores ventajas de IPv6?
+>
+> - **Escalabilidad:** IPv6 tiene direcciones de 128 bits frente a las direcciones de 32 bits de IPv4. Por tanto el número de direcciones IP disponibles se multiplica por 7,9 × 10²⁸. IPv6 nos ofrece un espacio de $2^{128}$ (340.282.366.920.938.463.463.374.607.431.768.211.456). Para hacernos a la idea de lo que esta cifra implica, basta con calcular el número de direcciones IP que podríamos tener por metro cuadrado de la superficie terrestre: nada más y nada menos que 665.570.793.348.866.943.898.599 (ver [[02 - Cabecera IPv6#Cantidad de IPs por metro cuadrado|Cantidad de IPs por metro cuadrado]]).
+> - **Seguridad:** IPv6 incluye seguridad en sus especificaciones como es la encriptación de la información y la autentificación del remitente de dicha información.
+> - **Aplicaciones en tiempo real:** para dar mejor soporte a tráfico en tiempo real (i.e. videoconferencia), IPv6 incluye etiquetado de flujos en sus especificaciones. Con este mecanismo los encaminadores o routers pueden reconocer a qué flujo extremo a extremo pertenecen los paquetes que se transmiten.
+> - **Plug and Play:** IPv6 incluye en su estándar el mecanismo "plug and play", lo cual facilita a los usuarios la conexión de sus equipos a la red. La configuración se realiza automáticamente.
+> - **Movilidad:** IPv6 incluye mecanismos de movilidad más eficientes y robustos.
+> - **Especificaciones más claras y optimizadas:** IPv6 seguirá las buenas prácticas de IPv4 y elimina las características no utilizadas u obsoletas de IPv4, con lo que se consigue una optimización del protocolo de Internet. La idea es quedarse con lo bueno y eliminar lo malo del protocolo actual.
+> - **Direccionamiento y encaminado:** IPv6 mejora la jerarquía de direccionamiento y encaminamiento.
+> - **Extensibilidad:** IPv6 ha sido diseñado para ser extensible y ofrece soporte optimizado para nuevas opciones y extensiones.
 
 ---
 **Continuar a:** [[02 - Cabecera IPv6|Cabecera IPv6]]
