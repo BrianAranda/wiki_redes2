@@ -137,7 +137,7 @@ Esta técnica consiste en utilizar algún dispositivo en la red que convierta lo
     - MAP-E utiliza encapsulado (túneles).
 
 ---
-**Volver a:** [[08 - ICMPv6|ICMPv6]]
+**Volver a:** [[10 - Direcciones Dinamicas|Direcciones Dinámicas]]
 
 **Continuar a:** [[Teoria/03 - IPv6/index#Preguntas de repaso|Preguntas de repaso]]
 

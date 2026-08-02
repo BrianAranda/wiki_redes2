@@ -1,7 +1,7 @@
 ---
 title: Ejercicios IPv6
 ---
-> Ver los temas de [[03 - Direcciones IPv6|Direcciones IPv6]], [[04 - Unicast|Unicast]], [[05 - Anycast y Multicast|Anycast y Multicast]]
+> Ver los temas de [[03 - Direcciones IPv6|Direcciones IPv6]], [[04 - Unicast|Unicast]], [[05 - Multicast|Multicast]], [[06 - Anycast|Anycast]]
 
 ## Ejercicio 1 
 

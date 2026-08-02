@@ -13,7 +13,7 @@ Las direcciones dinámicas ofrecen un método para que los dispositivos creen u 
 > [!info] GUAs manuales
 > Nosotros vamos a estudiar únicamente la manera dinámica de obtención, pero la forma manual se detalla en el Capítulo 5 del libro [Fundamentos IPv6 Cisco](https://cloud.fio.unam.edu.ar/index.php/s/kfroJFkzy5YNi59?dir=/&editing=false&openfile=true).
 
-A modo de repaso sabemos que un *host* configurado para obtener su dirección IPv6 automáticamente envía un mensaje de [[06 - Neighbor Discovery#*Router Solicitation* (RS)|Router Solicitation]] (RS), esto para informar al *router* IPv6 local que necesita un mensaje de [[06 - Neighbor Discovery#*Router Advertisement* (RA)|Router Advertisement]] (RA) que le proporcione la información necesaria. 
+A modo de repaso sabemos que un *host* configurado para obtener su dirección IPv6 automáticamente envía un mensaje de [[08 - Neighbor Discovery#*Router Solicitation* (RS)|Router Solicitation]] (RS), esto para informar al *router* IPv6 local que necesita un mensaje de [[08 - Neighbor Discovery#*Router Advertisement* (RA)|Router Advertisement]] (RA) que le proporcione la información necesaria. 
 
 ![[mensajes_rs_ra.png|600]]
 
@@ -147,7 +147,7 @@ En este método, el mensaje RA informa al cliente que no debe usar la informaci�
 
 Un dispositivo puede utilizar la detección de direcciones duplicadas (DAD) de ICMPv6 para determinar si una dirección que desea asignar a una interfaz ya está siendo utilizada por otro dispositivo. Salvo algunas excepciones, el RFC 4861 recomienda que se aplique el DAD a todas las direcciones de *unicast*, ya sean *link local* o globales, antes de asignarlas a una interfaz, independientemente de si se han asignado mediante SLAAC, DHCPv6 o configuración manual. 
 
-Si durante este proceso se detecta una dirección duplicada, esta no podrá utilizarse en la interfaz. El procedimiento implica el envio de [[06 - Neighbor Discovery#*Neighbor Solicitation* (NS)|Neighbor Solicitation]] (NS) y la espera de un [[06 - Neighbor Discovery#*Neighbor Advertisement* (NA)|Neighbor Advertisement]] (NA). Si ningún otro dispositivo responde con un mensaje NA en un tiempo determinado, prácticamente se garantiza que la dirección es única y puede ser utilizada. Si es recibido, la dirección no es única, y el sistema operativo debe determinar una nueva ID de interfaz para utilizar.
+Si durante este proceso se detecta una dirección duplicada, esta no podrá utilizarse en la interfaz. El procedimiento implica el envio de [[08 - Neighbor Discovery#*Neighbor Solicitation* (NS)|Neighbor Solicitation]] (NS) y la espera de un [[08 - Neighbor Discovery#*Neighbor Advertisement* (NA)|Neighbor Advertisement]] (NA). Si ningún otro dispositivo responde con un mensaje NA en un tiempo determinado, prácticamente se garantiza que la dirección es única y puede ser utilizada. Si es recibido, la dirección no es única, y el sistema operativo debe determinar una nueva ID de interfaz para utilizar.
 
 > [!info]- Pasos de DAD
 > 
@@ -203,6 +203,6 @@ En resumen, DHCPv6-PD es una extensión del protocolo DHCPv6 que permite a los *
 Esto es especialmente útil en entornos de proveedores de servicios de Internet y en redes que requieren una jerarquía de direccionamiento IPv6 para subdividir un bloque de direcciones en subredes más pequeñas.
 
 ---
-**Volver a:** [[06 - Neighbor Discovery|Neighbor Discovery ND]]
+**Volver a:** [[09 - Direcciones Temporales|Direcciones Temporales]]
 
-**Continuar a:** [[08 - ICMPv6|ICMPv6]]
+**Continuar a:** [[11 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]

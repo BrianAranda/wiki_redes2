@@ -102,7 +102,7 @@ Por otro lado se tiene:
 >
 
  >[!note]- Teredo 
- >Es una tecnología de transición que provee conectividad IPv6 a *hosts* que soportan IPv6 pero que se encuentran conectados a Internet mediante una red IPv4 (ver [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
+ >Es una tecnología de transición que provee conectividad IPv6 a *hosts* que soportan IPv6 pero que se encuentran conectados a Internet mediante una red IPv4 (ver [[11 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]).
 
 > [!question]- ¿Qué pasó con IPv5?
 > **Respuesta:** La referencia "versión 5" se empleó para otro cometido distinto. Se diseñó un protocolo experimental de streaming en tiempo real. Para evitar confusiones, se optó por no usar ese nombre.

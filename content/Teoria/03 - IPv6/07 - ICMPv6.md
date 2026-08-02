@@ -6,9 +6,11 @@ fuente:
 ---
 > Esto se desarrolla en el capítulo 12 del libro (Pág. 347)
 
+> Esto originalmente estaba en el final de IPv6 pero lo moví mucho antes para dar contexto previo de ND, así mismo se hace en los libros y guías.
+
 IPv6 utiliza el *Internet Control Message Protocol* (ICMP) tal y como se define para IPv4 (Ver [[12 - Diagnostico de Red#ICMPv4|ICMPv4]]), con una serie de modificaciones. El protocolo resultante se denomina ICMPv6 y tiene un valor de [[02 - Cabecera IPv6#*Extension Headers*|Extension Header]] de 58 (diferente al de ICMP para IPv4).
 
-Los nodos IPv6 utilizan ICMPv6 para notificar los errores que se producen durante el procesamiento de paquetes y para realizar otras funciones de la capa de Internet, como el [[#ping6|diagnóstico]] o [[06 - Neighbor Discovery|Neighbor Discovery]].
+Los nodos IPv6 utilizan ICMPv6 para notificar los errores que se producen durante el procesamiento de paquetes y para realizar otras funciones de la capa de Internet, como el [[#ping6|diagnóstico]] o [[08 - Neighbor Discovery|Neighbor Discovery]].
 
 Los mensajes ICMPv6 tienen el siguiente formato general:
 
@@ -93,14 +95,14 @@ Cuando un dispositivo tiene que transmitir un gran número de paquetes, es prefe
 
 Los mensajes ICMP informativos son utilizados para distintos propósitos, se pueden subdividir en tres grupos:
 
-* Para [[#ping6|diagnóstico]]:
+* Para diagnóstico:
     * `type = 128` *Echo Request* (Solicitud de Eco)
     - `type = 129` *Echo Reply* (Respuesta de Eco)
 * Para administrar grupos *multicast* (no vemos esto):
     * *Multicast Listener Query*
     - *Multicast Listener Report*
     - *Multicast Listener Done*
-* Para [[06 - Neighbor Discovery|Neighbor Discovery]].:
+* Para [[08 - Neighbor Discovery|Neighbor Discovery]].:
     * Router Solicitation message
     - Router Advertisement message
     - Neighbor Solicitation message
@@ -130,6 +132,6 @@ La dirección origen del paquete ICMPv6 debe ser una dirección unicast propia d
 Sin embargo, el nodo puede elegir otra dirección propia si eso le da al receptor una pista más útil sobre dónde se originó el problema. Por ejemplo, usar la dirección de la interfaz donde se detectó la falla en lugar de la interfaz más cercana al destino, para que quien recibe el error pueda identificar mejor en qué punto de la red ocurrió el problema.
 
 ---
-**Volver a:** [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
+**Volver a:** [[06 - Anycast|Anycast]]
 
-**Continuar a:** [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
+**Continuar a:** [[08 - Neighbor Discovery|Neighbor Discovery ND]]

@@ -137,7 +137,7 @@ Las GUA se pueden asignar de distintas maneras:
 
 ![[obtener_gua.png|600]]
 
-De las cuales estudiaremos mas adelante en [[07 - Direcciones Dinamicas|direcciones dinámicas]].
+De las cuales estudiaremos mas adelante en [[10 - Direcciones Dinamicas|direcciones dinámicas]].
 
 > [!info]- IPv6 *unnumbered* 
 > IPv6 sin numerar, es lo mismo que IPv4. Permite a una interfaz utilizar la dirección IPv6 de otra interfaz del mismo dispositivo, solo en Cisco.
@@ -296,7 +296,32 @@ Se utiliza para representar las direcciones de los nodos IPv4 como direcciones I
 
 Esta última es para representar solo a los nodos IPv4 que no soportan IPv6. Es un esquema de direcciones de transición y no profundizaremos en la materia. Se trata en el [RFC 4038](https://datatracker.ietf.org/doc/html/rfc4038)
 
+> [!example]- Ejemplo de cálculo de red
+> 
+> **Consigna:** Nuestro ISP nos da la IPv6 *Unicast Global* `2001:db8:cad::/48`. Escribir las direcciones necesarias para la Red, Sub Red y de Interfaces de la LAN.
+> 
+> **Resolución:** Si dividimos la dirección en hextetos:
+> 
+> $$
+> 2001 \quad 0db8 \quad 0cad \quad 0000 \quad 000 \quad 0000 \quad 0000 \quad 0000 
+> $$
+> 
+> El prefijo de red `/48` nos permite saber qué parte de la dirección será utilizada para red.
+> 
+> Si escribimos según la regla 3-1-4 para la GUA sería:
+> 
+> - **3** → `2001:0db8:0cad`, 48 bits para red.
+> - **1** → `0000`, 16 bits para subred.
+> - **4** → `0000:0000:0000:0000`, 64 bits para el *Interface* ID.
+> 
+> Tomemos una como ID de Interfaz `:0000:0000:0000:0009` a modo de ejemplo:
+> 
+> - La IPv6 *Unicast Global* para una interfaz sería: **`2001:db8:cad::9/64`**
+> - Dirección de *Loopback*: **`::1/128`**
+> - Dirección de *Link Local*: **`fe80::9/64`**
+> - Dirección *Unespecified*: **`::/128`** (todos ceros)
+
 ---
 **Volver a:** [[03 - Direcciones IPv6|Direccionamiento IPv6]]
 
-**Continuar a:** [[05 - Anycast y Multicast|Anycast y Multicast]]
+**Continuar a:** [[05 - Multicast|Multicast]]

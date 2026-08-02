@@ -9,12 +9,14 @@ fuente: "[[3. IPv6.pdf]]"
 ## [[03 - Direcciones IPv6|Direcciones IPv6]]
 
 ## [[04 - Unicast|Unicast]]
-## [[05 - Anycast y Multicast|Anycast y Multicast]]
+## [[05 - Multicast|Multicast]]
+## [[06 - Anycast|Anycast]]
 
-## [[06 - Neighbor Discovery|Neighbor Discovery ND]]
-## [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
-## [[08 - ICMPv6|ICMPv6]]
-## [[09 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
+## [[07 - ICMPv6|ICMPv6]]
+## [[08 - Neighbor Discovery|Neighbor Discovery ND]]
+## [[09 - Direcciones Temporales|Direcciones Temporales]]
+## [[10 - Direcciones Dinamicas|Direcciones Dinámicas]]
+## [[11 - Migracion IPv4 a IPv6|Migración IPv4 a IPv6]]
 
 # Preguntas de repaso
 

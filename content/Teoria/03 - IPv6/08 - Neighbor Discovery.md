@@ -133,15 +133,15 @@ Entonces: *Router → Host*
 Un NS es enviado por cualquier nodo (*host* o *router*, no hay una dirección fija como en RS/RA) que conoce la IPv6 de destino pero necesita su MAC, es el reemplazo directo de una solicitud [[07 - ARP|ARP]]. 
 
 > [!info]- NS también se usa para DAD
-> El mismo mensaje NS se reutiliza para la Detección de Direcciones Duplicadas (DAD), cambiando el propósito de la pregunta: en vez de "¿quién tiene esta IP? decime tu MAC", pregunta "¿alguien más tiene ya esta IP?", por eso su dirección de origen es la *Unspecified Address* (`::`) en vez de una dirección propia. El procedimiento de DAD está definido en [RFC 4862 - Sección 5.4](https://datatracker.ietf.org/doc/html/rfc4862#section-5.4) y se desarrolla con su propio ejemplo en [[07 - Direcciones Dinamicas#14.4. Duplicate Address Detection (DAD)|Direcciones Dinámicas]].
+> El mismo mensaje NS se reutiliza para la Detección de Direcciones Duplicadas (DAD), cambiando el propósito de la pregunta: en vez de "¿quién tiene esta IP? decime tu MAC", pregunta "¿alguien más tiene ya esta IP?", por eso su dirección de origen es la *Unspecified Address* (`::`) en vez de una dirección propia. El procedimiento de DAD está definido en [RFC 4862 - Sección 5.4](https://datatracker.ietf.org/doc/html/rfc4862#section-5.4) y se desarrolla con su propio ejemplo en [[10 - Direcciones Dinamicas#*Duplicate Address Detection* (DAD)|Direcciones Dinámicas]].
 
 Por ejemplo el *router* R1 quiere comunicarse con el *host* WinPC, revisa su caché de vecinos (tabla IPv6/MAC, la evolución de la tabla ARP), pero no tiene una entrada para esa IP.
 
 ![[ns_escenario.png|600]]
 
-Entonces el *router* (R1) envía un NS por su interfaz G0/0 hacia la [[05 - Anycast y Multicast#*Multicast* de nodo solicitado|dirección de multidifusión de nodo solicitado]] derivada de la IPv6 de destino, esta es formada con los 24 bits de orden inferior de la IPv6 buscada. 
+Entonces el *router* (R1) envía un NS por su interfaz G0/0 hacia la [[05 - Multicast#*Multicast* de nodo solicitado|dirección de multidifusión de nodo solicitado]] derivada de la IPv6 de destino, esta es formada con los 24 bits de orden inferior de la IPv6 buscada. 
 
-En capa 2, por la [[05 - Anycast y Multicast#*Multicast* Capa 2 y Capa 3|relación multicast entre capa 2 y 3]], se antepone `33:33` a los 32 bits inferiores de esa dirección *multicast* para armar la MAC de destino (desconocida realmente). La ventaja frente a ARP es que este mensaje no es un verdadero *broadcast*: solo lo procesan las interfaces que ya calcularon esa misma dirección de nodo solicitado (idealmente, solo el *host* WinPC).
+En capa 2, por la [[05 - Multicast#*Multicast* Capa 2 y Capa 3|relación multicast entre capa 2 y 3]], se antepone `33:33` a los 32 bits inferiores de esa dirección *multicast* para armar la MAC de destino (desconocida realmente). La ventaja frente a ARP es que este mensaje no es un verdadero *broadcast*: solo lo procesan las interfaces que ya calcularon esa misma dirección de nodo solicitado (idealmente, solo el *host* WinPC).
 
 Calculando:
 - Dirección de destino: `2001:DB8:CAFE:1:D0F8:9FF6:4201:7086`
@@ -206,6 +206,6 @@ Un *host* IPv6 mantiene una lista de *routers* predeterminada desde la cual sele
 Guarda, para **cualquier destino** al que se le mande tráfico recientemente, cuál es el próximo salto que hay que usar para llegar ahí. Es la referencia a qué vecino usar para reenviar el paquete.
 
 ---
-**Volver a:** [[05 - Anycast y Multicast|Anycast y Multicast]]
+**Volver a:** [[07 - ICMPv6|ICMPv6]]
 
-**Continuar a:** [[07 - Direcciones Dinamicas|Direcciones Dinámicas]]
+**Continuar a:** [[09 - Direcciones Temporales|Direcciones Temporales]]

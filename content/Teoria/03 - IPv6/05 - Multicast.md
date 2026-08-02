@@ -1,37 +1,6 @@
 ---
-title: Anycast y Multicast
+title: Multicast
 ---
-## *Anycast*
-
-Una dirección *anycast* de IPv6 es una dirección que se asigna a **más de una interfaz** (que suelen pertenecer a nodos diferentes), con la propiedad de que un paquete enviado a una dirección *anycast* se enruta a la interfaz **más cercana** que tenga esa dirección, según la medida de distancia establecida por los protocolos de enrutamiento.
-
-![[anycast.png|500]]
-
-Las direcciones *anycast* se asignan a partir del espacio de direcciones *unicast*, utilizando cualquiera de sus formatos. Por lo tanto, las direcciones de *anycast* son sintácticamente indistinguibles de las direcciones de unidifusión. Cuando una dirección de unidifusión se asigna a más de una interfaz, convirtiéndola así en una dirección de *anycast*, los nodos a los que se asigna la dirección deben configurarse explícitamente para que sepan que se trata de una dirección de *anycast*.
-
-La dirección *anycast* **del enrutador** de subred está predefinida y su formato es el siguiente:
-
-```
-|                      n bits                    |   128-n bits   |
-+------------------------------------------------+----------------+
-|                   subnet prefix                | 00000000000000 |
-+------------------------------------------------+----------------+
-```
-
-El `subnet prefix` de una dirección *anycast* es el prefijo que identifica un enlace específico. Esta dirección es sintácticamente idéntica a una dirección *unicast* de una interfaz del enlace con el *interface* ID establecido en cero.
-
-Los paquetes enviados a la dirección de *anycast* *Subnet-Router* se entregarán a un *router* de la subred. Todos los *routers* deben ser compatibles con las direcciones de *anycast* *Subnet-Router* de las subredes a las que tienen interfaces. Esta dirección está pensada para utilizarse en aplicaciones en las que un nodo necesita comunicarse con cualquiera de los *routers* del conjunto.
-
-> [!important] Beneficios de las direcciones *anycast*
-> - **Redundancia:** el servicio no depende de un único servidor, de modo que si un equipo falla, los demás asumen sus funciones y el servicio sigue disponible.
-> - **Balanceo de carga:** los distintos servidores se reparten el trabajo de modo que no haya un equipo sobrecargado (con la consiguiente merma de rendimiento) y otro inactivo.
-> - **Eficiencia:** simplifica la búsqueda del servidor más apropiado (suele ser el más cercano).
-
-> [!info]- Uso típico: DNS
-> Los servidores de [[DNS]] usan este método, para ubicar el servidor de DNS más cercano a donde lo solicitan. El emisor no tiene control sobre la interfaz de destino, así que el/los *routers* toman la decisión del destino.
-
-## *Multicast*
-
 Una dirección de multidifusión IPv6 es un identificador de un grupo de interfaces (normalmente en distintos nodos). Una interfaz puede pertenecer a cualquier número de grupos de *multicast*.
 
 Los nodos que se configuran con una dirección *multicast* determinada forman lo que se llama un **grupo de multidifusión** y un nodo puede pertenecer a varios grupos distintos. Cuando un paquete es enviado a una *multicast*, todos los miembros del grupo procesan el paquete.
@@ -66,7 +35,7 @@ Donde:
 - La definición y el uso de la *flag* `R` se pueden consultar en [RFC3956](https://datatracker.ietf.org/doc/html/rfc3956).
 
 > [!important] *Multicast transient*
-> Una dirección _multicast transient_ (`T=1`) es una dirección **asignada dinámicamente**, no permanente ni reservada por la IANA, la crea un protocolo o una aplicación para un grupo de multidifusión de vida limitada, y deja de tener validez cuando ese grupo o esa sesión termina. 
+> Una dirección _multicast transient_ (`T=1`) es una dirección **asignada dinámicamente**, no permanente ni reservada por la IANA, la crea un protocolo o una aplicación para un grupo de multidifusión de vida limitada, y deja de tener validez cuando ese grupo o esa sesión termina. 
 
 Por otro lado el campo de `scop` es un valor del ámbito de aplicación y se utiliza para limitar el alcance del grupo de multidifusión. Los valores son los siguientes:
 
@@ -79,23 +48,23 @@ Por otro lado el campo de `scop` es un valor del ámbito de aplicación y se uti
 
 De los valores faltantes `0`,`3` y `F` están reservados, los demás sin asignar.
 
-### *Well Known Multicasts*
+## *Well Known Multicasts*
 
 Hay algunas direcciones predefinidas de *multicast* y nunca deben ser asignadas a ningún grupo  para ningún otro valor de ámbito, con el indicador T igual a 0 (permanentes).
 
-#### *Multicasts* reservadas
+### *Multicasts* reservadas
 
 Las direcciones de multidifusión `FF0X::` (siendo `X` en este caso cualquier valor hexadecimal) están reservadas y nunca deberán asignarse a **ningún grupo** de multidifusión.
 
-#### *Multicast* de todos los nodos 
+### *Multicast* de todos los nodos 
 
 Son direcciones de multidifusión que identifican el grupo de todos los nodos IPv6, dentro de dos ámbitos distintos: `FF01::1` (*Interface Local*) o `FF02::1` (*Link Local*). Los paquetes que se envían a estos grupos son recibidos y procesados por todas las interfaces IPv6 en el enlace o en la red. Esto tiene el mismo efecto que una dirección de *broadcast* en IPv4.
 
-#### *Multicast* de todos los *routers* 
+### *Multicast* de todos los *routers* 
 
 Son direcciones de multidifusión que identifican el grupo de todos los *routers* IPv6, dentro de tres ámbitos distintos: `FF01::2` (*Interface Local*), `FF02::2` (*Link Local*) o `FF05::2` (*Site Local* , obsoletas). Los paquetes que se envían a este grupo son recibidos y procesados por todos los *routers* IPv6 en el enlace o en la red.
 
-####  *Multicast* de nodo solicitado
+###  *Multicast* de nodo solicitado
 
 Son direcciones de multidifusión que se calculan en función de las direcciones de *unicast* y *anycast* de un nodo. Estas se forman tomando los 24 bits de orden inferior de una dirección y añadiendo dichos bits al prefijo `FF02:0:0:0:0:1:FF00::/104`, lo que da como resultado una dirección de multidifusión en el  rango de `FF02::1:FF00:0000` a `FF02::1:FFFF:FFFF`.
 
@@ -105,7 +74,7 @@ Por ejemplo, la dirección de multidifusión de nodo solicitado correspondiente 
 
 Un nodo debe calcular y unirse a las direcciones de multidifusión de nodo solicitado asociadas a **todas las direcciones de *unicast* y *anycast*** que se hayan configurado para las interfaces del nodo (sea manualmente o de forma automática).
 
-### *Multicast* Capa 2 y Capa 3
+## *Multicast* Capa 2 y Capa 3
 
 Las direcciones de *multicast* de capa 3 deben tener su equivalente en capa 2. Para ello se utilizan los 32 bits bajos de la dirección Ethernet y los 32 bits bajos de la dirección IPv6 de multidifusión.
 
@@ -120,56 +89,7 @@ Las direcciones de *multicast* de capa 3 deben tener su equivalente en capa 2. P
 > - Capa 2 utiliza la dirección:`33 33 00 01 00 03`
 > - Coinciden el `:1:3` con el `00 01 00 03`
 
-## IPv6 necesarias
-
-#### En *hosts*
-
-1. Dirección GUA.
-2. Dirección ULA.
-3. Dirección LLA para cada interfaz
-4. Dirección de *Loopback*.
-5. Dirección de *Multicast* de todos los nodos.
-6. Dirección de *Multicast* de todos los *routers*.
-
-#### En *routers*
-
-1. Dirección GUA.
-2. Dirección LLA para cada interfaz
-3. Dirección de *Loopback*.
-4. Dirección de *Multicast* de todos los nodos.
-5. Dirección de *Multicast* de todos los *routers*.
-
-A modo de resumen final tenemos:
-
-![[resumen_direcciones.png|700]]
-
-> [!example]- Ejemplo de cálculo de red
-> 
-> **Consigna:** Nuestro ISP nos da la IPv6 *Unicast Global* `2001:db8:cad::/48`. Escribir las direcciones necesarias para la Red, Sub Red y de Interfaces de la LAN.
-> 
-> **Resolución:** Si dividimos la dirección en hextetos:
-> 
-> $$
-> 2001 \quad 0db8 \quad 0cad \quad 0000 \quad 000 \quad 0000 \quad 0000 \quad 0000 
-> $$
-> 
-> El prefijo de red `/48` nos permite saber qué parte de la dirección será utilizada para red.
-> 
-> Si escribimos según la regla 3-1-4 para la GUA sería:
-> 
-> - **3** → `2001:0db8:0cad`, 48 bits para red.
-> - **1** → `0000`, 16 bits para subred.
-> - **4** → `0000:0000:0000:0000`, 64 bits para el *Interface* ID.
-> 
-> Tomemos una como ID de Interfaz `:0000:0000:0000:0009` a modo de ejemplo:
-> 
-> - La IPv6 *Unicast Global* para una interfaz sería: **`2001:db8:cad::9/64`**
-> - Dirección de *Loopback*: **`::1/128`**
-> - Dirección de *Link Local*: **`fe80::9/64`**
-> - Dirección *Unespecified*: **`::/128`** (todos ceros)
-> 
-
 ---
 **Volver a:** [[04 - Unicast|Unicast]]
 
-**Continuar a:** [[06 - Neighbor Discovery|Neighbor Discovery ND]]
+**Continuar a:** [[06 - Anycast|Anycast]]
