@@ -231,3 +231,5 @@ Una vez hechas todas las conexiones, hay que poder verificar correctamente:
 
 ---
 **Volver a:** [[02 - Laboratorio 1 - IPv4 GNS3|Laboratorio N°1 - IPv4 (GNS3)]]
+
+**Continuar a:** [[04 - Ejercicios IPv6|Ejercicios IPv6]]

@@ -145,3 +145,8 @@ Obtener información a partir del prefijo de red de la siguiente dirección IPv6
 > - **Global Routing Prefix** (3 hextetos, asignado por el ISP): `2000:1111:AAAA::/48`
 > - **Subnet ID** (1 hexteto, asignado por el sitio): `0` → junto con el Global Routing Prefix forma el prefijo de red completo: `2000:1111:AAAA:0::/64`
 > - **Interface ID** (últimos 4 hextetos, identifica al *host*): `50A5:8A35:A5BB:66E1`
+
+---
+**Volver a:** [[03 - Laboratorio 1 - IPv4 Fisico|Laboratorio N°1 - IPv4 Físico]]
+
+**Continuar a:** [[05 - Laboratorio 2 - IPv6|Laboratorio N°2 - IPv6]]

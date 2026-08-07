@@ -9,3 +9,5 @@ title: Práctica
 
 # [[04 - Ejercicios IPv6|Ejercicios IPv6]]
 
+# [[05 - Laboratorio 2 - IPv6|Laboratorio N°2 - IPv6]]
+
